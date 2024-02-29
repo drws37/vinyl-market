@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate({Seller, Record, Chat}) {
       this.hasOne(Seller, {foreignKey: 'user_id'})
       this.hasMany(Record, {foreignKey: 'user_id'})
+      this.hasMany(Chat, {as: 'SenderUser',foreignKey: 'sender_id'})
+      this.hasMany(Chat, {as: 'RecipientUser', foreignKey: 'recipient_id'})
     }
   }
   User.init({
