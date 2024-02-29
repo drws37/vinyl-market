@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate({User}) {
-      
+      this.belongsTo(User, {as: 'SenderUser',foreignKey: 'sender_id'})
+      this.belongsTo(User , {as: 'RecipientUser', foreignKey: 'recipient_id'})
     }
   }
   Chat.init({
@@ -22,11 +23,19 @@ module.exports = (sequelize, DataTypes) => {
     },
     sender_id: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'User',
+        key: 'id',
+      }
     },
     recipient_id: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'User',
+        key: 'id',
+      }
     },
     message: {
       allowNull: false,
