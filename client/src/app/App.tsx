@@ -1,11 +1,16 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 function App(): JSX.Element {
 
   return (
-    <div className="App">
-      <h1>APP</h1>
-    </div>
+<Routes>
+  <Route path='/' element={}>
+<Route index element={}/>
+  </Route>
+</Routes>
+
+
   );
 }
 
