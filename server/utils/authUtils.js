@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const jwtConfig = require('../middleware/configJWT');
+const jwtConfig = require('../middleware/jwtConfig');
 
 // функция генирации токена, принимает в себя полезную нагрузку
 const generateTokens = (payload) => ({
