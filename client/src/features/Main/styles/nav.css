@@ -1,0 +1,16 @@
+.nav{
+    border: 2px solid black;
+    height: 70px;
+}
+
+.nav-bar{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.input-search{
+    width: 1000px;
+    border-radius: 10px;
+    height: 30px;
+}

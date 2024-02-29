@@ -1,7 +1,8 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
-import '../main.css'
 
+// import '../main.css'
+import { NavLink } from 'react-router-dom'
+import './styles/nav.css'
 
 
 
@@ -9,9 +10,13 @@ function Header():JSX.Element {
 // const user = useSelector((store:RootState)=>store.auth.user)
   return (
     <nav className='nav'>
-        <NavLink to='/'>Книги</NavLink>
-        <NavLink to='/categories'> Жанры</NavLink>
-       {!user && <NavLink to='/registration'> Регистрация</NavLink>}
+        <div className='nav-bar'>
+        <NavLink to='/'>LOGO</NavLink>
+        <input placeholder='Поиск' className='input-search'/>
+        <NavLink to='/'>Избранное</NavLink>
+        <NavLink to='/'>Корзина</NavLink>
+        <NavLink to='/'>Профиль</NavLink>
+        </div>
     </nav>
   )
 }
