@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const { generateTokens } = require('../../utils/authUtils');
+const generateTokens = require('../../utils/authUtils');
 const cookiesConfig = require('../../middleware/cookiesConfig');
 const configJWT = require('../../middleware/jwtConfig');
 const { User } = require('../../db/models');
@@ -9,9 +9,10 @@ const router = express.Router();
 
 router.post('/registration', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { username, email, password, role } = req.body;
+    console.log(req.body);
 
-    if (name && email && password) {
+    if (username && email && password && role) {
       const globalRegex = /^[_a-z0-9-\+-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i;
 
       if (globalRegex.test(email)) {
@@ -20,11 +21,9 @@ router.post('/registration', async (req, res) => {
           res.status(400).json({ message: 'Такой пользователь уже существует' });
         } else {
           const hash = await bcrypt.hash(password, 10);
-          user = await User.create({ name, email, password: hash, role });
-          const { accessToken, refreshToken } = generateTokens(
-            { user: { name: user.name, id: user.id , role:user.role} },
-          );
-
+          user = await User.create({ username, email, password: hash, role });
+          const { accessToken, refreshToken } = generateTokens({ user: { username: user.username, id: user.id, role: user.role } });
+          console.log('123');
           res.cookie(
             cookiesConfig.access,
             accessToken,
@@ -35,7 +34,8 @@ router.post('/registration', async (req, res) => {
             refreshToken,
             { maxAge: cookiesConfig.maxAgeRefresh, httpOnly: true },
           );
-          res.status(201).json({ message: 'success', user: { name: user.name, id: user.id } });
+          console.log(123);
+          res.status(201).json({ message: 'success', user: { username: user.name, id: user.id } });
         }
       } else {
         res.status(400).json({ message: 'Ваша почта не соответствует формату' });
