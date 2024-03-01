@@ -12,9 +12,9 @@ function RecordItem({record}: {record: Record}): JSX.Element {
         <h2 className='record__artist'>{record.artist}</h2>
         <h3 className='record__title'>{record.title}</h3>
         <p className='record__price'>{record.price} ₽</p>
-        <button className='btn__favorite'>Сердечко</button>
-        <button className='btn__more'>Подробнее</button>
-        <button className='btn__cart'>В корзину</button>
+        <button type='button' className='btn__favorite'>Сердечко</button>
+        <button type='button' className='btn__more'>Подробнее</button>
+        <button type='button' className='btn__cart'>В корзину</button>
       </div>
     </div>
   )

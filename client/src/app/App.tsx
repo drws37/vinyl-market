@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Main from '../features/Main/Main';
 import MainPage from '../features/MainContent/MainPage';
 import { useAppDispatch } from '../store/store';

@@ -1,6 +1,5 @@
 /* eslint-disable react/function-component-definition */
 import React, { useState } from 'react'
-import React from 'react'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import 'swiper/css' 
 
@@ -19,11 +18,12 @@ const RecordsList = (): JSX.Element => {
 
   const records = useSelector((store: RootState) => store.records.records)
 
-  const filterVinil = records.filter(record => {
-    return record.title.toLowerCase().includes(value.toLowerCase())
-  })
+  const filterVinil = records.filter(record => 
+    record.title.toLowerCase().includes(value.toLowerCase())
+  )
 
   return (
+    <>
     <div>
     <input placeholder='Поиск' onChange={(e) => setValue(e.target.value)} className='input-search'/>
     <div className='records__container'>
@@ -44,6 +44,7 @@ const RecordsList = (): JSX.Element => {
       ))}
     </div>
     </Swiper>
+    </>
 
   )
 }
