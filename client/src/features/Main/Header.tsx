@@ -3,11 +3,16 @@ import React from 'react'
 // import '../main.css'
 import { NavLink } from 'react-router-dom'
 import './styles/nav.css'
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../store/store';
+
 
 
 
 function Header():JSX.Element {
-// const user = useSelector((store:RootState)=>store.auth.user)
+const user = useSelector((store:RootState)=>store.auth.user)
+console.log(user);
+
   return (
     <nav className='nav'>
         <div className='nav-bar'>
