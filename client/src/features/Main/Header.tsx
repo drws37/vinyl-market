@@ -20,7 +20,7 @@ console.log(user);
         <input placeholder='Поиск' className='input-search'/>
         <NavLink to='/'>Избранное</NavLink>
         <NavLink to='/'>Корзина</NavLink>
-        <NavLink to='/'>Профиль</NavLink>
+        <NavLink to={`/profile/${user?.id}`}>Профиль</NavLink>
         <NavLink to='/sign-up'>Регистрация</NavLink>
         <NavLink to='/sign-in'>Вход</NavLink>
 
