@@ -1,14 +1,28 @@
 import React from 'react';
 
 // import '../main.css'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './styles/nav.css';
 import { useSelector } from 'react-redux';
-import type { RootState } from '../../store/store';
+import { useAppDispatch, type RootState } from '../../store/store';
+import * as api from './api';
+import { authLogout } from '../Auth/authSlice';
 
 function Header(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
   console.log(user);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async (): Promise<void> => {
+    await api.logoutFetch().then((data) => {
+      if (data.message === 'success') {
+        dispatch(authLogout()).catch(console.log);
+        navigate('/');
+      }
+    });
+  };
 
   return (
     <nav className='nav'>
@@ -24,7 +38,9 @@ function Header(): JSX.Element {
             <NavLink to="/sign-in">Вход</NavLink>
           </>
         ) : (
-          <NavLink to="/logout">Выйти</NavLink>
+          <NavLink onClick={handleLogout} to="/logout">
+            Выйти
+          </NavLink>
         )}
       </div>
     </nav>
