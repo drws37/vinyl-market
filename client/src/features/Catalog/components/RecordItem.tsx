@@ -1,7 +1,7 @@
 import React from 'react'
 import type { Record } from '../type'
 
-const RecordItem = ({record}: {record: Record}): JSX.Element => {
+function RecordItem({record}: {record: Record}): JSX.Element {
   return (
     <div className='record__item'>
       <div className='record__item__img'>
