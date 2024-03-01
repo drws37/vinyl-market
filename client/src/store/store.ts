@@ -8,6 +8,7 @@ export const store = configureStore({
   reducer: {
     auth: authSlice,
     records: recordsSlice,
+    
   },
 });
 

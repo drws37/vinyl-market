@@ -11,12 +11,11 @@ function Header(): JSX.Element {
   console.log(user);
 
   return (
-    <nav className="nav">
-      <div className="nav-bar">
-        <NavLink to="/">LOGO</NavLink>
-        <input placeholder="Поиск" className="input-search" />
-        <NavLink to="/">Избранное</NavLink>
-        <NavLink to="/">Корзина</NavLink>
+    <nav className='nav'>
+        <div className='nav-bar'>
+        <NavLink to='/'>LOGO</NavLink>
+        <NavLink to='/'>Избранное</NavLink>
+        <NavLink to='/'>Корзина</NavLink>
         <NavLink to={`/profile/${user?.id}`}>Профиль</NavLink>
 
         {!user ? (

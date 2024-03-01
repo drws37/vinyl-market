@@ -17,6 +17,7 @@ function App(): JSX.Element {
     dispatch(recordsLoad()).catch(console.log);
     dispatch(authCheckUser()).catch(console.log);
   }, []);
+  
 
   return (
     <Routes>

@@ -1,4 +1,5 @@
 /* eslint-disable react/function-component-definition */
+import React, { useState } from 'react'
 import React from 'react'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import 'swiper/css' 
@@ -9,9 +10,28 @@ import RecordItem from './RecordItem'
 
 const RecordsList = (): JSX.Element => {
 
+  const [value, setValue] = useState('')
+
+
+
+  console.log(value);
+  
+
   const records = useSelector((store: RootState) => store.records.records)
 
+  const filterVinil = records.filter(record => {
+    return record.title.toLowerCase().includes(value.toLowerCase())
+  })
+
   return (
+    <div>
+    <input placeholder='Поиск' onChange={(e) => setValue(e.target.value)} className='input-search'/>
+    <div className='records__container'>
+      {filterVinil.map((record) => (
+        <RecordItem key={record.id} record={record} />
+      ))}
+    </div>
+    </div>
     <Swiper
       spaceBetween={30}
       slidesPerView={5}
@@ -24,6 +44,7 @@ const RecordsList = (): JSX.Element => {
       ))}
     </div>
     </Swiper>
+
   )
 }
 
