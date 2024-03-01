@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
           refreshToken,
           { maxAge: cookiesConfig.maxAgeRefresh, httpOnly: true },
         );
-        res.status(200).json({ message: 'ok', user: { name: user.name, id: user.id } });
+        res.status(200).json({ message: 'success', user: { name: user.name, id: user.id } });
       } else {
         res.status(400).json({ message: 'логин или пароль не верный' });
       }
@@ -81,6 +81,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/check', async (req, res) => {
+  console.log(res.locals.user, '123132132213123123321321123213321213213123123123');
   if (res.locals.user) {
     const user = await User.findOne({ where: { id: res.locals.user.id }, attributes: { exclude: ['password'] } });
     res.json({ user });
