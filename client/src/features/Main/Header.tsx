@@ -15,7 +15,7 @@ function Header():JSX.Element {
         <input placeholder='Поиск' className='input-search'/>
         <NavLink to='/'>Избранное</NavLink>
         <NavLink to='/'>Корзина</NavLink>
-        <NavLink to='/'>Профиль</NavLink>
+        <NavLink to='/profile/:userId'>Профиль</NavLink>
         <NavLink to='/sign-up'>Регистрация</NavLink>
         <NavLink to='/sign-in'>Вход</NavLink>
 
