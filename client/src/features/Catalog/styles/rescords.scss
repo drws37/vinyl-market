@@ -1,12 +1,18 @@
 .record {
   &__item {
-    width: 400px;
+    width: 250px;
     height: 400px;
   }
   &__img {
-    width: 250px;
+    width: 100%;
   }
   &__item__info {
     width: 250px;
+  }
+}
+
+.swiper {
+  &-slide {
+    max-width: 250px !important;
   }
 }
