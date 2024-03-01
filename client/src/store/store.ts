@@ -8,7 +8,7 @@ import recordsSlice from '../features/Catalog/recordsSlice'
 export const store = configureStore({
  reducer: {
     auth:authSlice,
-   records: recordsSlice
+    records: recordsSlice
  },
 });
 

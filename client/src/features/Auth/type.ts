@@ -6,6 +6,13 @@ export type User = {
     role:string
 }
 
+export type CheckUser = {
+    id:number
+    username:string
+    email:string
+    role:string
+}
+
 export type UserAndId  = User & {id:number}
 
 export type UserWithoutName = Omit<User, 'username'>
@@ -14,11 +21,8 @@ export type UserWithoutNameAndRpasswordAndRole = Omit<UserWithoutNameAndRpasswor
 
 
 
-
-
-
 export type StateAuth = {
-    user:null | User
+    user:null | User | CheckUser
     message:string | undefined
 
 }

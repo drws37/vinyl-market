@@ -6,6 +6,7 @@ import { useAppDispatch } from '../store/store';
 import { recordsLoad } from '../features/Catalog/recordsSlice';
 import Registration from '../features/Auth/components/Registration';
 import Login from '../features/Auth/components/Login';
+import { authCheckUser } from '../features/Auth/authSlice';
 
 
 function App(): JSX.Element {
@@ -14,6 +15,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(recordsLoad()).catch(console.log)
+    dispatch(authCheckUser()).catch(console.log)
   }, [])
 
   return (

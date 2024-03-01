@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
 const cookiesConfig = require('./cookiesConfig');
-const { generateTokens } = require('../utils/authUtils');
+const  generateTokens  = require('../utils/authUtils');
 
 function verifyRefreshToken(req, res, next) {
   try {
     const { refresh } = req.cookies;
     const { user } = jwt.verify(refresh, 'refresh');
-    const { accessToken, refreshToken } = generateTokens({ user: { id: user.id, username: user.name, role: user.role } });
+    const { accessToken, refreshToken } = generateTokens({ user: { id: user.id, username: user.username, role: user.role } });
 
     res.locals.user = user;
     res
