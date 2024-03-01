@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Main from '../features/Main/Main';
 import MainPage from '../features/MainContent/MainPage';
+import { useAppDispatch } from '../store/store';
+import { recordsLoad } from '../features/Catalog/recordsSlice';
 import Registration from '../features/Auth/components/Registration';
 import Login from '../features/Auth/components/Login';
 
 
 function App(): JSX.Element {
+
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(recordsLoad()).catch(console.log)
+  }, [])
 
   return (
 <Routes>
