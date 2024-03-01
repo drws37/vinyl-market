@@ -8,6 +8,7 @@ const initialState: StateRecords = {
 }
 
 export const recordsLoad = createAsyncThunk('records/load', () => api.fetchReocrdsLoad())
+export const recordAdd = createAsyncThunk('records/add', (obj: FormData) => api.fetchRecordAdd(obj))
 
 const recordsSlice = createSlice({
   name: 'records',
