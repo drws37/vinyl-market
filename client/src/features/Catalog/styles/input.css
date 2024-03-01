@@ -1,0 +1,42 @@
+.container-search{
+
+}
+
+
+
+.input-search{
+    display: flex;
+    align-items: center;
+    background-color: rgb(217, 216, 216);
+    height: 60px;
+    width: 500px;;
+    
+
+}
+.container-serach-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.img-record{
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    margin-left: 8px;
+}
+.swiper{
+padding-top: 100px;
+}
+
+.search-input-size{
+    width: 500px;
+    height: 30px;
+    border-radius: 10px;
+}
+.link-search{
+    text-decoration: none;
+    color: black;
+    margin-left: 20px;
+}
