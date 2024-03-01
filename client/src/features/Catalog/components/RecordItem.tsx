@@ -1,5 +1,6 @@
 import React from 'react'
 import type { Record } from '../type'
+import '../styles/Rescords.scss'
 
 const RecordItem = ({record}: {record: Record}): JSX.Element => {
   return (
