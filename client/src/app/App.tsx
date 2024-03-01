@@ -8,6 +8,7 @@ import Registration from '../features/Auth/components/Registration';
 import Login from '../features/Auth/components/Login';
 import { authCheckUser } from '../features/Auth/authSlice';
 import ProfilePage from '../features/Profile/ProfilePage';
+import RecordPage from '../features/Catalog/components/RecordPage';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ function App(): JSX.Element {
         <Route path="sign-up" element={<Registration />} />
         <Route path="sign-in" element={<Login />} />
         <Route path="/profile/:userId" element={<ProfilePage />} />
+        <Route path="/records/:recordId" element={<RecordPage />} />
       </Route>
     </Routes>
   );
