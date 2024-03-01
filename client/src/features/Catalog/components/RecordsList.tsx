@@ -6,14 +6,12 @@ import 'swiper/css'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../../store/store'
 import RecordItem from './RecordItem'
+import FilteredList from './FilteredList'
+import '../styles/input.css'
 
 const RecordsList = (): JSX.Element => {
 
-  const [value, setValue] = useState('')
-
-
-
-  console.log(value);
+  const [value, setValue] = useState('`')
   
 
   const records = useSelector((store: RootState) => store.records.records)
@@ -24,13 +22,18 @@ const RecordsList = (): JSX.Element => {
 
   return (
     <>
-    <div>
-    <input placeholder='Поиск' onChange={(e) => setValue(e.target.value)} className='input-search'/>
-    <div className='records__container'>
-      {filterVinil.map((record) => (
-        <RecordItem key={record.id} record={record} />
+    <div className='container-serach-main'>
+
+    <input placeholder='Поиск' onChange={(e) => e.target.value === '' ? setValue('`') : setValue(e.target.value)} className='search-input-size'/>
+<div className='container-search'>
+{filterVinil.map((record) => (
+        <FilteredList key={record.id} record={record} />
       ))}
-    </div>
+</div>
+
+
+
+ 
     </div>
     <Swiper
       spaceBetween={30}
