@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import type { Record } from '../type'
 import '../styles/Rescords.scss'
 
@@ -13,7 +14,7 @@ function RecordItem({record}: {record: Record}): JSX.Element {
         <h3 className='record__title'>{record.title}</h3>
         <p className='record__price'>{record.price} ₽</p>
         <button type='button' className='btn__favorite'>Сердечко</button>
-        <button type='button' className='btn__more'>Подробнее</button>
+        <Link className='btn__more' to={`/records/${record.id}`}>Подробнее</Link>
         <button type='button' className='btn__cart'>В корзину</button>
       </div>
     </div>
