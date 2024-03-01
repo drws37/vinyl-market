@@ -10,7 +10,7 @@ const RecordItem = ({record}: {record: Record}): JSX.Element => {
       <div className='record__item__info'>
         <h2 className='record__artist'>{record.artist}</h2>
         <h3 className='record__title'>{record.title}</h3>
-        <p className='record__price'>{record.price}</p>
+        <p className='record__price'>{record.price} ₽</p>
         <button className='btn_favorite'>Сердечко</button>
         <button className='btn__more'>Подробнее</button>
       </div>
