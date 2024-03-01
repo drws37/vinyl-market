@@ -17,7 +17,7 @@ function Header():JSX.Element {
         <NavLink to='/'>Корзина</NavLink>
         <NavLink to='/'>Профиль</NavLink>
         <NavLink to='/sign-up'>Регистрация</NavLink>
-        <NavLink to='/sign-up'>Вход</NavLink>
+        <NavLink to='/sign-in'>Вход</NavLink>
 
 
         </div>
