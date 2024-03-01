@@ -9,16 +9,16 @@ import Login from '../features/Auth/components/Login';
 import { authCheckUser } from '../features/Auth/authSlice';
 import ProfilePage from '../features/Profile/ProfilePage';
 import RecordPage from '../features/Catalog/components/RecordPage';
+import { categoriesLoad } from '../features/Catalog/categoriesSlice';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-  
 
   useEffect(() => {
     dispatch(recordsLoad()).catch(console.log);
+    dispatch(categoriesLoad()).catch(console.log);
     dispatch(authCheckUser()).catch(console.log);
   }, []);
-  
 
   return (
     <Routes>

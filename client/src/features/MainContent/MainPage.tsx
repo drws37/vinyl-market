@@ -1,14 +1,14 @@
-import React from 'react'
-import RecordsList from '../Catalog/components/RecordsList'
+import React from 'react';
+import RecordsList from '../Catalog/components/RecordsList';
+import CategoriesList from '../Catalog/components/CategoriesList';
 
-function MainPage():JSX.Element {
+function MainPage(): JSX.Element {
   return (
-
     <div>
-      <RecordsList/>
-      </div>
-
-  )
+      <CategoriesList />
+      <RecordsList />
+    </div>
+  );
 }
 
-export default MainPage
+export default MainPage;
