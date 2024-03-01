@@ -1,8 +1,8 @@
-import type { Dispatch } from "react";
+// import type { Dispatch } from "react";
 
 
-export type Context={
-    state:State;
-    dispatch:Dispatch<Action>;
-    toggleTheme: () => void
-}
+// export type Context={
+//     state:State;
+//     dispatch:Dispatch<Action>;
+//     toggleTheme: () => void
+// }
