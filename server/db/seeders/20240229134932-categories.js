@@ -9,6 +9,26 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        title: 'Джаз',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'Классика',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'Блюз',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: 'Поп',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },      
     ]);
   },
 

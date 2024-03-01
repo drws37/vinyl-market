@@ -13,8 +13,16 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        username: 'seller',
-        email: 'seller@seller.com',
+        username: 'vinylstore',
+        email: 'vinylstore@seller.com',
+        password: await bcrypt.hash('123', 10),
+        role: 'seller',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        username: 'soundstore',
+        email: 'soundstore@seller.com',
         password: await bcrypt.hash('123', 10),
         role: 'seller',
         createdAt: new Date(),
