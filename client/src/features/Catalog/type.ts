@@ -6,6 +6,7 @@ export type Record = {
   img: string;
   quality: string;
   price: number;
+  spotifyId: string;
 };
 
 export type RecordId = Record['id'];

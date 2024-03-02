@@ -36,7 +36,6 @@ const RecordsList = (): JSX.Element => {
         spaceBetween={30}
         slidesPerView={5}
         onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
       >
         <div className="records__container">
           {records.map((record) => (

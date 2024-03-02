@@ -10,7 +10,6 @@ import { authLogout } from '../Auth/authSlice';
 
 function Header(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
-  console.log(user);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
