@@ -1,9 +1,10 @@
 /* eslint-disable react/function-component-definition */
-import React, { useState } from 'react'
-import { useAppDispatch } from '../../../store/store'
-import { recordAdd } from '../recordsSlice'
+import React, { useState } from 'react';
+import { useAppDispatch } from '../../../store/store';
+import { recordAdd } from '../recordsSlice';
 
 const FormAddRecord = (): JSX.Element => {
+
   const [title, setTitle] = useState('')
   const [artist, setArtist] = useState('')
   const [description, setDescription] = useState('')
@@ -11,9 +12,10 @@ const FormAddRecord = (): JSX.Element => {
   const [price, setPrice] = useState('')
   const [quality, setQuality] = useState('')
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const addRecordFetch = (e: React.FormEvent<HTMLFormElement>): void => {
+
     e.preventDefault()
     const imgFile = img?.[0]
     const formData = new FormData()
@@ -52,7 +54,7 @@ const FormAddRecord = (): JSX.Element => {
             <button type='submit'>Добавить</button>
         </form>
     </div>
-  )
-}
+  );
+};
 
-export default FormAddRecord
+export default FormAddRecord;

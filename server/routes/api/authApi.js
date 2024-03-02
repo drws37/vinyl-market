@@ -81,7 +81,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/check', async (req, res) => {
-  console.log(res.locals.user, '123132132213123123321321123213321213213123123123');
+  console.log(res.locals.user, 'res.locals.user');
   if (res.locals.user) {
     const user = await User.findOne({ where: { id: res.locals.user.id }, attributes: { exclude: ['password'] } });
     res.json({ user });

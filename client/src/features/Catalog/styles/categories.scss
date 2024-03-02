@@ -1,0 +1,47 @@
+.categories__container {
+  padding: 10px;
+
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(4, 250px);
+  grid-template-rows: repeat(2, 180px);
+  grid-template-areas:
+    'item__1 item__1 item__4 item__5 '
+    'item__2 item__3 item__3 item__5  ';
+}
+
+.item {
+  &__1 {
+    grid-area: item__1;
+    background-color: rgb(233, 103, 103);
+  }
+  &__2 {
+    grid-area: item__2;
+    background-color: rgb(255, 195, 83);
+  }
+  &__3 {
+    grid-area: item__3;
+    background-color: bisque;
+  }
+  &__4 {
+    grid-area: item__4;
+    background-color: rgb(140, 140, 253);
+  }
+  &__5 {
+    grid-area: item__5;
+    background-color: plum;
+  }
+}
+
+[class^='item__'] {
+  border-radius: 10px;
+  padding: 10px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+[class^='item__']:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
