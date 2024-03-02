@@ -15,7 +15,6 @@ const FormAddRecord = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const addRecordFetch = (e: React.FormEvent<HTMLFormElement>): void => {
-
     e.preventDefault()
     const imgFile = img?.[0]
     const formData = new FormData()
