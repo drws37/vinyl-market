@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordUpdate } from '../recordsSlice';
+import '../styles/recordsPage.scss';
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
@@ -86,25 +87,45 @@ function RecordPage(): JSX.Element {
               <button type="submit">Изменить</button>
             </form>
           </div>
-          <div className="record-page_main">
+          <div className="record-page">
             <div className="record-card_main">
-              <div className="record-card_img">
+              <div className="card_img">
                 <img src={currentRecord?.img} alt="" />
               </div>
-              <div className="record-card_info">{currentRecord?.artist}</div>
+              <div className="record-card_info">
+                <h1>{currentRecord?.artist}</h1>
+                <h2>{currentRecord?.title}</h2>
+                <div className="tags">
+                  <div className="quality">{currentRecord?.quality}</div>
+                  <div className="price">{`${currentRecord?.price} ₽`}</div>
+                </div>
+                <p>Описание: {currentRecord.description}</p>
+              </div>
+              <div className="records-page_widget">
+                <iframe
+                  title={currentRecord.title}
+                  style={{ borderRadius: '12px' }}
+                  src={`https://open.spotify.com/embed/album/${currentRecord?.spotifyId}?utm_source=generator`}
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                />
+              </div>
+              <div className="same_artist">
+                <h2>От того же исполнителя:</h2>
+              </div>
+              <div className="same_artist">
+                <h2>От того же исполнителя:</h2>
+              </div>
+              <div>
+                <h2>У других продавцов:</h2>
+              </div>
+              <div>
+                <h2>Комментарии</h2>
+              </div>
             </div>
-          </div>
-          <div className="records-page_same-artist">
-            <iframe
-              title={currentRecord.title}
-              style={{ borderRadius: '12px' }}
-              src={`https://open.spotify.com/embed/album/${currentRecord?.spotifyId}?utm_source=generator`}
-              width="50%"
-              height="500"
-              frameBorder="0"
-              allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-            />
           </div>
         </>
       )}
