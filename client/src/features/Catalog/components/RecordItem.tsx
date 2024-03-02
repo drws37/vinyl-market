@@ -22,6 +22,7 @@ function RecordItem({ record }: { record: Record }): JSX.Element {
         <button type="button" className="btn__cart">
           В корзину
         </button>
+
       </div>
     </div>
   );

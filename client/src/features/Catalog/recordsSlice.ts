@@ -17,14 +17,12 @@ const recordsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(recordsLoad.fulfilled, (state, action) => {
-        state.records = action.payload;
-      })
-      .addCase(recordsLoad.rejected, (state, action) => {
-        state.message = action.error.message;
-      });
-  },
-});
+    builder.
+    addCase(recordsLoad.fulfilled, (state, action) => {state.records = action.payload}).
+    addCase(recordsLoad.rejected, (state, action) => {state.message = action.error.message}).
+    addCase(recordAdd.fulfilled, (state, action) => {state.records.unshift(action.payload)}).
+    addCase(recordAdd.rejected, (state, action) => {state.message = action.error.message})
+  }
+})
 
 export default recordsSlice.reducer;

@@ -10,6 +10,14 @@ export default defineConfig({
         target: 'http://localhost:4000/',
         changeOrigin: true,
       },
+      '/recordImg': {
+        target: 'http://localhost:4000/',
+        changeOrigin: true,
+      },
+      '/profileImg': {
+        target: 'http://localhost:4000/',
+        changeOrigin: true,
+      },
     },
   },
 });
