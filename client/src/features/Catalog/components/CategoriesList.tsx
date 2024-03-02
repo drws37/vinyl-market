@@ -6,7 +6,6 @@ import '../styles/categories.scss'
 
 function CategoriesList(): JSX.Element {
   const categories = useSelector((store: RootState) => store.categories.categories);
-  console.log(categories, 'CATEGORIES');
   
   return (
     <div className="categories__container">

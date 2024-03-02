@@ -8,16 +8,12 @@ import '../styles/categories.scss'
 
 function CategoryPage(): JSX.Element {
   const { categoryTitle } = useParams();
-  console.log(categoryTitle, 'categoryTitle');
 
   const categories = useSelector((store: RootState) => store.categories.categories);
-  console.log(categories);
 
   const currentCategory = categoryTitle
     ? categories.find((category) => category.title === categoryTitle)
     : undefined;
-
-  console.log(currentCategory, 'CURRENT CAT');
 
   return (
     <div className="category__page__main">

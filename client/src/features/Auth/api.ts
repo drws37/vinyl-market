@@ -32,9 +32,7 @@ export const loginFetch = async(obj:UserWithoutNameAndRpasswordAndRole):Promise<
 export const checkUserFetch = async():Promise<CheckUser> => {
     const res = await fetch ('/api/auth/check')
     if(res.ok){
-        const data = await res.json()
-        console.log(data);
-        
+        const data = await res.json()        
         return data.user
     }
     const {message} = await res.json()
