@@ -1,6 +1,6 @@
 import React from 'react';
-import type { Category } from '../type';
 import { Link } from 'react-router-dom';
+import type { Category } from '../type';
 
 function CategoryItem({ category }: { category: Category }): JSX.Element {
 

@@ -18,6 +18,7 @@ export type StateRecords = {
 export type Category = {
   id: number;
   title: string;
+  Records?: Record[];
 };
 
 export type StateCategories = {
