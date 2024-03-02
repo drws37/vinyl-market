@@ -51,6 +51,9 @@ module.exports = {
         },
         onDelete: 'CASCADE',
       },
+      spotifyId: {
+        type: Sequelize.TEXT,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
