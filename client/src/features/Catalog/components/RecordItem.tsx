@@ -12,6 +12,7 @@ function RecordItem({record}: {record: Record}): JSX.Element {
       <div className='record__item__info'>
         <h2 className='record__artist'>{record.artist}</h2>
         <h3 className='record__title'>{record.title}</h3>
+        <p className='record__quality'>{record.quality}</p>
         <p className='record__price'>{record.price} ₽</p>
         <button type='button' className='btn__favorite'>Сердечко</button>
         <Link className='btn__more' to={`/records/${record.id}`}>Подробнее</Link>

@@ -7,7 +7,7 @@ const FormAddRecord = (): JSX.Element => {
   const [title, setTitle] = useState('')
   const [artist, setArtist] = useState('')
   const [description, setDescription] = useState('')
-  const [img, setImg] = useState<FileList | null | undefined>(undefined)
+  const [img, setImg] = useState<FileList | null | undefined>(null)
   const [price, setPrice] = useState('')
   const [quality, setQuality] = useState('')
 
@@ -15,12 +15,13 @@ const FormAddRecord = (): JSX.Element => {
 
   const addRecordFetch = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
+    const imgFile = img?.[0]
     const formData = new FormData()
     formData.append('title', title)
     formData.append('artist', artist)
     formData.append('description', description)
     formData.append('price', price)
-    formData.append('img', img.files[0])
+    formData.append('img', imgFile !== null && imgFile !== undefined ? imgFile : '')
     formData.append('quality', quality)
     dispatch(recordAdd(formData)).catch(console.log)
     setTitle('')
@@ -48,7 +49,7 @@ const FormAddRecord = (): JSX.Element => {
               <option value="poor">Poor</option>
               <option value="bad">Bad</option>
             </select>
-            <button type='submit'>add<img className='icons' src='/img/add.gif' alt='...'/></button>
+            <button type='submit'>Добавить</button>
         </form>
     </div>
   )

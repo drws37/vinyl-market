@@ -22,6 +22,7 @@ function verifyRefreshToken(req, res, next) {
 }
 
 function verifyAccessToken(req, res, next) {
+
   try {
     const { access } = req.cookies;
     const { user } = jwt.verify(access, 'access');
