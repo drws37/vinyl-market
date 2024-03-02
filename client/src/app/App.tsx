@@ -10,6 +10,7 @@ import { authCheckUser } from '../features/Auth/authSlice';
 import ProfilePage from '../features/Profile/ProfilePage';
 import RecordPage from '../features/Catalog/components/RecordPage';
 import { categoriesLoad } from '../features/Catalog/categoriesSlice';
+import CategoryPage from '../features/Catalog/components/CategoryPage';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -28,6 +29,7 @@ function App(): JSX.Element {
         <Route path="sign-in" element={<Login />} />
         <Route path="/profile/:userId" element={<ProfilePage />} />
         <Route path="/records/:recordId" element={<RecordPage />} />
+        <Route path="/categories/:categoryTitle" element={<CategoryPage />} />
       </Route>
     </Routes>
   );

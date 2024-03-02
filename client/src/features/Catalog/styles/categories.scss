@@ -1,47 +1,91 @@
 .categories__container {
   padding: 10px;
+  margin: 30px 0;
 
   display: grid;
   gap: 20px;
+
+  justify-content: center;
+
   grid-template-columns: repeat(4, 250px);
   grid-template-rows: repeat(2, 180px);
   grid-template-areas:
     'item__1 item__1 item__4 item__5 '
     'item__2 item__3 item__3 item__5  ';
-}
 
-.item {
-  &__1 {
-    grid-area: item__1;
-    background-color: rgb(233, 103, 103);
-  }
-  &__2 {
-    grid-area: item__2;
-    background-color: rgb(255, 195, 83);
-  }
-  &__3 {
-    grid-area: item__3;
-    background-color: bisque;
-  }
-  &__4 {
-    grid-area: item__4;
-    background-color: rgb(140, 140, 253);
-  }
-  &__5 {
-    grid-area: item__5;
-    background-color: plum;
-  }
+    .item {
+      &__1 {
+        grid-area: item__1;
+        background-color: rgb(233, 103, 103);
+      }
+      &__2 {
+        grid-area: item__2;
+        background-color: rgb(255, 195, 83);
+        text-align: right;
+      }
+      &__3 {
+        grid-area: item__3;
+        background-color: bisque;
+        text-align: right;
+    
+        display: grid;
+        place-items: end;
+      }
+      &__4 {
+        grid-area: item__4;
+        background-color: rgb(140, 140, 253);
+        display: grid;
+        align-items: flex-end;
+      }
+      &__5 {
+        grid-area: item__5;
+        background-color: plum;
+        text-align: right;
+      }
+    }
+
+    [class^='item__'] {
+      border-radius: 10px;
+      padding: 10px;
+    
+      text-decoration: none;
+      color: black;
+    
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+    
+    [class^='item__']:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
 }
 
 [class^='item__'] {
-  border-radius: 10px;
-  padding: 10px;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  text-decoration: none;
+  color: black;
 }
 
-[class^='item__']:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+.category__page__main {
+  display: grid;
+  padding: 10px;
+  gap: 20px;
+
+  justify-content: center;
+
+  grid-template-columns: 20% 1fr;
+
+  .sidebar {
+    width: 20;
+  }
+
+  .content {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(4, 250px);
+    grid-template-rows: auto;
+    .record__item {
+    }
+  }
 }
