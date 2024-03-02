@@ -5,9 +5,6 @@ import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordUpdate } from '../recordsSlice';
 import type { Record } from '../type';
 
-const { recordId } = useParams();
-const records = useSelector((store: RootState) => store.records.records);
-const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
 
 export const fetchRecordUpdate = async (obj: FormData): Promise<Record> => {
   const res = await fetch(`api/records/${currentRecord?.id}`, {
@@ -19,6 +16,9 @@ export const fetchRecordUpdate = async (obj: FormData): Promise<Record> => {
 }
 
 function RecordPage(): JSX.Element {
+  const { recordId } = useParams();
+  const records = useSelector((store: RootState) => store.records.records);
+  const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
 
   const [title, setTitle] = useState('')
   const [artist, setArtist] = useState('')
