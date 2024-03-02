@@ -3,22 +3,17 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordUpdate } from '../recordsSlice';
-import type { Record } from '../type';
 
-const { recordId } = useParams();
-const records = useSelector((store: RootState) => store.records.records);
-const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
 
-export const fetchRecordUpdate = async (obj: FormData): Promise<Record> => {
-  const res = await fetch(`api/records/${currentRecord?.id}`, {
-    method: 'put',
-    body: obj,
-  })
-  const data = await res.json()
-  return data.record
-}
+
+
+
+
 
 function RecordPage(): JSX.Element {
+  const { recordId } = useParams();
+  const records = useSelector((store: RootState) => store.records.records);
+  const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
 
   const [title, setTitle] = useState('')
   const [artist, setArtist] = useState('')
@@ -40,8 +35,11 @@ function RecordPage(): JSX.Element {
     formData.append('price', price)
     formData.append('img', imgFile !== null && imgFile !== undefined ? imgFile : '')
     formData.append('quality', quality)
-    
-    dispatch(recordUpdate(formData)).catch(console.log)
+    const data = {
+      id: currentRecord?.id,
+      obj: formData,
+    }
+      dispatch(recordUpdate(data)).catch(console.log)
   }
 
 
@@ -66,7 +64,7 @@ function RecordPage(): JSX.Element {
               <option value="poor">Poor</option>
               <option value="bad">Bad</option>
             </select>
-            <button type='submit'>Добавить</button>
+            <button type='submit'>Изменить</button>
         </form>
     </div>
           <div className="record-page_main">
