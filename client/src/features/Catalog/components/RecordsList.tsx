@@ -39,9 +39,9 @@ const RecordsList = (): JSX.Element => {
       >
         <div className="records__container">
           {records.map((record) => (
-            <SwiperSlide>
+            <SwiperSlide key={record.id}>
               <RecordItem key={record.id} record={record} />
-            </SwiperSlide>
+            </SwiperSlide >
           ))}
         </div>
       </Swiper>

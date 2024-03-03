@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-base-to-string */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable import/no-duplicates */
-import type { Category, Record } from "./type";
+import type { Category, OrderItem, OrderItemId, Record } from "./type";
 // eslint-disable-next-line import/no-duplicates
 import type { RecordId } from "./type";
 
@@ -34,12 +36,39 @@ export const fetchRecordUpdate = async (obj:{id: RecordId | undefined, obj: Form
   return data
 }
 
+export const fetchOrderAdd =async (obj:{id:number, status:string}):Promise<OrderItem[]> => {
+  console.log(obj, '1111');
+  
+  const res = await fetch (`/api/order`, {
+    method: 'POST',
+    headers:{'Content-Type' : 'application/json'},
+    body:JSON.stringify(obj)
+  })
+  const data = await res.json()
+  // console.log(data);
+  
+  return data
+  
+}
+
+export const fetchOrdersLoad = async (): Promise<OrderItem[]> => {
+  const res = await fetch('/api/order/order')
+  const data = await res.json()
+  // console.log(data);
+  
+  return data
+}
+
+export const fetchOrderDel = async (id:OrderItemId): Promise<OrderItemId> => {
+  const res = await fetch(`/api/order/${id}`, {method: 'DELETE'})
+  const data = await res.json()
+
 export const fetchRecordDelete = async (id: RecordId | undefined): Promise<RecordId> => {
   const res = await fetch(`/api/records/${id}`, {
     method: 'delete'
   })
   const data = await res.json()
   console.log(data);
-  
+
   return data
 }
