@@ -4,6 +4,10 @@ import type { Record } from '../type';
 import '../styles/records.scss';
 
 function RecordItem({ record }: { record: Record }): JSX.Element {
+  const scrollToTop = (): void => {
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div className="record__item">
       <div className="record__item__img">
@@ -16,13 +20,12 @@ function RecordItem({ record }: { record: Record }): JSX.Element {
         <button type="button" className="btn__favorite">
           Сердечко
         </button>
-        <Link className="btn__more" to={`/records/${record.id}`}>
+        <Link onClick={scrollToTop} className="btn__more" to={`/records/${record.id}`}>
           Подробнее
         </Link>
         <button type="button" className="btn__cart">
           В корзину
         </button>
-
       </div>
     </div>
   );
