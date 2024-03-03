@@ -5,7 +5,11 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, type RootState } from '../../../store/store';
+import { recordUpdate } from '../recordsSlice';
+import {Chart as ChartJs} from "chart.js/auto"
+import {Bar, Doughnut, Line} from 'react-chartjs-2'
 import { recordRemove, recordUpdate } from '../recordsSlice';
+
 import '../styles/recordsPage.scss';
 
 function RecordPage(): JSX.Element {

@@ -7,9 +7,17 @@ export type Record = {
   quality: string;
   price: number;
   spotifyId: string;
+  RecordPrices: RecordPrice[];
 };
 
 export type RecordId = Record['id'];
+
+export type RecordPrice = {
+  id: number;
+  price: number;
+  record_id: number;
+  createdAt: string;
+};
 
 export type StateRecords = {
   records: Record[];
