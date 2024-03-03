@@ -27,8 +27,13 @@ router.get('/', async (req, res) => {
 
 router.post('/', upload.single('img'), async (req, res) => {
   try {
-    const {title, artist, description, price, quality} = req.body
-    const newFileUrl = `/recordImg/${req.file.originalname}`
+    const { title, artist, description, price, quality } = req.body;
+    
+    let newFileUrl = '';
+    if (req.file) {
+      newFileUrl = `/recordImg/${req.file.originalname}`;
+    }
+    
     const record = await Record.create({
       title,
       artist,
@@ -38,26 +43,38 @@ router.post('/', upload.single('img'), async (req, res) => {
       img: newFileUrl,
       user_id: 1,
       category_id: 1,
-    })
-    res.json({record})
-  } catch ({message}) {
-    res.json({type: 'records router', message})
+    });
+
+    res.json({ record });
+  } catch ({ message }) {
+    res.json({ type: 'records router', message });
   }
-})
+});
 
 router.put('/:recordId', upload.single('img'), async (req, res) => {
   try {
-    console.log(req.body);
-    const {recordId} = req.params
-    const {title, artist, description, price, quality} = req.body
-    const newFileUrl = `/recordImg/${req.file.originalname}`
-    const record = await Record.findOne({where: {id: recordId}})
-    const result = await record.update({title, artist, description, price: +price, quality, img: newFileUrl}, {where: {id: recordId}})
-      res.json(result)
-  } catch ({message}) {
-    res.json({type: 'records router', message})
+    const { recordId } = req.params;
+    const { title, artist, description, price, quality } = req.body;
+
+    let newFileUrl = null;
+    if (req.file) {
+      newFileUrl = `/recordImg/${req.file.originalname}`;
+    }
+
+    const record = await Record.findOne({ where: { id: recordId } });
+    
+    if (newFileUrl) {
+      await record.update({ title, artist, description, price: +price, quality, img: newFileUrl }, { where: { id: recordId } });
+    } else {
+      await record.update({ title, artist, description, price: +price, quality }, { where: { id: recordId } });
+    }
+
+    const updatedRecord = await Record.findOne({ where: { id: recordId } });
+    res.json(updatedRecord);
+  } catch ({ message }) {
+    res.json({ type: 'records router', message });
   }
-})
+});
 
 router.delete('/:recordId', async (req, res) => {
   try {
