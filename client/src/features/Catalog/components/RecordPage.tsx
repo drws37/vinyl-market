@@ -4,21 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import {
-  Chart as ChartJS,
-  LineElement,
-  CategoryScale, // x axis
-  LinearScale, // y axis
-  PointElement,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
-
 import { useAppDispatch, type RootState } from '../../../store/store';
+import { recordUpdate } from '../recordsSlice';
+import {Chart as ChartJs} from "chart.js/auto"
+import {Bar, Doughnut, Line} from 'react-chartjs-2'
 import { recordRemove, recordUpdate } from '../recordsSlice';
 
 import '../styles/recordsPage.scss';
-
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
@@ -43,7 +35,7 @@ function RecordPage(): JSX.Element {
   }, [currentRecord]);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const updateRecordFetch = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -62,50 +54,10 @@ function RecordPage(): JSX.Element {
     dispatch(recordUpdate(data)).catch(console.log);
   };
 
-  const onHandleDelete = (): void => {
-    dispatch(recordRemove(currentRecord?.id)).catch(console.log);
-    navigate('/');
-  };
-
-  const getAlbumPrices = () => {
-    console.log(records);
-    const albumPrices = records.map((record) =>
-      record.RecordPrices.map((item) => (item.record_id === +recordId ? item.price : '')),
-    );
-    const res = albumPrices.filter((item) => item.length ? item : '')
-
-    console.log(res, 'ALBUM PRICES');
-    return res
-  };
-  getAlbumPrices();
-  // ChartJS
-  const chartData = {
-    labels: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь'],
-    datasets: [
-      {
-        labels: 'Месяц',
-        data: getAlbumPrices()[0],
-        backgroundColor: '#242424',
-        borderColor: 'pink',
-        pointBorderColor: '#242424',
-        tension: 0.4,
-      },
-    ],
-  };
-
-  const options = {
-    plugins: {
-      legend: true,
-      tooltip: {
-        label: 'Цена',
-      },
-    },
-    scales: {
-      y: {
-        min: 2000,
-      },
-    },
-  };
+  const onHandleDelete = () : void => {
+    dispatch(recordRemove(currentRecord?.id)).catch(console.log)
+    navigate('/')
+  }
 
   return (
     <div>
@@ -129,9 +81,16 @@ function RecordPage(): JSX.Element {
                 placeholder="description"
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <input value={price} placeholder="price" onChange={(e) => setPrice(e.target.value)} />
+              <input
+                value={price}
+                placeholder="price"
+                onChange={(e) => setPrice(e.target.value)}
+              />
               <input placeholder="img" type="file" onChange={(e) => setImg(e.target.files)} />
-              <select value={quality} onChange={(e) => setQuality(e.target.value)}>
+              <select
+                value={quality}
+                onChange={(e) => setQuality(e.target.value)}
+              >
                 <option value="Empty">Не выбрано</option>
                 <option value="Mint">Mint</option>
                 <option value="Near Mint">Near mint</option>
@@ -141,12 +100,8 @@ function RecordPage(): JSX.Element {
                 <option value="Poor">Poor</option>
                 <option value="Bad">Bad</option>
               </select>
-              <button className="button__update" type="submit">
-                Изменить
-              </button>
-              <button onClick={onHandleDelete} className="button__delete" type="button">
-                Удалить
-              </button>
+              <button className='button__update' type="submit">Изменить</button>
+              <button onClick={onHandleDelete} className='button__delete' type='button'>Удалить</button>
             </form>
           </div>
           <div className="record-page">
@@ -178,9 +133,8 @@ function RecordPage(): JSX.Element {
               <div className="same_artist">
                 <h2>От того же исполнителя:</h2>
               </div>
-              <div className="chart">
-                <h3>Изменение цены</h3>
-                <Line data={chartData} options={options} />
+              <div className="same_artist">
+                <h2>От того же исполнителя:</h2>
               </div>
               <div>
                 <h2>У других продавцов:</h2>
