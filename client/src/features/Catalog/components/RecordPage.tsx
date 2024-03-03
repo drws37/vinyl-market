@@ -3,14 +3,18 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, type RootState } from '../../../store/store';
-import { recordUpdate } from '../recordsSlice';
+import { recordRemove, recordUpdate } from '../recordsSlice';
 import '../styles/recordsPage.scss';
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
   const records = useSelector((store: RootState) => store.records.records);
   const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
+
+  console.log(records);
+  
 
   const [title, setTitle] = useState('');
   const [artist, setArtist] = useState('');
@@ -20,6 +24,7 @@ function RecordPage(): JSX.Element {
   const [quality, setQuality] = useState('');
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
 
   const updateRecordFetch = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -39,7 +44,8 @@ function RecordPage(): JSX.Element {
   };
 
   const onHandleDelete = () : void => {
-    
+    dispatch(recordRemove(currentRecord?.id)).catch(console.log)
+    navigate('/')
   }
 
   return (
@@ -89,7 +95,7 @@ function RecordPage(): JSX.Element {
                 <option value="bad">Bad</option>
               </select>
               <button className='button__update' type="submit">Изменить</button>
-              <button className='button__delete' type='button'>Удалить</button>
+              <button onClick={onHandleDelete} className='button__delete' type='button'>Удалить</button>
             </form>
           </div>
           <div className="record-page">

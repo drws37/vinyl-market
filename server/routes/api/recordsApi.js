@@ -59,4 +59,16 @@ router.put('/:recordId', upload.single('img'), async (req, res) => {
   }
 })
 
+router.delete('/:recordId', async (req, res) => {
+  try {
+    const {recordId} = req.params
+    const result = await Record.destroy({where: {id: recordId}})
+    if (result > 0) {
+      res.json(+recordId)
+    }
+  } catch ({message}) {
+    res.json({type: 'records router', message})
+  }
+})
+
 module.exports = router;
