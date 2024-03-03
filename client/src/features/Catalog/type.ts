@@ -16,11 +16,26 @@ export type StateRecords = {
   message: string | undefined;
 };
 
+export type Song = {
+  id: number;
+  title: string;
+  duration: string;
+}
+
+export type SongId = Song['id']
+
+export type StateSongs = {
+  songs: Song[];
+  message: string | undefined
+}
+
 export type Category = {
   id: number;
   title: string;
   Records?: Record[];
 };
+
+export type CategoryId = Category['id']
 
 export type StateCategories = {
   categories: Category[];

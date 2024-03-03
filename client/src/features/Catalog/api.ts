@@ -1,5 +1,5 @@
 /* eslint-disable import/no-duplicates */
-import type { Category, Record } from "./type";
+import type { Category, Record, Song } from "./type";
 // eslint-disable-next-line import/no-duplicates
 import type { RecordId } from "./type";
 
@@ -39,7 +39,14 @@ export const fetchRecordDelete = async (id: RecordId | undefined): Promise<Recor
     method: 'delete'
   })
   const data = await res.json()
-  console.log(data);
-  
   return data
+}
+
+export const fetchSongsAdd = async (formData: FormData): Promise<Song> => {
+const res = await fetch('/api/records/songs', {
+  method: 'post',
+  body: formData,
+})
+const data = await res.json()
+return data
 }

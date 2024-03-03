@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', upload.single('img'), async (req, res) => {
   try {
-    const { title, artist, description, price, quality } = req.body;
+    const { title, artist, description, price, quality, category } = req.body;
     
     let newFileUrl = '';
     if (req.file) {
@@ -42,7 +42,7 @@ router.post('/', upload.single('img'), async (req, res) => {
       quality,
       img: newFileUrl,
       user_id: 1,
-      category_id: 1,
+      category_id: +category,
     });
 
     res.json({ record });
@@ -86,6 +86,10 @@ router.delete('/:recordId', async (req, res) => {
   } catch ({message}) {
     res.json({type: 'records router', message})
   }
+})
+
+router.post('/songs', async (req, res) => {
+  
 })
 
 module.exports = router;

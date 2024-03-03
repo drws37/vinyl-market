@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordRemove, recordUpdate } from '../recordsSlice';
 import '../styles/recordsPage.scss';
+// import { RecordId } from '../type';
+// import { songsAdd } from '../songsSlice';
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
@@ -55,6 +57,33 @@ function RecordPage(): JSX.Element {
     navigate('/')
   }
 
+  // const [songTitle, setSongTitle] = useState('')
+  // const [duration, setDuration] = useState('')
+  // const [showAdditionalForm, setShowAdditionalForm] = useState(false)
+
+  // const addSongFetch = (e: React.FormEvent<HTMLFormElement>): void => {
+  //   e.preventDefault()
+  //   const formData = new FormData()
+  //   const recordIdString = currentRecord?.id !== undefined ? currentRecord.id.toString() : '';
+  //   formData.append('songTitle', songTitle);
+  //   formData.append('duration', duration);
+  //   formData.append('recordId', recordIdString);
+  //   dispatch(songsAdd(formData)).catch(console.log)
+  //   setSongTitle('')
+  //   setDuration('')
+
+  //   if (showAdditionalForm) {
+  //     setSongTitle('');
+  //     setDuration('');
+  //   } else {
+  //     setSongTitle('');
+  //     setDuration('');
+  //     setShowAdditionalForm(false);
+  //   }
+  // }
+
+  
+
   return (
     <div>
       {currentRecord && (
@@ -100,6 +129,24 @@ function RecordPage(): JSX.Element {
               <button onClick={onHandleDelete} className='button__delete' type='button'>Удалить</button>
             </form>
           </div>
+          {/* <div className='add__form__container'>
+      <form className='add__form' onSubmit={addSongFetch}>
+        <input value={songTitle} placeholder='title' required onChange={(e) => setSongTitle(e.target.value)} />
+        <input value={duration} placeholder='duration' required onChange={(e) => setDuration(e.target.value)} />
+        <button type='submit'>Добавить</button>
+
+        {showAdditionalForm && (
+          <div>
+            <input value={songTitle} placeholder='title' required onChange={(e) => setTitle(e.target.value)} />
+            <input value={duration} placeholder='duration' required onChange={(e) => setDuration(e.target.value)} />
+          </div>
+        )}
+
+        <button type='button' onClick={() => setShowAdditionalForm(!showAdditionalForm)}>
+          {showAdditionalForm ? 'Скрыть форму' : 'Добавить еще одну песню'}
+        </button>
+      </form>
+    </div> */}
           <div className="record-page">
             <div className="record-card_main">
               <div className="card_img">
