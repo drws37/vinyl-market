@@ -70,19 +70,21 @@ function RecordPage(): JSX.Element {
   const getAlbumPrices = () => {
     console.log(records);
     const albumPrices = records.map((record) =>
-      record.RecordPrices.map((item) => (item.record_id === +recordId ? item.price : null)),
+      record.RecordPrices.map((item) => (item.record_id === +recordId ? item.price : '')),
     );
+    const res = albumPrices.filter((item) => item.length ? item : '')
 
-    console.log(albumPrices, 'ALBUM PRICES');
+    console.log(res, 'ALBUM PRICES');
+    return res
   };
   getAlbumPrices();
   // ChartJS
   const chartData = {
-    labels: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май'],
+    labels: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь'],
     datasets: [
       {
         labels: 'Месяц',
-        data: [3000, 3500, 3200, 4500, 5590],
+        data: getAlbumPrices()[0],
         backgroundColor: '#242424',
         borderColor: 'pink',
         pointBorderColor: '#242424',
