@@ -1,9 +1,18 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import type { Record } from '../type';
 import '../styles/records.scss';
+import * as api from '../api'
 
 function RecordItem({ record }: { record: Record }): JSX.Element {
+
+const AddItemInOrder = async():Promise<void> =>{
+  await api.fetchOrderAdd({status:'Корзина', id:record.id}).catch(console.log)
+
+
+}
+
   return (
     <div className="record__item">
       <div className="record__item__img">
@@ -19,7 +28,7 @@ function RecordItem({ record }: { record: Record }): JSX.Element {
         <Link className="btn__more" to={`/records/${record.id}`}>
           Подробнее
         </Link>
-        <button type="button" className="btn__cart">
+        <button type="button" className="btn__cart"  onClick={AddItemInOrder}>
           В корзину
         </button>
 

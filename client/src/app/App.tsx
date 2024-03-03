@@ -11,6 +11,8 @@ import ProfilePage from '../features/Profile/ProfilePage';
 import RecordPage from '../features/Catalog/components/RecordPage';
 import { categoriesLoad } from '../features/Catalog/categoriesSlice';
 import CategoryPage from '../features/Catalog/components/CategoryPage';
+import Order from '../features/Catalog/components/Order';
+import { orderLoad } from '../features/Catalog/ordersSlice';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -19,12 +21,15 @@ function App(): JSX.Element {
     dispatch(recordsLoad()).catch(console.log);
     dispatch(categoriesLoad()).catch(console.log);
     dispatch(authCheckUser()).catch(console.log);
+
+
   }, []);
 
   return (
     <Routes>
       <Route path="/" element={<Main />}>
         <Route index element={<MainPage />} />
+        <Route path='order' element={<Order />} />
         <Route path="sign-up" element={<Registration />} />
         <Route path="sign-in" element={<Login />} />
         <Route path="/profile/:userId" element={<ProfilePage />} />

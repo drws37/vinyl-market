@@ -28,7 +28,7 @@ function Header(): JSX.Element {
         <div className='nav-bar'>
         <NavLink to='/'>LOGO</NavLink>
         <NavLink to='/'>Избранное</NavLink>
-        <NavLink to='/'>Корзина</NavLink>
+        <NavLink to='/order'>Корзина</NavLink>
         <NavLink to={`/profile/${user?.id}`}>Профиль</NavLink>
 
         {!user ? (
