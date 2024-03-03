@@ -10,8 +10,10 @@ function RecordItem({ record }: { record: Record }): JSX.Element {
 const AddItemInOrder = async():Promise<void> =>{
   await api.fetchOrderAdd({status:'Корзина', id:record.id}).catch(console.log)
 
-
 }
+  const scrollToTop = (): void => {
+    window.scrollTo(0, 0);
+  };
 
   return (
     <div className="record__item">
@@ -25,13 +27,12 @@ const AddItemInOrder = async():Promise<void> =>{
         <button type="button" className="btn__favorite">
           Сердечко
         </button>
-        <Link className="btn__more" to={`/records/${record.id}`}>
+        <Link onClick={scrollToTop} className="btn__more" to={`/records/${record.id}`}>
           Подробнее
         </Link>
         <button type="button" className="btn__cart"  onClick={AddItemInOrder}>
           В корзину
         </button>
-
       </div>
     </div>
   );

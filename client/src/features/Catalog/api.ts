@@ -51,8 +51,6 @@ export const fetchOrderAdd =async (obj:{id:number, status:string}):Promise<Order
   
 }
 
-
-
 export const fetchOrdersLoad = async (): Promise<OrderItem[]> => {
   const res = await fetch('/api/order/order')
   const data = await res.json()
@@ -64,5 +62,13 @@ export const fetchOrdersLoad = async (): Promise<OrderItem[]> => {
 export const fetchOrderDel = async (id:OrderItemId): Promise<OrderItemId> => {
   const res = await fetch(`/api/order/${id}`, {method: 'DELETE'})
   const data = await res.json()
+
+export const fetchRecordDelete = async (id: RecordId | undefined): Promise<RecordId> => {
+  const res = await fetch(`/api/records/${id}`, {
+    method: 'delete'
+  })
+  const data = await res.json()
+  console.log(data);
+
   return data
 }

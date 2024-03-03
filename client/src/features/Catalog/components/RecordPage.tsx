@@ -1,41 +1,110 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+import {
+  Chart as ChartJS,
+  LineElement,
+  CategoryScale, // x axis
+  LinearScale, // y axis
+  PointElement,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
 import { useAppDispatch, type RootState } from '../../../store/store';
-import { recordUpdate } from '../recordsSlice';
+import { recordRemove, recordUpdate } from '../recordsSlice';
+
 import '../styles/recordsPage.scss';
+
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
   const records = useSelector((store: RootState) => store.records.records);
   const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
 
-  const [title, setTitle] = useState('');
-  const [artist, setArtist] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState<string | undefined>(undefined);
+  const [artist, setArtist] = useState<string | undefined>(undefined);
+  const [description, setDescription] = useState<string | undefined>(undefined);
   const [img, setImg] = useState<FileList | null | undefined>(null);
-  const [price, setPrice] = useState('');
-  const [quality, setQuality] = useState('');
+  const [price, setPrice] = useState<string | undefined>(undefined);
+  const [quality, setQuality] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (currentRecord) {
+      setTitle(currentRecord.title || '');
+      setArtist(currentRecord.artist || '');
+      setDescription(currentRecord.description || '');
+      setPrice(currentRecord.price !== undefined ? String(currentRecord.price) : '');
+      setQuality(currentRecord.quality || '');
+    }
+  }, [currentRecord]);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const updateRecordFetch = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const imgFile = img?.[0];
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('artist', artist);
-    formData.append('description', description);
-    formData.append('price', price);
+    formData.append('title', title || '');
+    formData.append('artist', artist || '');
+    formData.append('description', description || '');
+    formData.append('price', String(price || ''));
     formData.append('img', imgFile !== null && imgFile !== undefined ? imgFile : '');
-    formData.append('quality', quality);
+    formData.append('quality', quality || '');
     const data = {
       id: currentRecord?.id,
       obj: formData,
     };
     dispatch(recordUpdate(data)).catch(console.log);
+  };
+
+  const onHandleDelete = (): void => {
+    dispatch(recordRemove(currentRecord?.id)).catch(console.log);
+    navigate('/');
+  };
+
+  const getAlbumPrices = () => {
+    console.log(records);
+    const albumPrices = records.map((record) =>
+      record.RecordPrices.map((item) => (item.record_id === +recordId ? item.price : '')),
+    );
+    const res = albumPrices.filter((item) => item.length ? item : '')
+
+    console.log(res, 'ALBUM PRICES');
+    return res
+  };
+  getAlbumPrices();
+  // ChartJS
+  const chartData = {
+    labels: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь'],
+    datasets: [
+      {
+        labels: 'Месяц',
+        data: getAlbumPrices()[0],
+        backgroundColor: '#242424',
+        borderColor: 'pink',
+        pointBorderColor: '#242424',
+        tension: 0.4,
+      },
+    ],
+  };
+
+  const options = {
+    plugins: {
+      legend: true,
+      tooltip: {
+        label: 'Цена',
+      },
+    },
+    scales: {
+      y: {
+        min: 2000,
+      },
+    },
   };
 
   return (
@@ -45,46 +114,39 @@ function RecordPage(): JSX.Element {
           <div className="update__form__container">
             <form className="update__form" onSubmit={updateRecordFetch}>
               <input
-                defaultValue={currentRecord?.title}
                 value={title}
                 placeholder="title"
                 required
                 onChange={(e) => setTitle(e.target.value)}
               />
               <input
-                defaultValue={currentRecord?.artist}
                 value={artist}
                 placeholder="artist"
                 onChange={(e) => setArtist(e.target.value)}
               />
               <input
-                defaultValue={currentRecord?.description}
                 value={description}
                 placeholder="description"
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <input
-                defaultValue={currentRecord?.price}
-                value={price}
-                placeholder="price"
-                onChange={(e) => setPrice(e.target.value)}
-              />
+              <input value={price} placeholder="price" onChange={(e) => setPrice(e.target.value)} />
               <input placeholder="img" type="file" onChange={(e) => setImg(e.target.files)} />
-              <select
-                defaultValue={currentRecord?.quality}
-                value={quality}
-                onChange={(e) => setQuality(e.target.value)}
-              >
-                <option value="empty">Не выбрано</option>
-                <option value="mint">Mint</option>
-                <option value="near-mint">Near mint</option>
-                <option value="very-good">Very good</option>
-                <option value="good">Good</option>
-                <option value="fair">Fair</option>
-                <option value="poor">Poor</option>
-                <option value="bad">Bad</option>
+              <select value={quality} onChange={(e) => setQuality(e.target.value)}>
+                <option value="Empty">Не выбрано</option>
+                <option value="Mint">Mint</option>
+                <option value="Near Mint">Near mint</option>
+                <option value="Very Good">Very good</option>
+                <option value="Good">Good</option>
+                <option value="Fair">Fair</option>
+                <option value="Poor">Poor</option>
+                <option value="Bad">Bad</option>
               </select>
-              <button type="submit">Изменить</button>
+              <button className="button__update" type="submit">
+                Изменить
+              </button>
+              <button onClick={onHandleDelete} className="button__delete" type="button">
+                Удалить
+              </button>
             </form>
           </div>
           <div className="record-page">
@@ -116,8 +178,9 @@ function RecordPage(): JSX.Element {
               <div className="same_artist">
                 <h2>От того же исполнителя:</h2>
               </div>
-              <div className="same_artist">
-                <h2>От того же исполнителя:</h2>
+              <div className="chart">
+                <h3>Изменение цены</h3>
+                <Line data={chartData} options={options} />
               </div>
               <div>
                 <h2>У других продавцов:</h2>

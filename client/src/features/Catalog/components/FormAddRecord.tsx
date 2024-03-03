@@ -38,17 +38,17 @@ const FormAddRecord = (): JSX.Element => {
             <input value={title} placeholder='title' required onChange={(e)=>setTitle(e.target.value)} />
             <input value={artist} placeholder='artist' onChange={(e)=>setArtist(e.target.value)}/>
             <input value={description} placeholder='description' onChange={(e)=>setDescription(e.target.value)}/>
-            <input value={price} placeholder='price' onChange={(e)=>setPrice(e.target.value)}/>
+            <input value={price} placeholder='price' type='number' onChange={(e)=>setPrice(e.target.value)}/>
             <input  placeholder='img' type='file' onChange={(e)=>setImg(e.target.files)}/>
             <select value={quality} onChange={(e) => setQuality(e.target.value)}>
-              <option value="empty">Не выбрано</option>
-              <option value="mint">Mint</option>
-              <option value="near-mint">Near mint</option>
-              <option value="very-good">Very good</option>
-              <option value="good">Good</option>
-              <option value="fair">Fair</option>
-              <option value="poor">Poor</option>
-              <option value="bad">Bad</option>
+              <option value="Empty">Не выбрано</option>
+              <option value="Mint">Mint</option>
+              <option value="Near Mint">Near mint</option>
+              <option value="Very Good">Very good</option>
+              <option value="Good">Good</option>
+              <option value="Fair">Fair</option>
+              <option value="Poor">Poor</option>
+              <option value="Bad">Bad</option>
             </select>
             <button type='submit'>Добавить</button>
         </form>
