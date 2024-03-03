@@ -19,6 +19,7 @@ export const recordAdd = createAsyncThunk('records/add', (obj: FormData) =>
 export const recordUpdate = createAsyncThunk('records/update', (obj: {id : RecordId | undefined, obj: FormData}) =>
   api.fetchRecordUpdate(obj),
 )
+export const recordRemove = createAsyncThunk('records/remove', (id: RecordId) => api.fetchRecordDelete(id))
 
 const recordsSlice = createSlice({
   name: 'records',
@@ -32,7 +33,9 @@ const recordsSlice = createSlice({
     addCase(recordAdd.rejected, (state, action) => {state.message = action.error.message}).
     addCase(recordUpdate.fulfilled, (state, action) => {state.records = state.records.map((record) => record.id === action.payload.id ? action.payload : record)
     }).
-    addCase(recordUpdate.rejected, (state, action) => {state.message = action.error.message})
+    addCase(recordUpdate.rejected, (state, action) => {state.message = action.error.message}).
+    addCase(recordRemove.fulfilled, (state, action) => {state.records = state.records.filter((record) => record.id !== action.payload)}).
+    addCase(recordRemove.rejected, (state, action) => {state.message = action.error.message})
   }
 })
 

@@ -38,6 +38,10 @@ function RecordPage(): JSX.Element {
     dispatch(recordUpdate(data)).catch(console.log);
   };
 
+  const onHandleDelete = () : void => {
+    
+  }
+
   return (
     <div>
       {currentRecord && (
@@ -84,7 +88,8 @@ function RecordPage(): JSX.Element {
                 <option value="poor">Poor</option>
                 <option value="bad">Bad</option>
               </select>
-              <button type="submit">Изменить</button>
+              <button className='button__update' type="submit">Изменить</button>
+              <button className='button__delete' type='button'>Удалить</button>
             </form>
           </div>
           <div className="record-page">

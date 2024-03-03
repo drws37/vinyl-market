@@ -33,3 +33,11 @@ export const fetchRecordUpdate = async (obj:{id: RecordId | undefined, obj: Form
   const data = await res.json()
   return data
 }
+
+export const fetchRecordDelete = async (id: RecordId): Promise<RecordId> => {
+  const res = await fetch(`/api/records/${id}`, {
+    method: 'delete'
+  })
+  const data = await res.json()
+  return data
+}
