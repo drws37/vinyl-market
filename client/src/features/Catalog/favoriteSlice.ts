@@ -21,7 +21,10 @@ export const favoriteDelete = createAsyncThunk('favorite/delete', (id:number) =>
 const favoriteSlice = createSlice({
   name: 'favorite',
   initialState,
-  reducers: {clear2:(state)=>{state.favorite=[]}},
+  reducers: {
+    clear2:(state)=>{state.favorite=[]}
+  
+},
   extraReducers: (builder) => {
     builder
     .addCase(favoriteAdd.fulfilled, (state, action) => {state.favorite.push(action.payload)})

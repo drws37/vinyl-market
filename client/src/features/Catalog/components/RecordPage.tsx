@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Chart as ChartJS,
   LineElement,
@@ -17,8 +17,9 @@ import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordRemove, recordUpdate } from '../recordsSlice';
 
 import '../styles/recordsPage.scss';
-import type { Song } from '../type';
-import { songsAdd } from '../songsSlice';
+import { shopLoad } from '../shopSlice';
+// import type { Song } from '../type';
+// import { songsAdd } from '../songsSlice';
 // import { RecordId } from '../type';
 // import { songsAdd } from '../songsSlice';
 
@@ -27,8 +28,10 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
   const records = useSelector((store: RootState) => store.records.records);
+  
   const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
 
+  
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [artist, setArtist] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState<string | undefined>(undefined);
@@ -71,8 +74,9 @@ function RecordPage(): JSX.Element {
     navigate('/');
   };
 
+
   const getAlbumData = () => {
-    console.log(records, 'RECORDS');
+    // console.log(records, 'RECORDS');
     
       if (recordId) {
         const albumPrices = records.map((record) =>
@@ -83,8 +87,8 @@ function RecordPage(): JSX.Element {
             item.record_id === +recordId ? item.createdAt.slice(2, 10) : '',
           ),
         );
-        const resPrices = albumPrices.filter((item) => (item?.length ? item : console.log('CANNOT FILTER resPRICES')));
-        const resDates = albumDates.filter((item) => (item?.length ? item : console.log('CANNOT FILTER resDATES')));
+        const resPrices = albumPrices.filter((item) => (item?.length ? item : console.log('1')));
+        const resDates = albumDates.filter((item) => (item?.length ? item : console.log('1')));
         return [resDates, resPrices];
       }
     
@@ -243,6 +247,7 @@ function RecordPage(): JSX.Element {
                   <div className="price">{`${currentRecord?.price} ₽`}</div>
                 </div>
                 <p>Описание: {currentRecord.description}</p>
+                  <Link to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
               </div>
               <div className="records-page_widget">
                 <iframe

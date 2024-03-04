@@ -4,7 +4,7 @@ import { favoriteDelete } from '../favoriteSlice';
 import { useAppDispatch } from '../../../store/store';
 
 function FavoriteItem({favorite}:{favorite:Favorite}):JSX.Element {
-  console.log(favorite);
+  // console.log(favorite);
 
 const dispatch = useAppDispatch()
   const handleDelete =async (id:FavoriteId):Promise<void> => {

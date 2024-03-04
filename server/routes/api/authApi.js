@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/registration', async (req, res) => {
   try {
     const { username, email, password, role } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
 
     if (username && email && password && role) {
       const globalRegex = /^[_a-z0-9-\+-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i;
@@ -23,7 +23,7 @@ router.post('/registration', async (req, res) => {
           const hash = await bcrypt.hash(password, 10);
           user = await User.create({ username, email, password: hash, role });
           const { accessToken, refreshToken } = generateTokens({ user: { username: user.username, id: user.id, role: user.role } });
-          console.log('123');
+          // console.log('123');
           res.cookie(
             cookiesConfig.access,
             accessToken,
@@ -34,7 +34,7 @@ router.post('/registration', async (req, res) => {
             refreshToken,
             { maxAge: cookiesConfig.maxAgeRefresh, httpOnly: true },
           );
-          console.log(123);
+          // console.log(123);
           res.status(201).json({ message: 'success', user: { username: user.name, id: user.id } });
         }
       } else {
@@ -81,7 +81,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/check', async (req, res) => {
-  console.log(res.locals.user, 'res.locals.user');
+  // console.log(res.locals.user, 'res.locals.user');
   if (res.locals.user) {
     const user = await User.findOne({ where: { id: res.locals.user.id }, attributes: { exclude: ['password'] } });
     res.json({ user });

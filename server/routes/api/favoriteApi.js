@@ -24,14 +24,14 @@ router.post('/:id', async (req, res) => {
 
 router.delete('/item/:id', async(req, res) => {
     try {
-      console.log(123123123);
+      // console.log(123123123);
       const {id} = req.params
-      console.log(id, '123123 ');
+      // console.log(id, '123123 ');
     
       const orderDelete = await Favorite.destroy({where: {record_id: id}})
       console.log(orderDelete, '123123123');
       if(orderDelete){
-        console.log('-------------');
+        // console.log('-------------');
         res.json(+id)
     
       }

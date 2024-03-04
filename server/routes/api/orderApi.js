@@ -4,14 +4,14 @@ const {Order, OrderItem, Record} = require('../../db/models')
 
 router.delete('/:id', async(req, res) => {
 try {
-  console.log(123123123);
+  // console.log(123123123);
   const {id} = req.params
-  console.log(id, '123123 ');
+  // console.log(id, '123123 ');
 
   const orderDelete = await OrderItem.destroy({where: {record_id: id}})
   console.log(orderDelete, '123123123');
   if(orderDelete){
-    console.log('-------------');
+    // console.log('-------------');
     res.json(+id)
 
   }
@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
              orderItemCreate = await OrderItem.update({count: orderItem.count + 1},{where:{id:orderItem.id}});
           }else{
              orderItemCreate = await OrderItem.create({order_id: orderCheck.id, count: 1, record_id: id, price: record.price});
-             console.log(orderItemCreate);
+            //  console.log(orderItemCreate);
           }
           orderCheck.total_price +=record.price
           orderCheck.save()
@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
         const record = await Record.findOne({where: id})
         const orderCreate = await Order.create({status: 'Корзина', user_id: res.locals.user.id, total_price:record.price});
         const orderItemCreate = await OrderItem.create({order_id:orderCreate.id, record_id: record.id, price: record.price, count: 1});
-        console.log(orderItemCreate, '12312312312312321');
+        // console.log(orderItemCreate, '12312312312312321');
         res.json(orderItemCreate)
         }
     }
@@ -61,7 +61,7 @@ router.get('/order', async (req,res) => {
   try {
     if(res.locals.user){
       const orders1 = await Order.findOne({where:{user_id:res.locals.user.id}})
-      console.log(orders1);
+      // console.log(orders1);
       if(orders1){
         const orders = await OrderItem.findAll({include:[{model: Record}], where: {order_id: orders1.id}})
         res.json({orders, message: 'ok'})
