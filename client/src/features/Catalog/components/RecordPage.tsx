@@ -28,6 +28,7 @@ function RecordPage(): JSX.Element {
   const { recordId } = useParams();
   const records = useSelector((store: RootState) => store.records.records);
   const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
+  console.log(currentRecord, 'CURRENT RECORD');
 
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [artist, setArtist] = useState<string | undefined>(undefined);
@@ -71,33 +72,21 @@ function RecordPage(): JSX.Element {
     navigate('/');
   };
 
-  const getAlbumData = () => {
-    console.log(records, 'RECORDS');
-    
-      if (recordId) {
-        const albumPrices = records.map((record) =>
-          record?.RecordPrices?.map((item) => (item.record_id === +recordId ? item.price : '')),
-        );
-        const albumDates = records.map((record) =>
-          record?.RecordPrices?.map((item) =>
-            item.record_id === +recordId ? item.createdAt.slice(2, 10) : '',
-          ),
-        );
-        const resPrices = albumPrices.filter((item) => (item?.length ? item : console.log('CANNOT FILTER resPRICES')));
-        const resDates = albumDates.filter((item) => (item?.length ? item : console.log('CANNOT FILTER resDATES')));
-        return [resDates, resPrices];
-      }
-    
-    return 'getAlbumPrices error';
+  function getAlbumData():number[] | undefined {
+    const resPrices = currentRecord?.RecordPrices.map((item) => item.price);
+    console.log(resPrices, 'RES PRICES');
+    const resDates = currentRecord?.RecordPrices.map((item) => item.createdAt);
+    console.log(resPrices, 'RES PRICES');
+    return [resPrices, resDates];
   };
 
   // ChartJS
   const chartData = {
-    labels: getAlbumData()[0][0],
+    labels: getAlbumData()[1],
     datasets: [
       {
         labels: 'Месяц',
-        data: getAlbumData()[1][0],
+        data: getAlbumData()[0],
         backgroundColor: '#242424',
         borderColor: 'pink',
         pointBorderColor: '#242424',
@@ -120,40 +109,38 @@ function RecordPage(): JSX.Element {
     },
   };
 
-// const [songTitle, setSongTitle] = useState('');
-// const [duration, setDuration] = useState('');
-// const [songs, setSongs] = useState<Song[]>([]);
-// const [showAdditionalForm, setShowAdditionalForm] = useState(false);
-// const [additionalSongs, setAdditionalSongs] = useState(0);
+  // const [songTitle, setSongTitle] = useState('');
+  // const [duration, setDuration] = useState('');
+  // const [songs, setSongs] = useState<Song[]>([]);
+  // const [showAdditionalForm, setShowAdditionalForm] = useState(false);
+  // const [additionalSongs, setAdditionalSongs] = useState(0);
 
-// const addSongFetch = (e: React.FormEvent<HTMLFormElement>): void => {
-//   e.preventDefault();
-//   const formData = new FormData();
-//   const recordIdString = currentRecord?.id !== undefined ? currentRecord.id.toString() : '';
-//   formData.append('songTitle', songTitle);
-//   formData.append('duration', duration);
-//   formData.append('recordId', recordIdString);
+  // const addSongFetch = (e: React.FormEvent<HTMLFormElement>): void => {
+  //   e.preventDefault();
+  //   const formData = new FormData();
+  //   const recordIdString = currentRecord?.id !== undefined ? currentRecord.id.toString() : '';
+  //   formData.append('songTitle', songTitle);
+  //   formData.append('duration', duration);
+  //   formData.append('recordId', recordIdString);
 
-//   const newSong: Song = {
-//     id: songs.length + 1,
-//     title: songTitle,
-//     duration,
-//     record_id: currentRecord?.id || 0,
-//   };
+  //   const newSong: Song = {
+  //     id: songs.length + 1,
+  //     title: songTitle,
+  //     duration,
+  //     record_id: currentRecord?.id || 0,
+  //   };
 
-//   setSongs([...songs, newSong]);
+  //   setSongs([...songs, newSong]);
 
-//   dispatch(songsAdd(formData)).catch(console.log);
-//   setSongTitle('');
-//   setDuration('');
-//   setAdditionalSongs(additionalSongs + 1);
+  //   dispatch(songsAdd(formData)).catch(console.log);
+  //   setSongTitle('');
+  //   setDuration('');
+  //   setAdditionalSongs(additionalSongs + 1);
 
-//   if (!showAdditionalForm) {
-//     setShowAdditionalForm(true);
-//   }
-// };
-
-  
+  //   if (!showAdditionalForm) {
+  //     setShowAdditionalForm(true);
+  //   }
+  // };
 
   return (
     <div>
@@ -263,7 +250,7 @@ function RecordPage(): JSX.Element {
                 <h3>Изменение цены</h3>
                 <Line data={chartData} options={options} />
               </div>
-              <div className='same_records'>
+              <div className="same_records">
                 <h2>У других продавцов:</h2>
               </div>
               <div>
@@ -276,6 +263,5 @@ function RecordPage(): JSX.Element {
     </div>
   );
 }
-
 
 export default RecordPage;
