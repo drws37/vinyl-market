@@ -4,13 +4,25 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
+import {
+  Chart as ChartJS,
+  LineElement,
+  CategoryScale, // x axis
+  LinearScale, // y axis
+  PointElement,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
 import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordRemove, recordUpdate } from '../recordsSlice';
+
 import '../styles/recordsPage.scss';
 import type { Song } from '../type';
 import { songsAdd } from '../songsSlice';
 // import { RecordId } from '../type';
 // import { songsAdd } from '../songsSlice';
+
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
@@ -35,7 +47,7 @@ function RecordPage(): JSX.Element {
   }, [currentRecord]);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const updateRecordFetch = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -54,10 +66,59 @@ function RecordPage(): JSX.Element {
     dispatch(recordUpdate(data)).catch(console.log);
   };
 
-  const onHandleDelete = () : void => {
-    dispatch(recordRemove(currentRecord?.id)).catch(console.log)
-    navigate('/')
-  }
+  const onHandleDelete = (): void => {
+    dispatch(recordRemove(currentRecord?.id)).catch(console.log);
+    navigate('/');
+  };
+
+  const getAlbumData = () => {
+    console.log(records, 'RECORDS');
+    
+      if (recordId) {
+        const albumPrices = records.map((record) =>
+          record?.RecordPrices?.map((item) => (item.record_id === +recordId ? item.price : '')),
+        );
+        const albumDates = records.map((record) =>
+          record?.RecordPrices?.map((item) =>
+            item.record_id === +recordId ? item.createdAt.slice(2, 10) : '',
+          ),
+        );
+        const resPrices = albumPrices.filter((item) => (item?.length ? item : console.log('CANNOT FILTER resPRICES')));
+        const resDates = albumDates.filter((item) => (item?.length ? item : console.log('CANNOT FILTER resDATES')));
+        return [resDates, resPrices];
+      }
+    
+    return 'getAlbumPrices error';
+  };
+
+  // ChartJS
+  const chartData = {
+    labels: getAlbumData()[0][0],
+    datasets: [
+      {
+        labels: 'Месяц',
+        data: getAlbumData()[1][0],
+        backgroundColor: '#242424',
+        borderColor: 'pink',
+        pointBorderColor: '#242424',
+        tension: 0.3,
+      },
+    ],
+  };
+
+  const options = {
+    plugins: {
+      legend: true,
+      tooltip: {
+        label: 'Цена',
+      },
+    },
+    scales: {
+      y: {
+        min: 2000,
+      },
+    },
+  };
 
 // const [songTitle, setSongTitle] = useState('');
 // const [duration, setDuration] = useState('');
@@ -116,11 +177,7 @@ function RecordPage(): JSX.Element {
                 placeholder="description"
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <input
-                value={price}
-                placeholder="price"
-                onChange={(e) => setPrice(e.target.value)}
-              />
+              <input value={price} placeholder="price" onChange={(e) => setPrice(e.target.value)} />
               <input placeholder="img" type="file" onChange={(e) => setImg(e.target.files)} />
               <select value={quality} onChange={(e) => setQuality(e.target.value)}>
                 <option value="Empty">Не выбрано</option>
@@ -132,10 +189,10 @@ function RecordPage(): JSX.Element {
                 <option value="Poor">Poor</option>
                 <option value="Bad">Bad</option>
               </select>
-              <button className='button__update' type="submit">
+              <button className="button__update" type="submit">
                 Изменить
               </button>
-              <button onClick={onHandleDelete} className='button__delete' type='button'>
+              <button onClick={onHandleDelete} className="button__delete" type="button">
                 Удалить
               </button>
             </form>
@@ -202,10 +259,11 @@ function RecordPage(): JSX.Element {
               <div className="same_artist">
                 <h2>От того же исполнителя:</h2>
               </div>
-              <div className="same_artist">
-                <h2>От того же исполнителя:</h2>
+              <div className="chart">
+                <h3>Изменение цены</h3>
+                <Line data={chartData} options={options} />
               </div>
-              <div>
+              <div className='same_records'>
                 <h2>У других продавцов:</h2>
               </div>
               <div>
