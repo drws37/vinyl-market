@@ -15,14 +15,11 @@ try {
     res.json(+id)
 
   }
-  
 } catch ({message}) {
   res.json(message)
   
 }
 })
-
-
 
 router.post('/', async (req, res) => {
   try { 

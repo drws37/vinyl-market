@@ -42,7 +42,7 @@ router.post('/', upload.single('img'), async (req, res) => {
     if (req.file) {
       newFileUrl = `/recordImg/${req.file.originalname}`;
     }
-    
+
     const record = await Record.create({
       title,
       artist,
@@ -70,11 +70,17 @@ router.put('/:recordId', upload.single('img'), async (req, res) => {
     }
 
     const record = await Record.findOne({ where: { id: recordId } });
-    
+
     if (newFileUrl) {
-      await record.update({ title, artist, description, price: +price, quality, img: newFileUrl }, { where: { id: recordId } });
+      await record.update(
+        { title, artist, description, price: +price, quality, img: newFileUrl },
+        { where: { id: recordId } }
+      );
     } else {
-      await record.update({ title, artist, description, price: +price, quality }, { where: { id: recordId } });
+      await record.update(
+        { title, artist, description, price: +price, quality },
+        { where: { id: recordId } }
+      );
     }
 
     const updatedRecord = await Record.findOne({ where: { id: recordId } });
@@ -86,27 +92,25 @@ router.put('/:recordId', upload.single('img'), async (req, res) => {
 
 router.delete('/:recordId', async (req, res) => {
   try {
-    const {recordId} = req.params
-    const result = await Record.destroy({where: {id: recordId}})
+    const { recordId } = req.params;
+    const result = await Record.destroy({ where: { id: recordId } });
     if (result > 0) {
-      res.json(+recordId)
+      res.json(+recordId);
     }
-  } catch ({message}) {
-    res.json({type: 'records router', message})
+  } catch ({ message }) {
+    res.json({ type: 'records router', message });
   }
 });
 
 router.get('/songs', async (req, res) => {
   try {
-    const songs = await Song.findAll
-    res.json({songs})
-  } catch ({message}) {
-    res.json({type: 'records router', message})
+    const songs = await Song.findAll;
+    res.json({ songs });
+  } catch ({ message }) {
+    res.json({ type: 'records router', message });
   }
-})
+});
 
-router.post('/songs', async (req, res) => {
-  
-})
+router.post('/songs', async (req, res) => {});
 
 module.exports = router;

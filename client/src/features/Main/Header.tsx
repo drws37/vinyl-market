@@ -21,19 +21,17 @@ function Header(): JSX.Element {
     await api.logoutFetch().then((data) => {
       if (data.message === 'success') {
         dispatch(authLogout()).catch(console.log);
-        dispatch(clear())
-        dispatch(clear2())
+        dispatch(clear());
+        dispatch(clear2());
         navigate('/');
       }
     });
   };
 
   return (
-    <nav className='nav'>
-        <div className='nav-bar'>
-        <NavLink to='/'>LOGO</NavLink>
-
-        <NavLink to={`/profile/${user?.id}`}>Профиль</NavLink>
+    <nav className="nav">
+      <div className="nav-bar">
+        <NavLink to="/">LOGO</NavLink>
 
         {!user ? (
           <>
@@ -42,13 +40,14 @@ function Header(): JSX.Element {
           </>
         ) : (
           <>
-        <NavLink to='/order'>Корзина</NavLink>
-        <NavLink to='/favorite'>Избранное</NavLink>
+            <NavLink to={`/profile/${user?.id}`}>Профиль</NavLink>
+            <NavLink to="/order">Корзина</NavLink>
+            <NavLink to="/favorite">Избранное</NavLink>
 
-          <NavLink onClick={handleLogout} to="/logout">
-            Выйти
-          </NavLink>
-        </>
+            <NavLink onClick={handleLogout} to="/logout">
+              Выйти
+            </NavLink>
+          </>
         )}
       </div>
     </nav>

@@ -33,7 +33,10 @@ const recordsSlice = createSlice({
     addCase(recordsLoad.rejected, (state, action) => {state.message = action.error.message}).
     addCase(recordAdd.fulfilled, (state, action) => {state.records.unshift(action.payload)}).
     addCase(recordAdd.rejected, (state, action) => {state.message = action.error.message}).
-    addCase(recordUpdate.fulfilled, (state, action) => {state.records = state.records.map((record) => record.id === action.payload.id ? action.payload : record)}).
+    addCase(recordUpdate.fulfilled, (state, action) => {
+      console.log(state.records, 'AAAAAAAAAAAAAAAA');
+      
+      state.records = state.records.map((record) => record.id === action.payload.id ? action.payload : record)}).
     addCase(recordUpdate.rejected, (state, action) => {state.message = action.error.message}).
     addCase(recordRemove.fulfilled, (state, action) => {
       state.records = state.records.filter((record) => record.id !== action.payload);
