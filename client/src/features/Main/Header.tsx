@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React from 'react';
 
 // import '../main.css'
@@ -7,6 +8,8 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch, type RootState } from '../../store/store';
 import * as api from './api';
 import { authLogout } from '../Auth/authSlice';
+import { clear } from '../Catalog/ordersSlice';
+import { clear2 } from '../Catalog/favoriteSlice';
 
 function Header(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
@@ -18,6 +21,8 @@ function Header(): JSX.Element {
     await api.logoutFetch().then((data) => {
       if (data.message === 'success') {
         dispatch(authLogout()).catch(console.log);
+        dispatch(clear())
+        dispatch(clear2())
         navigate('/');
       }
     });
