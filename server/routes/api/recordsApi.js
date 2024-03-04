@@ -49,7 +49,7 @@ router.post('/', upload.single('img'), async (req, res) => {
       description,
       price: +price,
       quality,
-      img: newFileUrl,
+      img: newFileUrl || '/recordImg/vinyl.png',
       user_id: 1,
       category_id: 1,
     });

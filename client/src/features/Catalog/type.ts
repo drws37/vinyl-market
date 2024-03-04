@@ -11,14 +11,13 @@ export type Record = {
 };
 export type RecordWithoutRecordPrice = Omit<Record, 'RecordPrices'>
 
-
 export type Order = {
-  id:number
-  order_id:number
-  record_id:number
-  price:number
-  count:number
-  Record:Record
+  id: number;
+  order_id: number;
+  record_id: number;
+  price: number;
+  count: number;
+  Record: Record;
 };
 
 export type OrderItem = {
@@ -29,6 +28,7 @@ export type OrderItem = {
   count:number
   Record:Record
 }
+
 export type Favorite = {
   id:number
   user_id:number
@@ -36,10 +36,12 @@ export type Favorite = {
   Record:Record
 }
 
-
 export type OrderItemId = {
   id:number 
 };
+
+export type OrderItemId = OrderItem['id'];
+
 export type RecordId = Record['id'];
 
 export type RecordPrice = {
