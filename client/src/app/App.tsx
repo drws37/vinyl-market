@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Main from '../features/Main/Main';
@@ -14,7 +15,6 @@ import CategoryPage from '../features/Catalog/components/CategoryPage';
 import Order from '../features/Catalog/components/Order';
 import Favorite from '../features/Catalog/components/Favorite';
 import { favoriteLoad } from '../features/Catalog/favoriteSlice';
-import { orderLoad } from '../features/Catalog/ordersSlice';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();

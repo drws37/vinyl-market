@@ -29,16 +29,17 @@ export type OrderItem = {
   Record:Record
 }
 
+
+
 export type Favorite = {
   id:number
   user_id:number
   record_id:number
   Record:Record
 }
-
-export type OrderItemId = {
-  id:number 
-};
+export type FavoriteId = {
+  id:number
+}
 
 export type OrderItemId = OrderItem['id'];
 
@@ -62,7 +63,7 @@ export type StateOrder = {
 };
 
 export type StateFavorite = {
-  favorite: RecordWithoutRecordPrice[];
+  favorite: Favorite[];
   message: string | undefined;
 };
 
