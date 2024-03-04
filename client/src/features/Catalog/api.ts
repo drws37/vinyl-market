@@ -42,6 +42,12 @@ export const fetchRecordDelete = async (id: RecordId | undefined): Promise<Recor
   return data
 }
 
+export const fetchSongsLoad = async (): Promise<Song[]> => {
+  const res = await fetch('/api/records/songs')
+  const data = await res.json()
+  return data.songs
+}
+
 export const fetchSongsAdd = async (formData: FormData): Promise<Song> => {
 const res = await fetch('/api/records/songs', {
   method: 'post',

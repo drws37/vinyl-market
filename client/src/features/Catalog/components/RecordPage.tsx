@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordRemove, recordUpdate } from '../recordsSlice';
 import '../styles/recordsPage.scss';
+import type { Song } from '../type';
+import { songsAdd } from '../songsSlice';
 // import { RecordId } from '../type';
 // import { songsAdd } from '../songsSlice';
 
@@ -57,30 +59,38 @@ function RecordPage(): JSX.Element {
     navigate('/')
   }
 
-  // const [songTitle, setSongTitle] = useState('')
-  // const [duration, setDuration] = useState('')
-  // const [showAdditionalForm, setShowAdditionalForm] = useState(false)
+// const [songTitle, setSongTitle] = useState('');
+// const [duration, setDuration] = useState('');
+// const [songs, setSongs] = useState<Song[]>([]);
+// const [showAdditionalForm, setShowAdditionalForm] = useState(false);
+// const [additionalSongs, setAdditionalSongs] = useState(0);
 
-  // const addSongFetch = (e: React.FormEvent<HTMLFormElement>): void => {
-  //   e.preventDefault()
-  //   const formData = new FormData()
-  //   const recordIdString = currentRecord?.id !== undefined ? currentRecord.id.toString() : '';
-  //   formData.append('songTitle', songTitle);
-  //   formData.append('duration', duration);
-  //   formData.append('recordId', recordIdString);
-  //   dispatch(songsAdd(formData)).catch(console.log)
-  //   setSongTitle('')
-  //   setDuration('')
+// const addSongFetch = (e: React.FormEvent<HTMLFormElement>): void => {
+//   e.preventDefault();
+//   const formData = new FormData();
+//   const recordIdString = currentRecord?.id !== undefined ? currentRecord.id.toString() : '';
+//   formData.append('songTitle', songTitle);
+//   formData.append('duration', duration);
+//   formData.append('recordId', recordIdString);
 
-  //   if (showAdditionalForm) {
-  //     setSongTitle('');
-  //     setDuration('');
-  //   } else {
-  //     setSongTitle('');
-  //     setDuration('');
-  //     setShowAdditionalForm(false);
-  //   }
-  // }
+//   const newSong: Song = {
+//     id: songs.length + 1,
+//     title: songTitle,
+//     duration,
+//     record_id: currentRecord?.id || 0,
+//   };
+
+//   setSongs([...songs, newSong]);
+
+//   dispatch(songsAdd(formData)).catch(console.log);
+//   setSongTitle('');
+//   setDuration('');
+//   setAdditionalSongs(additionalSongs + 1);
+
+//   if (!showAdditionalForm) {
+//     setShowAdditionalForm(true);
+//   }
+// };
 
   
 
@@ -112,10 +122,7 @@ function RecordPage(): JSX.Element {
                 onChange={(e) => setPrice(e.target.value)}
               />
               <input placeholder="img" type="file" onChange={(e) => setImg(e.target.files)} />
-              <select
-                value={quality}
-                onChange={(e) => setQuality(e.target.value)}
-              >
+              <select value={quality} onChange={(e) => setQuality(e.target.value)}>
                 <option value="Empty">Не выбрано</option>
                 <option value="Mint">Mint</option>
                 <option value="Near Mint">Near mint</option>
@@ -125,28 +132,47 @@ function RecordPage(): JSX.Element {
                 <option value="Poor">Poor</option>
                 <option value="Bad">Bad</option>
               </select>
-              <button className='button__update' type="submit">Изменить</button>
-              <button onClick={onHandleDelete} className='button__delete' type='button'>Удалить</button>
+              <button className='button__update' type="submit">
+                Изменить
+              </button>
+              <button onClick={onHandleDelete} className='button__delete' type='button'>
+                Удалить
+              </button>
             </form>
           </div>
-          {/* <div className='add__form__container'>
-      <form className='add__form' onSubmit={addSongFetch}>
-        <input value={songTitle} placeholder='title' required onChange={(e) => setSongTitle(e.target.value)} />
-        <input value={duration} placeholder='duration' required onChange={(e) => setDuration(e.target.value)} />
-        <button type='submit'>Добавить</button>
-
-        {showAdditionalForm && (
-          <div>
-            <input value={songTitle} placeholder='title' required onChange={(e) => setTitle(e.target.value)} />
-            <input value={duration} placeholder='duration' required onChange={(e) => setDuration(e.target.value)} />
-          </div>
-        )}
-
+          {/* <div className="add__form__container">
+          <form className='add__form' onSubmit={addSongFetch}>
+      {songs.map((song) => (
+        <div key={song.id}>
+          <p>{`Title: ${song.title}, Duration: ${song.duration}`}</p>
+        </div>
+      ))}
+      {[...Array(additionalSongs + 1)].map((_, index) => (
+        <div key={index} style={{ display: index === additionalSongs ? 'block' : 'none' }}>
+          <input
+            value={index === additionalSongs ? songTitle : ''}
+            placeholder='title'
+            required
+            onChange={(e) => setSongTitle(e.target.value)}
+          />
+          <input
+            value={index === additionalSongs ? duration : ''}
+            placeholder='duration'
+            required
+            onChange={(e) => setDuration(e.target.value)}
+          />
+        </div>
+      ))}
+      <button type='submit'>
+        {showAdditionalForm ? 'Добавить еще одну песню' : 'Добавить'}
+      </button>
+      {showAdditionalForm && (
         <button type='button' onClick={() => setShowAdditionalForm(!showAdditionalForm)}>
-          {showAdditionalForm ? 'Скрыть форму' : 'Добавить еще одну песню'}
+          {additionalSongs > 0 ? 'Скрыть' : 'Отменить'}
         </button>
-      </form>
-    </div> */}
+      )}
+    </form>
+          </div> */}
           <div className="record-page">
             <div className="record-card_main">
               <div className="card_img">
@@ -192,5 +218,6 @@ function RecordPage(): JSX.Element {
     </div>
   );
 }
+
 
 export default RecordPage;

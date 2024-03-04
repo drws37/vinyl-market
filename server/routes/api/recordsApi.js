@@ -88,6 +88,15 @@ router.delete('/:recordId', async (req, res) => {
   }
 })
 
+router.get('/songs', async (req, res) => {
+  try {
+    const songs = await Song.findAll
+    res.json({songs})
+  } catch ({message}) {
+    res.json({type: 'records router', message})
+  }
+})
+
 router.post('/songs', async (req, res) => {
   
 })

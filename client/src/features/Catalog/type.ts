@@ -20,6 +20,7 @@ export type Song = {
   id: number;
   title: string;
   duration: string;
+  record_id: number | undefined
 }
 
 export type SongId = Song['id']
