@@ -25,10 +25,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT,
       },
-      quality: {
-        allowNull: false,
-        type: Sequelize.TEXT,
-      },
       price: {
         allowNull: false,
         type: Sequelize.INTEGER,

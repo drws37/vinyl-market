@@ -22,7 +22,7 @@ module.exports = {
         },
         onDelete: 'CASCADE',
       },
-      product_id: {
+      record_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {

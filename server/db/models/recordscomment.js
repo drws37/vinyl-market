@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         onDelete: 'CASCADE',
       },
-      product_id: {
+      record_id: {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
