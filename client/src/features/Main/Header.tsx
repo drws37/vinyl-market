@@ -38,7 +38,7 @@ function Header(): JSX.Element {
         ) : (
           <>
         <NavLink to='/order'>Корзина</NavLink>
-        <NavLink to='/'>Избранное</NavLink>
+        <NavLink to='/favorite'>Избранное</NavLink>
 
           <NavLink onClick={handleLogout} to="/logout">
             Выйти

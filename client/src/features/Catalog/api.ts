@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable import/no-duplicates */
-import type { Category, OrderItem, OrderItemId, Record } from "./type";
+import type { Category, Favorite, OrderItem, OrderItemId, Record, RecordWithoutRecordPrice } from "./type";
 // eslint-disable-next-line import/no-duplicates
 import type { RecordId } from "./type";
 
@@ -51,12 +51,12 @@ export const fetchOrderAdd =async (obj:{id:number, status:string}):Promise<Order
   
 }
 
-export const fetchOrdersLoad = async (): Promise<OrderItem[]> => {
+export const fetchOrdersLoad = async ():Promise<{orders:OrderItem[] | undefined, message:string}> => {
   const res = await fetch('/api/order/order')
-  const data = await res.json()
-  // console.log(data);
-  
+  const data = await res.json()  
   return data
+ 
+  
 }
 
 export const fetchOrderDel = async (id:OrderItemId): Promise<OrderItemId> => {
@@ -75,7 +75,7 @@ export const fetchRecordDelete = async (id: RecordId | undefined): Promise<Recor
   return data
 }
 
-export const fetchFavotireAdd =async (id:number):Promise<Record> => {
+export const fetchFavotireAdd =async (id:number):Promise<RecordWithoutRecordPrice> => {
   
   const res = await fetch (`/api/favorite/${id}`, {
     method: 'POST',
@@ -83,8 +83,16 @@ export const fetchFavotireAdd =async (id:number):Promise<Record> => {
     body:JSON.stringify({id})
   })
   const data = await res.json()
-  console.log(data);
+  // console.log(data);
   
   return data
   
+}
+
+export const fetchFavoriteLoad = async (): Promise<Favorite[]> => {
+  const res = await fetch('/api/favorite')
+  const data = await res.json()
+  console.log(data, 123321);
+  
+  return data
 }

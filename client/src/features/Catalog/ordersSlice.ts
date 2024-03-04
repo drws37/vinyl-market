@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as api from './api';
 // eslint-disable-next-line import/no-duplicates
-import type { OrderItemId, StateOrder } from './type';
+import type { OrderItem, OrderItemId, StateOrder } from './type';
 // eslint-disable-next-line import/no-cycle, import/no-duplicates
 
 
 const initialState: StateOrder = {
-  order: [],
+  orders: [],
   message: '',
 };
 
@@ -23,13 +23,18 @@ const recordsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-    .addCase(orderAdd.fulfilled, (state, action) => {state.order = action.payload})
+    .addCase(orderAdd.fulfilled, (state, action) => {state.orders = action.payload})
     .addCase(orderAdd.rejected, (state, action) => {
       state.message = action.error.message
     })
-    .addCase(orderLoad.fulfilled, (state, action) => {state.order = action.payload})
+    .addCase(orderLoad.fulfilled, (state, action) => {
+      if(action.payload.message === 'ok'){
+        
+        state.orders = action.payload.orders}
+      }
+        )
     .addCase(orderLoad.rejected, (state, action) => {state.message = action.error.message})
-    .addCase(orderDelete.fulfilled, (state, action) => {state.order = state.order.filter((el) => el.Record.id !== action.payload)})
+    .addCase(orderDelete.fulfilled, (state, action) => {state.orders = state.orders.filter((el) => el.Record.id !== action.payload)})
     .addCase(orderDelete.rejected, (state, action) => {state.message = action.error.message})
   }
 })

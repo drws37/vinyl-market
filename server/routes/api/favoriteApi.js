@@ -47,12 +47,8 @@ router.get('/', async (req,res) => {
 
   try {
     if(res.locals.user){
-      const orders1 = await Order.findOne({where:{user_id:res.locals.user.id}})
-      // console.log(orders1);
-      const orders = await OrderItem.findAll({include:[{model: Record}], where: {order_id: orders1.id}})
-      // console.log(orders);
-    
-      res.json(orders)
+      const favorite = await Favorite.findAll({include:[{model: Record}], where: {user_id: res.locals.user.id}})
+      res.json(favorite)
     }
     
   } catch ({message}) {

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as api from './api';
 // eslint-disable-next-line import/no-duplicates
-import type { OrderItemId, StateFavorite } from './type';
+import type {StateFavorite } from './type';
 // eslint-disable-next-line import/no-cycle, import/no-duplicates
 
 
@@ -12,6 +12,7 @@ const initialState: StateFavorite = {
 
 
 export const favoriteAdd = createAsyncThunk('favorite/add', (id:number) => api.fetchFavotireAdd(id));
+export const favoriteLoad = createAsyncThunk('favorite/load', () => api.fetchFavoriteLoad())
 
 
 
@@ -21,8 +22,10 @@ const favoriteSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-    .addCase(favoriteAdd.fulfilled, (state, action) => {state.favorite = action.payload})
+    .addCase(favoriteAdd.fulfilled, (state, action) => {state.favorite.records = action.payload})
     .addCase(favoriteAdd.rejected, (state, action) => {state.message = action.error.message})
+    .addCase(favoriteLoad.fulfilled, (state, action) => {state.favorite = action.payload})
+    .addCase(favoriteLoad.rejected, (state, action) => {state.message = action.error.message})
   }
 })
 

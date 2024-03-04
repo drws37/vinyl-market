@@ -9,6 +9,7 @@ export type Record = {
   spotifyId: string;
   RecordPrices: RecordPrice[];
 };
+export type RecordWithoutRecordPrice = Omit<Record, 'RecordPrices'>
 
 
 export type Order = {
@@ -28,6 +29,13 @@ export type OrderItem = {
   count:number
   Record:Record
 }
+export type Favorite = {
+  id:number
+  user_id:number
+  record_id:number
+  Record:Record
+}
+
 
 export type OrderItemId = {
   id:number 
@@ -47,12 +55,12 @@ export type StateRecords = {
 };
 
 export type StateOrder = {
-  order: OrderItem[];
+  orders: OrderItem[];
   message: string | undefined;
 };
 
 export type StateFavorite = {
-  favorite: Record;
+  favorite: RecordWithoutRecordPrice[];
   message: string | undefined;
 };
 
