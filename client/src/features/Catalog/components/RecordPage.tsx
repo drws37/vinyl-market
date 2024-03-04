@@ -67,17 +67,16 @@ function RecordPage(): JSX.Element {
     navigate('/');
   };
 
-  // const getAlbumPrices = () => {
-  //   console.log(records);
-  //   const albumPrices = records.map((record) =>
-  //     record.RecordPrices.map((item) => (item.record_id === +recordId ? item.price : '')),
-  //   );
-  //   const res = albumPrices.filter((item) => item.length ? item : '')
+  const getAlbumPrices = () => {
+    console.log(records);
+    const albumPrices = records.map((record) =>
+      record.RecordPrices.map((item) => (item.record_id === +recordId ? item.price : '')),
+    );
+    const res = albumPrices.filter((item) => item.length ? item : '')
 
-  //   console.log(res, 'ALBUM PRICES');
-  //   return res
-  // };
-  // getAlbumPrices();
+    console.log(res, 'ALBUM PRICES');
+    return res
+  };
   // ChartJS
   const chartData = {
     labels: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь'],
