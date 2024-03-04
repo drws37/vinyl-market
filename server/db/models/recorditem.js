@@ -1,21 +1,18 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Record extends Model {
+  class RecordItem extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ User, Category, Song, RecordPrice, RecordItem }) {
+    static associate({ User, Record }) {
       this.belongsTo(User, { foreignKey: 'user_id' });
-      this.belongsTo(Category, { foreignKey: 'category_id' });
-      this.hasMany(Song, { foreignKey: 'record_id' });
-      this.hasMany(RecordPrice, { foreignKey: 'record_id' });
-      this.hasMany(RecordItem, { foreignKey: 'record_id' });
+      this.belongsTo(Record, { foreignKey: 'user_id' });
     }
   }
-  Record.init(
+  RecordItem.init(
     {
       id: {
         allowNull: false,
@@ -23,38 +20,13 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      title: {
-        allowNull: false,
-        type: DataTypes.TEXT,
-      },
-      artist: {
-        allowNull: false,
-        type: DataTypes.TEXT,
-      },
-      description: {
-        allowNull: false,
-        type: DataTypes.TEXT,
-      },
-      img: {
-        allowNull: false,
-        type: DataTypes.TEXT,
-      },
-      quality: {
-        allowNull: false,
-        type: DataTypes.TEXT,
-      },
       price: {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
-      category_id: {
+      quality: {
         allowNull: false,
-        type: DataTypes.INTEGER,
-        references: {
-          model: 'Categories',
-          key: 'id',
-        },
-        onDelete: 'CASCADE',
+        type: DataTypes.TEXT,
       },
       user_id: {
         allowNull: false,
@@ -63,10 +35,14 @@ module.exports = (sequelize, DataTypes) => {
           model: 'Users',
           key: 'id',
         },
-        onDelete: 'CASCADE',
       },
-      spotifyId: {
-        type: DataTypes.TEXT,
+      record_id: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'Records',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,
@@ -79,8 +55,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Record',
+      modelName: 'RecordItem',
     }
   );
-  return Record;
+  return RecordItem;
 };
