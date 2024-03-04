@@ -74,11 +74,12 @@ function RecordPage(): JSX.Element {
 
   function getAlbumData(): number[] {
     if (currentRecord) {
-      const resPrices = currentRecord?.RecordPrices.map((item) => item.price);
+      const resPrices = currentRecord?.RecordPrices.map((item) => item?.price);
       console.log(resPrices, 'RES PRICES');
-      const resDates = currentRecord?.RecordPrices.map((item) => item.createdAt);
-      console.log(resPrices, 'RES PRICES');
-      return [resPrices, resDates];
+      const resDates = currentRecord?.RecordPrices.map((item) => item?.createdAt.slice(0, 10));
+      const sortedDates = resDates.sort((a, b) => a.localeCompare(b));
+      console.log(resDates, 'RES DATES');
+      return [resPrices, sortedDates];
     }
     return []
   }
@@ -103,11 +104,6 @@ function RecordPage(): JSX.Element {
       legend: true,
       tooltip: {
         label: 'Цена',
-      },
-    },
-    scales: {
-      y: {
-        min: 2000,
       },
     },
   };
