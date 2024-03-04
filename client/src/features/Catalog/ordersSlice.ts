@@ -29,7 +29,7 @@ const recordsSlice = createSlice({
     })
     .addCase(orderLoad.fulfilled, (state, action) => {state.order = action.payload})
     .addCase(orderLoad.rejected, (state, action) => {state.message = action.error.message})
-    .addCase(orderDelete.fulfilled, (state, action) => {state.order = state.order.filter((el) => el.Record.id !== action.payload.id)})
+    .addCase(orderDelete.fulfilled, (state, action) => {state.order = state.order.filter((el) => el.Record.id !== action.payload)})
     .addCase(orderDelete.rejected, (state, action) => {state.message = action.error.message})
   }
 })

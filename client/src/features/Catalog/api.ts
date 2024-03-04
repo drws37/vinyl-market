@@ -62,13 +62,29 @@ export const fetchOrdersLoad = async (): Promise<OrderItem[]> => {
 export const fetchOrderDel = async (id:OrderItemId): Promise<OrderItemId> => {
   const res = await fetch(`/api/order/${id}`, {method: 'DELETE'})
   const data = await res.json()
-
+  console.log(data,'ddddddaaaata')
+  return data
+}
 export const fetchRecordDelete = async (id: RecordId | undefined): Promise<RecordId> => {
   const res = await fetch(`/api/records/${id}`, {
     method: 'delete'
   })
   const data = await res.json()
-  console.log(data);
+  // console.log(data);
 
   return data
+}
+
+export const fetchFavotireAdd =async (id:number):Promise<Record> => {
+  
+  const res = await fetch (`/api/favorite/${id}`, {
+    method: 'POST',
+    headers:{'Content-Type' : 'application/json'},
+    body:JSON.stringify({id})
+  })
+  const data = await res.json()
+  console.log(data);
+  
+  return data
+  
 }

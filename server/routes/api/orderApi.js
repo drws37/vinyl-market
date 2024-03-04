@@ -12,7 +12,7 @@ try {
   console.log(orderDelete, '123123123');
   if(orderDelete){
     console.log('-------------');
-    res.json(id)
+    res.json(+id)
 
   }
   

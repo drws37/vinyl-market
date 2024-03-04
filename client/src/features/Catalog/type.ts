@@ -28,6 +28,7 @@ export type OrderItem = {
   count:number
   Record:Record
 }
+
 export type OrderItemId = {
   id:number 
 };
@@ -47,6 +48,11 @@ export type StateRecords = {
 
 export type StateOrder = {
   order: OrderItem[];
+  message: string | undefined;
+};
+
+export type StateFavorite = {
+  favorite: Record;
   message: string | undefined;
 };
 
