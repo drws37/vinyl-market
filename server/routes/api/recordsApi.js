@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
         },
       ],
     });
-    console.log(records, 'RECORDSSSSS')
+    // console.log(records, 'RECORDSSSSS')
     res.json({ records });
   } catch ({ message }) {
     res.json({ type: 'records router', message });
@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', upload.single('img'), async (req, res) => {
   try {
-    const { title, artist, description, price, quality } = req.body;
+    const { title, artist, description, price, quality, category } = req.body;
 
     let newFileUrl = '';
     if (req.file) {
@@ -51,7 +51,7 @@ router.post('/', upload.single('img'), async (req, res) => {
       quality,
       img: newFileUrl || '/recordImg/vinyl.png',
       user_id: 1,
-      category_id: 1,
+      category_id: +category,
     });
     res.json({ record });
   } catch ({ message }) {
@@ -95,5 +95,18 @@ router.delete('/:recordId', async (req, res) => {
     res.json({type: 'records router', message})
   }
 });
+
+router.get('/songs', async (req, res) => {
+  try {
+    const songs = await Song.findAll
+    res.json({songs})
+  } catch ({message}) {
+    res.json({type: 'records router', message})
+  }
+})
+
+router.post('/songs', async (req, res) => {
+  
+})
 
 module.exports = router;

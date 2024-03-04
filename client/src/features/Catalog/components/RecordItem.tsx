@@ -1,15 +1,25 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import type { Record } from '../type';
 import '../styles/records.scss';
 import * as api from '../api'
+import { useAppDispatch } from '../../../store/store';
+import { favoriteAdd } from '../favoriteSlice';
 
 function RecordItem({ record }: { record: Record }): JSX.Element {
+
+  const dispatch = useAppDispatch()
 
 const AddItemInOrder = async():Promise<void> =>{
   await api.fetchOrderAdd({status:'Корзина', id:record.id}).catch(console.log)
 
+}
+
+const AddFavoritre =async (id:number):Promise<void> => {
+  dispatch(favoriteAdd(id)).catch(console.log)
+  
 }
   const scrollToTop = (): void => {
     window.scrollTo(0, 0);
@@ -24,7 +34,7 @@ const AddItemInOrder = async():Promise<void> =>{
         <h2 className="record__artist">{record.artist}</h2>
         <h3 className="record__title">{record.title}</h3>
         <p className="record__price">{record.price} ₽</p>
-        <button type="button" className="btn__favorite">
+        <button type="button" onClick={()=> {AddFavoritre(record.id)}} className="btn__favorite">
           Сердечко
         </button>
         <Link onClick={scrollToTop} className="btn__more" to={`/records/${record.id}`}>

@@ -27,8 +27,7 @@ function Header(): JSX.Element {
     <nav className='nav'>
         <div className='nav-bar'>
         <NavLink to='/'>LOGO</NavLink>
-        <NavLink to='/'>Избранное</NavLink>
-        <NavLink to='/order'>Корзина</NavLink>
+
         <NavLink to={`/profile/${user?.id}`}>Профиль</NavLink>
 
         {!user ? (
@@ -37,9 +36,14 @@ function Header(): JSX.Element {
             <NavLink to="/sign-in">Вход</NavLink>
           </>
         ) : (
+          <>
+        <NavLink to='/order'>Корзина</NavLink>
+        <NavLink to='/favorite'>Избранное</NavLink>
+
           <NavLink onClick={handleLogout} to="/logout">
             Выйти
           </NavLink>
+        </>
         )}
       </div>
     </nav>
