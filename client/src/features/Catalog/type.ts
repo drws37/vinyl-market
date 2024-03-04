@@ -10,27 +10,26 @@ export type Record = {
   RecordPrices: RecordPrice[];
 };
 
-
 export type Order = {
-  id:number
-  order_id:number
-  record_id:number
-  price:number
-  count:number
-  Record:Record
+  id: number;
+  order_id: number;
+  record_id: number;
+  price: number;
+  count: number;
+  Record: Record;
 };
 
 export type OrderItem = {
-  id:number
-  order_id:number
-  record_id:number
-  price:number
-  count:number
-  Record:Record
-}
-export type OrderItemId = {
-  id:number 
+  id: number;
+  order_id: number;
+  record_id: number;
+  price: number;
+  count: number;
+  Record: Record;
 };
+
+export type OrderItemId = OrderItem['id'];
+
 export type RecordId = Record['id'];
 
 export type RecordPrice = {
