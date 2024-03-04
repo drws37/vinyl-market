@@ -72,13 +72,16 @@ function RecordPage(): JSX.Element {
     navigate('/');
   };
 
-  function getAlbumData():number[] | undefined {
-    const resPrices = currentRecord?.RecordPrices.map((item) => item.price);
-    console.log(resPrices, 'RES PRICES');
-    const resDates = currentRecord?.RecordPrices.map((item) => item.createdAt);
-    console.log(resPrices, 'RES PRICES');
-    return [resPrices, resDates];
-  };
+  function getAlbumData(): number[] {
+    if (currentRecord) {
+      const resPrices = currentRecord?.RecordPrices.map((item) => item.price);
+      console.log(resPrices, 'RES PRICES');
+      const resDates = currentRecord?.RecordPrices.map((item) => item.createdAt);
+      console.log(resPrices, 'RES PRICES');
+      return [resPrices, resDates];
+    }
+    return [];
+  }
 
   // ChartJS
   const chartData = {

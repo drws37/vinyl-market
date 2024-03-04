@@ -53,7 +53,6 @@ router.post('/', upload.single('img'), async (req, res) => {
       user_id: 1,
       category_id: +category,
     });
-
     res.json({ record });
   } catch ({ message }) {
     res.json({ type: 'records router', message });
