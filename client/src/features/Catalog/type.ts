@@ -56,6 +56,20 @@ export type StateRecords = {
   message: string | undefined;
 };
 
+export type Song = {
+  id: number;
+  title: string;
+  duration: string;
+  record_id: number | undefined
+}
+
+export type SongId = Song['id']
+
+export type StateSongs = {
+  songs: Song[];
+  message: string | undefined
+}
+
 export type StateOrder = {
   orders: OrderItem[];
   message: string | undefined;
@@ -71,6 +85,8 @@ export type Category = {
   title: string;
   Records?: Record[];
 };
+
+export type CategoryId = Category['id']
 
 export type StateCategories = {
   categories: Category[];

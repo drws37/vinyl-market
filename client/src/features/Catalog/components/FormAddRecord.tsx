@@ -1,7 +1,9 @@
 /* eslint-disable react/function-component-definition */
 import React, { useState } from 'react';
-import { useAppDispatch } from '../../../store/store';
+import { useSelector } from 'react-redux';
+import { type RootState, useAppDispatch } from '../../../store/store';
 import { recordAdd } from '../recordsSlice';
+
 
 const FormAddRecord = (): JSX.Element => {
 
@@ -11,7 +13,9 @@ const FormAddRecord = (): JSX.Element => {
   const [img, setImg] = useState<FileList | null | undefined>(null)
   const [price, setPrice] = useState('')
   const [quality, setQuality] = useState('')
+  const [category, setCategory] = useState('')
 
+  const categories = useSelector((store: RootState) => store.categories.categories)
   const dispatch = useAppDispatch();
 
   const addRecordFetch = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -24,17 +28,25 @@ const FormAddRecord = (): JSX.Element => {
     formData.append('price', price)
     formData.append('img', imgFile !== null && imgFile !== undefined ? imgFile : '')
     formData.append('quality', quality)
+    formData.append('category', category)
     dispatch(recordAdd(formData)).catch(console.log)
     setTitle('')
     setArtist('')
     setDescription('')
     setPrice('')
     setQuality('')
+    setCategory('')
   }
 
   return (
     <div className='add__form__container'>
       <form className='add__form' onSubmit={addRecordFetch}>
+            <select value={category} onChange={(e) => setCategory(e.target.value)}>
+              <option value= ''>Выберите жанр</option>
+              {categories.map((genre) => (
+                <option key={genre.id} value={genre.id}>{genre.title}</option>
+              ))}
+            </select>
             <input value={title} placeholder='title' required onChange={(e)=>setTitle(e.target.value)} />
             <input value={artist} placeholder='artist' onChange={(e)=>setArtist(e.target.value)}/>
             <input value={description} placeholder='description' onChange={(e)=>setDescription(e.target.value)}/>

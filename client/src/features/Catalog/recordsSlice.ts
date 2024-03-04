@@ -17,9 +17,7 @@ const initialState: StateRecords = {
 
 
 export const recordsLoad = createAsyncThunk('records/load', () => api.fetchReocrdsLoad());
-export const recordAdd = createAsyncThunk('records/add', (obj: FormData) =>
-  api.fetchRecordAdd(obj),
-);
+export const recordAdd = createAsyncThunk('records/add', (obj: FormData) => api.fetchRecordAdd(obj));
 export const recordUpdate = createAsyncThunk('records/update', (obj: {id : RecordId | undefined, obj: FormData}) =>
   api.fetchRecordUpdate(obj),
 )

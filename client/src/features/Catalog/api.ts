@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable import/no-duplicates */
-
-import type { Category, Favorite, OrderItem, OrderItemId, Record, RecordWithoutRecordPrice } from "./type";
-import type { RecordId } from './type';
+import type { Category, Favorite, OrderItem, OrderItemId, Record, RecordId, RecordWithoutRecordPrice, Song } from "./type";
 
 export const fetchReocrdsLoad = async (): Promise<Record[]> => {
   const res = await fetch('/api/records');
@@ -70,6 +68,7 @@ export const fetchRecordDelete = async (id: RecordId | undefined): Promise<Recor
     method: 'delete'
   })
   const data = await res.json()
+
   // console.log(data);
   return data
 }
@@ -94,4 +93,19 @@ export const fetchFavoriteLoad = async (): Promise<Favorite[]> => {
   console.log(data, 123321);
   
   return data
+}
+
+export const fetchSongsLoad = async (): Promise<Song[]> => {
+  const res = await fetch('/api/records/songs')
+  const data = await res.json()
+  return data.songs
+}
+
+export const fetchSongsAdd = async (formData: FormData): Promise<Song> => {
+const res = await fetch('/api/records/songs', {
+  method: 'post',
+  body: formData,
+})
+const data = await res.json()
+return data
 }
