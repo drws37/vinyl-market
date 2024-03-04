@@ -80,7 +80,7 @@ function RecordPage(): JSX.Element {
       console.log(resPrices, 'RES PRICES');
       return [resPrices, resDates];
     }
-    return [];
+    return []
   }
 
   // ChartJS
