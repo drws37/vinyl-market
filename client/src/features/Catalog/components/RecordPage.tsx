@@ -22,7 +22,7 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
-  const records = useSelector((store: RootState) => store.records.records);
+  const records = useSelector((store: RootState) => store.records.records)|| [];
   const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
 
   const [title, setTitle] = useState<string | undefined>(undefined);
@@ -67,27 +67,37 @@ function RecordPage(): JSX.Element {
     navigate('/');
   };
 
-  const getAlbumPrices = () => {
-    console.log(records);
-    const albumPrices = records.map((record) =>
-      record.RecordPrices.map((item) => (item.record_id === +recordId ? item.price : '')),
-    );
-    const res = albumPrices.filter((item) => item.length ? item : '')
-
-    console.log(res, 'ALBUM PRICES');
-    return res
+  const getAlbumData = () => {
+    console.log(records, 'RECORDS');
+    
+      if (recordId) {
+        const albumPrices = records.map((record) =>
+          record?.RecordPrices?.map((item) => (item.record_id === +recordId ? item.price : '')),
+        );
+        const albumDates = records.map((record) =>
+          record?.RecordPrices?.map((item) =>
+            item.record_id === +recordId ? item.createdAt.slice(2, 10) : '',
+          ),
+        );
+        const resPrices = albumPrices.filter((item) => (item?.length ? item : console.log('CANNOT FILTER resPRICES')));
+        const resDates = albumDates.filter((item) => (item?.length ? item : console.log('CANNOT FILTER resDATES')));
+        return [resDates, resPrices];
+      }
+    
+    return 'getAlbumPrices error';
   };
+
   // ChartJS
   const chartData = {
-    labels: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь'],
+    labels: getAlbumData()[0][0],
     datasets: [
       {
         labels: 'Месяц',
-        // data: getAlbumPrices()[0],
+        data: getAlbumData()[1][0],
         backgroundColor: '#242424',
         borderColor: 'pink',
         pointBorderColor: '#242424',
-        tension: 0.4,
+        tension: 0.3,
       },
     ],
   };
@@ -181,7 +191,7 @@ function RecordPage(): JSX.Element {
                 <h3>Изменение цены</h3>
                 <Line data={chartData} options={options} />
               </div>
-              <div>
+              <div className='same_records'>
                 <h2>У других продавцов:</h2>
               </div>
               <div>
