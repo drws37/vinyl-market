@@ -12,7 +12,7 @@ try {
   console.log(orderDelete, '123123123');
   if(orderDelete){
     console.log('-------------');
-    res.json(id)
+    res.json(+id)
 
   }
   
@@ -61,13 +61,17 @@ router.post('/', async (req, res) => {
 router.get('/order', async (req,res) => {
 
   try {
+    // console.log(res.locals.user,'----99999')
     if(res.locals.user){
       const orders1 = await Order.findOne({where:{user_id:res.locals.user.id}})
-      // console.log(orders1);
-      const orders = await OrderItem.findAll({include:[{model: Record}], where: {order_id: orders1.id}})
-      // console.log(orders);
-    
-      res.json(orders)
+      console.log(orders1);
+      if(orders1){
+        const orders = await OrderItem.findAll({include:[{model: Record}], where: {order_id: orders1.id}})
+        console.log('OKKKKKK');
+        res.json({orders, message: 'ok'})
+      }else{
+        res.json({message: 'clear'})
+      } 
     }
     
   } catch ({message}) {

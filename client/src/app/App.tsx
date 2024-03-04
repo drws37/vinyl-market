@@ -12,6 +12,8 @@ import RecordPage from '../features/Catalog/components/RecordPage';
 import { categoriesLoad } from '../features/Catalog/categoriesSlice';
 import CategoryPage from '../features/Catalog/components/CategoryPage';
 import Order from '../features/Catalog/components/Order';
+import Favorite from '../features/Catalog/components/Favorite';
+import { favoriteLoad } from '../features/Catalog/favoriteSlice';
 import { orderLoad } from '../features/Catalog/ordersSlice';
 
 function App(): JSX.Element {
@@ -21,8 +23,8 @@ function App(): JSX.Element {
     dispatch(recordsLoad()).catch(console.log);
     dispatch(categoriesLoad()).catch(console.log);
     dispatch(authCheckUser()).catch(console.log);
-
-
+    dispatch(favoriteLoad()).catch(console.log);
+  
   }, []);
 
   return (
@@ -30,6 +32,7 @@ function App(): JSX.Element {
       <Route path="/" element={<Main />}>
         <Route index element={<MainPage />} />
         <Route path='order' element={<Order />} />
+        <Route path='favorite' element={<Favorite />} />
         <Route path="sign-up" element={<Registration />} />
         <Route path="sign-in" element={<Login />} />
         <Route path="/profile/:userId" element={<ProfilePage />} />

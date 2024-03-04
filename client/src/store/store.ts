@@ -6,13 +6,15 @@ import authSlice from '../features/Auth/authSlice';
 import recordsSlice from '../features/Catalog/recordsSlice';
 import categoriesSlice from '../features/Catalog/categoriesSlice';
 import ordersSlice from '../features/Catalog/ordersSlice';
+import favoriteSlice from '../features/Catalog/favoriteSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authSlice,
     records: recordsSlice,
     categories: categoriesSlice,
-    order: ordersSlice
+    order: ordersSlice,
+    favorite: favoriteSlice
   },
 });
 

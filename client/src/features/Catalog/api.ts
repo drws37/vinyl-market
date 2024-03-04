@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable import/no-duplicates */
-import type { Category, OrderItem, OrderItemId, Record } from './type';
-// eslint-disable-next-line import/no-duplicates
+
+import type { Category, Favorite, OrderItem, OrderItemId, Record, RecordWithoutRecordPrice } from "./type";
 import type { RecordId } from './type';
 
 export const fetchReocrdsLoad = async (): Promise<Record[]> => {
@@ -52,25 +52,46 @@ export const fetchOrderAdd = async (obj: { id: number; status: string }): Promis
   return data;
 };
 
-export const fetchOrdersLoad = async (): Promise<OrderItem[]> => {
-  const res = await fetch('/api/order/order');
-  const data = await res.json();
-  // console.log(data);
+export const fetchOrdersLoad = async ():Promise<{orders:OrderItem[] | undefined, message:string}> => {
+  const res = await fetch('/api/order/order')
+  const data = await res.json()  
+  return data
+}
 
-  return data;
-};
+export const fetchOrderDel = async (id:OrderItemId): Promise<OrderItemId> => {
+  const res = await fetch(`/api/order/${id}`, {method: 'DELETE'})
+  const data = await res.json()
+  console.log(data,'ddddddaaaata')
+  return data
+}
 
-export const fetchOrderDel = async (id: OrderItemId): Promise<OrderItemId> => {
-  const res = await fetch(`/api/order/${id}`, { method: 'DELETE' });
-  const data = await res.json();
-  return data;
-};
 export const fetchRecordDelete = async (id: RecordId | undefined): Promise<RecordId> => {
   const res = await fetch(`/api/records/${id}`, {
-    method: 'delete',
-  });
-  const data = await res.json();
-  console.log(data);
+    method: 'delete'
+  })
+  const data = await res.json()
+  // console.log(data);
+  return data
+}
 
-  return data;
-};
+export const fetchFavotireAdd =async (id:number):Promise<RecordWithoutRecordPrice> => {
+  
+  const res = await fetch (`/api/favorite/${id}`, {
+    method: 'POST',
+    headers:{'Content-Type' : 'application/json'},
+    body:JSON.stringify({id})
+  })
+  const data = await res.json()
+  // console.log(data);
+  
+  return data
+  
+}
+
+export const fetchFavoriteLoad = async (): Promise<Favorite[]> => {
+  const res = await fetch('/api/favorite')
+  const data = await res.json()
+  console.log(data, 123321);
+  
+  return data
+}
