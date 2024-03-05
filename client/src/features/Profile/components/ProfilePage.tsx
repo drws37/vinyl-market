@@ -35,7 +35,7 @@ function ProfilePage(): JSX.Element {
       <div className="profile_main">
         <div className="sidebar">
           <UserPage />
-          {user && user.role === 'seller' ? (
+          {user && user?.role === 'seller' ? (
             <>
               <button type="button" onClick={() => setContent('products')}>
                 Мои товары
@@ -44,7 +44,7 @@ function ProfilePage(): JSX.Element {
             </>
           ) : (
             user &&
-            user.role === 'buyer' && (
+            user?.role === 'buyer' && (
               <>
                 <button type="button" onClick={() => setContent('personalData')} />
                 <button type="button" onClick={() => setContent('cart')}>
@@ -63,7 +63,7 @@ function ProfilePage(): JSX.Element {
         <div>
           {content === 'personalData' ? (
             <div>
-              {user.role === 'admin' ? (
+              {user?.role === 'admin' ? (
                 <div>
                   <div>
                     {records.map(
@@ -105,7 +105,7 @@ function ProfilePage(): JSX.Element {
               <FormAddRecord />
               {records.map(
                 (record) =>
-                  record.user_id === user.id && (
+                  record?.user_id === user.id && (
                     <div>
                       <div>
                         <img style={{ width: '200px' }} src={record.img} alt="" />
