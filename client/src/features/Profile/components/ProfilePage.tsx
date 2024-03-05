@@ -85,7 +85,7 @@ function ProfilePage(): JSX.Element {
                   <div>
                     {records.map(
                       (record) =>
-                        record.status === 'false' && (
+                        record?.status === 'false' && (
                           <div>
                             <div>
                               <img style={{ width: '200px' }} src={record.img} alt="" />
@@ -129,7 +129,7 @@ function ProfilePage(): JSX.Element {
               <FormAddRecord />
               {records.map(
                 (record) =>
-                  record?.user_id === user.id && (
+                  record?.user_id === user?.id && (
                     <div>
                       <div>
                         <img style={{ width: '200px' }} src={record.img} alt="" />
