@@ -27,7 +27,6 @@ router.get('/', async (req, res) => {
         },
       ],
     });
-    // console.log(records, 'RECORDSSSSS')
     res.json({ records });
   } catch ({ message }) {
     res.json({ type: 'records router', message });
