@@ -3,5 +3,3 @@ export const logoutFetch = async (): Promise<{ message: string }> => {
   const data: { message: string } = (await res.json()) as { message: string };
   return data;
 };
-
-
