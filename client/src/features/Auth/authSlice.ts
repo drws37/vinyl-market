@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { CheckUser, StateAuth, User, UserWithoutNameAndRpasswordAndRole } from './type';
+import type { StateAuth, User, UserWithoutNameAndRpasswordAndRole } from './type';
 import * as api from './api';
 import * as logoutApi from '../Main/api';
 
