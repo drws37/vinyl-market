@@ -19,7 +19,6 @@ import { recordRemove, recordUpdate } from '../recordsSlice';
 import '../styles/recordsPage.scss';
 import type { Song } from '../type';
 import { songsAdd } from '../songsSlice';
-import { fetchSongsAdd } from '../api';
 import Test from './Test';
 // import { RecordId } from '../type';
 // import { songsAdd } from '../songsSlice';
@@ -123,26 +122,29 @@ function RecordPage(): JSX.Element {
   };
 
   const [songs, setSongs] = useState<Song[]>([]);
-  const [currentSong, setCurrentSong] = useState<Song>({ id: 0, title: '', duration: '', record_id: 0 });
+  const [currentSong, setCurrentSong] = useState<Song>({ id: 0, songTitle: '', duration: '', record_id: 0 });
   
-  const handleInputChange = (key: string, value: string) => {
+  const handleInputChange = (key: string, value: string): void => {
     setCurrentSong((prevSong) => ({ ...prevSong, [key]: value }));
   };
   
   const addSong = (): void => {
     setSongs((prevSongs) => [...prevSongs, currentSong]);
-    setCurrentSong({ id: 0, title: '', duration: '', record_id: 0 });
+    setCurrentSong({ id: 0, songTitle: '', duration: '', record_id: 0 });
+  };
+
+  const removeSong = (index: number): void => {
+    setSongs((prevSongs) => prevSongs.filter((_, i) => i !== index));
   };
   
   const addAllSongs = (): void => {
     const formattedSongs = songs.map((song) => ({
-      title: song.songTitle,
+      songTitle: song.songTitle,
       duration: song.duration,
       record_id: currentRecord?.id || 0,
     }));
   
-    // Далее идет ваш код для отправки данных на сервер
-    // ...
+
   
     dispatch(songsAdd({ songs: formattedSongs})).catch(console.log);
   };
@@ -191,7 +193,6 @@ function RecordPage(): JSX.Element {
             </form>
           </div>
           <div>
-      {/* Инпуты для текущей песни */}
       <input
         value={currentSong.songTitle}
         placeholder='songTitle'
@@ -208,14 +209,16 @@ function RecordPage(): JSX.Element {
         Добавить еще одну песню
       </button>
 
-      {/* Инпуты для всех песен */}
-      {songs.map((song, index) => (
-        <div key={index}>
-          <p>{`Песня ${index + 1}: ${song.title}, ${song.duration}`}</p>
-        </div>
-      ))}
+ {songs.map((song, index) => (
+    <div key={index}>
+      <p>{`Песня ${index + 1}: ${song.songTitle}, ${song.duration}`}
+        <button type='button' onClick={() => removeSong(index)}>
+          Удалить
+        </button>
+      </p>
+    </div>
+  ))}
 
-      {/* Кнопка для отправки всех песен */}
       <button type='button' onClick={addAllSongs}>
         Добавить все песни
       </button>
@@ -248,6 +251,7 @@ function RecordPage(): JSX.Element {
               </div>
               <div className="same_artist">
                 <h2>От того же исполнителя:</h2>
+                <Test/>
               </div>
               <div className="chart">
                 <h3>Изменение цены</h3>

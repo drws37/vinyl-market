@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as api from './api';
-import type { RecordId, Song, StateSongs } from './type';
+import type {SongWithoutId, StateSongs } from './type';
 
 const initialState: StateSongs = {
   songs: [],
   message: '',
 }
 
-export const songsAdd = createAsyncThunk('songs/add', async (obj: { songs: Song[] }) => api.fetchSongsAdd(obj))
+export const songsAdd = createAsyncThunk('songs/add', async (obj: { songs: SongWithoutId[] }) => api.fetchSongsAdd(obj))
 export const songsLoad = createAsyncThunk('songs/load', () => api.fetchSongsLoad())
 
 const songsSlice = createSlice({

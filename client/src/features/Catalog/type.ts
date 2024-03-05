@@ -58,7 +58,13 @@ export type StateRecords = {
 
 export type Song = {
   id: number;
-  title: string;
+  songTitle: string;
+  duration: string;
+  record_id: number | undefined
+}
+
+export type SongWithoutId = {
+  songTitle: string;
   duration: string;
   record_id: number | undefined
 }
