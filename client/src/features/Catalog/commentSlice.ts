@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type {StateComment } from './type';
+import type {Comment, StateComment } from './type';
 import * as api from './api';
 
 const initialState: StateComment = {
@@ -18,7 +18,7 @@ const commentSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(commentAddThunk.fulfilled, (state, action) => {
-        state.comment = action.payload;
+       state.comment.push(action.payload);
       })
       .addCase(commentAddThunk.rejected, (state, action) => {
         state.message = action.error.message;

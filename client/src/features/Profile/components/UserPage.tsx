@@ -1,6 +1,6 @@
+
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-
 import type { UserAndId } from '../../Auth/type';
 
 import { useAppDispatch } from '../../../store/store';
