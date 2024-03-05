@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const indexRouter = require('./routes/index.routes');
 const { verifyAccessToken } = require('./middleware/verifyToken');

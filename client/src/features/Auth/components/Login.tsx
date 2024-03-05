@@ -1,15 +1,15 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
-import { object, ref, string } from 'yup';
+import { object, string } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/form.css';
-import { useSelector } from 'react-redux';
-import type { RootState } from '@reduxjs/toolkit/query';
-import store, { useAppDispatch } from '../../../store/store';
-import type { User, UserWithoutNameAndRpasswordAndRole } from '../type';
-import { authLogin, authRegistration } from '../authSlice';
+import { useAppDispatch } from '../../../store/store';
+import type { Userr } from '../type';
+import { authLogin } from '../authSlice';
 
 const checkfild = object().shape({
   email: string().required('Необходимо указать электронную почту'),
@@ -18,21 +18,19 @@ const checkfild = object().shape({
 
 function Login(): JSX.Element {
   const dispatch = useAppDispatch();
-
-  // const message = useSelector((store:RootState) => store.auth.message)
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserWithoutNameAndRpasswordAndRole>({ resolver: yupResolver(checkfild) });
+  } = useForm<Userr>({ resolver: yupResolver(checkfild) });
 
-  const login: SubmitHandler<UserWithoutNameAndRpasswordAndRole> = (
-    data: UserWithoutNameAndRpasswordAndRole,
+  const login: SubmitHandler<Userr> = (
+    data: Userr,
   ) => {
     dispatch(authLogin(data)).catch(console.log);
-    navigate('/')
+    navigate('/');
   };
   return (
     <div className="container">

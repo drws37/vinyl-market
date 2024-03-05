@@ -1,6 +1,6 @@
-import type { CheckUser, User, UserAndId, UserWithoutNameAndRpasswordAndRole } from "./type";
+import type { CheckUser, RegUser, UserAndId, Userr } from "./type";
 
-export const registrationFetch = async(obj:User):Promise<UserAndId> => {
+export const registrationFetch = async(obj:RegUser):Promise<UserAndId> => {
     const res = await fetch ('/api/auth/registration', {
         method:'POST',
        headers: {'Content-Type': 'application/json'},
@@ -15,7 +15,7 @@ export const registrationFetch = async(obj:User):Promise<UserAndId> => {
 }
 
 
-export const loginFetch = async(obj:UserWithoutNameAndRpasswordAndRole):Promise<UserAndId> => {
+export const loginFetch = async(obj:Userr):Promise<UserAndId> => {
     const res = await fetch ('/api/auth/login', {
         method:'POST',
        headers: {'Content-Type': 'application/json'},
