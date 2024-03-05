@@ -2,6 +2,7 @@ import { User } from '../Auth/type';
 
 export type Record = {
   id: number;
+  user_id:number
   title: string;
   artist: string;
   description: string;
@@ -9,6 +10,7 @@ export type Record = {
   quality: string;
   price: number;
   spotifyId: string;
+  status:boolean
   RecordPrices: RecordPrice[];
 };
 export type RecordWithoutRecordPrice = Omit<Record, 'RecordPrices'>;
@@ -88,7 +90,7 @@ export type Shop = {
 
 export type Comment = {
   comment: string;
-  seller_id: number;
+  // seller_id: number
 };
 
 export type ShopUser = {

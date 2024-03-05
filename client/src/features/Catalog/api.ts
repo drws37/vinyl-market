@@ -14,6 +14,7 @@ import type {
   FavoriteId,
   Shop,
   ShopWithoutRecord,
+  Comment,
 } from './type';
 
 export const fetchReocrdsLoad = async (): Promise<Record[]> => {
@@ -106,7 +107,7 @@ export const fetchFavoriteLoad = async (): Promise<Favorite[]> => {
   return data;
 };
 
-export const fetchFavoriteDelete = async (id: FavoriteId): Promise<FavoriteId> => {
+export const fetchFavoriteDelete = async (id: number): Promise<FavoriteId> => {
   const res = await fetch(`/api/favorite/item/${id}`, { method: 'DELETE' });
   const data = await res.json();
   // console.log(data, 'ddddddaaaata');
@@ -139,7 +140,7 @@ export const fetchShopLoad = async (id:number): Promise<{user:ShopWithoutRecord,
   return data;
 };
 
-export const fetchCommentAdd = async (obj:Comment): Promise<Comment[]> => {
+export const fetchCommentAdd = async (obj:Comment): Promise<Comment> => {
   const res = await fetch('/api/shop/comment', {
     method: 'post',
     headers: {
@@ -148,6 +149,8 @@ export const fetchCommentAdd = async (obj:Comment): Promise<Comment[]> => {
     body: JSON.stringify(obj),
   })
   const data = await res.json()
+  console.log(data, '1231321233xyi');
+  
   return data
   }
 

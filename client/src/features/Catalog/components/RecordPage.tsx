@@ -17,7 +17,6 @@ import { recordRemove, recordUpdate, recordsLoad } from '../recordsSlice';
 import '../styles/recordsPage.scss';
 import type { Song } from '../type';
 import { songsAdd } from '../songsSlice';
-import { shopLoad } from '../shopSlice';
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 

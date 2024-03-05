@@ -1,13 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable react/self-closing-comp */
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useAppDispatch, type RootState } from '../../../store/store';
 import FormAddRecord from '../../Catalog/components/FormAddRecord';
 import '../styles/profile.css';
 import UserPage from './UserPage';
-import RecordItem from '../../Catalog/components/RecordItem';
-import { Link } from 'react-router-dom';
-import { recordAdd } from '../../Catalog/recordsSlice';
+import { authCheckUser } from '../../Auth/authSlice';
 
 function ProfilePage(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
@@ -30,7 +32,7 @@ function ProfilePage(): JSX.Element {
       <h1>ProfilePage</h1>
       <div className="profile_main">
         <div className="sidebar">
-        <UserPage />
+        <UserPage user={user} />
         {user && user.role === 'seller' ? (<><button type="button" onClick={() => setContent('products')}>
             Мои товары
           </button>
@@ -55,7 +57,7 @@ function ProfilePage(): JSX.Element {
         <div>
           {content === 'personalData' ? (
             <div>{user.role === 'admin' ? (
-              <div><div>{records.map((record) => record.status === 'false' && (
+              <div><div>{records.map((record) => record.status === false && (
                 <div>
             <div><img style={{width: '200px'}} src={record.img} alt="" /></div>
             <div><h3>{record.title}</h3>
@@ -70,7 +72,7 @@ function ProfilePage(): JSX.Element {
            </div>
               ))}</div></div>
             ) : (
-              <div>МАРК ВСТАВЬ СЮДА СЕЛЛЕРА И ЮЗЕРА</div>
+              <div>марк СЮДА СЕЛЛЕРА И ЮЗЕРА</div>
             )}</div>
           ) : content === 'cart' ? (
             <div>КОРЗИНА</div>
