@@ -15,20 +15,19 @@ import CategoryPage from '../features/Catalog/components/CategoryPage';
 import Order from '../features/Catalog/components/Order';
 import Favorite from '../features/Catalog/components/Favorite';
 import { favoriteLoad } from '../features/Catalog/favoriteSlice';
+import { orderLoad } from '../features/Catalog/ordersSlice';
+import { songsLoad } from '../features/Catalog/songsSlice';
 import Shop from '../features/Catalog/components/Shop';
-
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-
-
-    
-
+  
   useEffect(() => {
     dispatch(recordsLoad()).catch(console.log);
     dispatch(categoriesLoad()).catch(console.log);
     dispatch(authCheckUser()).catch(console.log);
     dispatch(favoriteLoad()).catch(console.log);
+    dispatch(songsLoad()).catch(console.log);
   }, []);
 
   return (

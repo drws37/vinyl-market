@@ -7,6 +7,7 @@ import recordsSlice from '../features/Catalog/recordsSlice';
 import categoriesSlice from '../features/Catalog/categoriesSlice';
 import ordersSlice from '../features/Catalog/ordersSlice';
 import favoriteSlice from '../features/Catalog/favoriteSlice';
+import songsSlice from '../features/Catalog/songsSlice';
 import shopSlice from '../features/Catalog/shopSlice';
 
 export const store = configureStore({
@@ -16,6 +17,7 @@ export const store = configureStore({
     categories: categoriesSlice,
     order: ordersSlice,
     favorite: favoriteSlice,
+    songs: songsSlice,
     shop:shopSlice
   },
 });
