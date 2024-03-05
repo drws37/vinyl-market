@@ -53,7 +53,12 @@ router.post('/', upload.single('img'), async (req, res) => {
       user_id: res.locals.user.id,
       category_id: +category,
     });
-  
+
+    await RecordPrice.create({
+      price: record.price,
+      record_id: record.id,
+    });
+    
     res.json({ record });
   } catch ({ message }) {
     res.json({ type: 'records router', message });
@@ -84,7 +89,20 @@ router.put('/:recordId', upload.single('img'), async (req, res) => {
       );
     }
 
-    const updatedRecord = await Record.findOne({ where: { id: recordId } });
+    const findedPrice = await RecordPrice.findOne({
+      where: {
+        price: record.price,
+      },
+      order: [['createdAt', 'DESC']],
+    });
+    console.log(findedPrice);
+
+    if (!findedPrice) {
+      await RecordPrice.create({
+        price: record.price,
+        record_id: record.id,
+      });
+    }
     res.json(updatedRecord);
   } catch ({ message }) {
     res.json({ type: 'records router', message });
