@@ -4,11 +4,11 @@ export type SellerInfo = {
     phone:string
     addres:string
     itn:string
+    user_id:number
 }
 
-export type UserSeller = {
- user:User
- Seller:SellerInfo
+export type Message = {
+message:string
 }
 
 export type UserSel = {
@@ -23,8 +23,9 @@ export type UserSel = {
 
 
 
+
 export type StateSeller = {
-    userSeller: UserSeller
+    status: Message
     message: string | undefined;
   };
 
