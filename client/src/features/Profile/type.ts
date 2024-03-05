@@ -1,4 +1,4 @@
-import type { User } from "../Auth/type"
+
 
 export type SellerInfo = {
     phone:string

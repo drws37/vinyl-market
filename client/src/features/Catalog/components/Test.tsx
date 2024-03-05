@@ -11,7 +11,7 @@ export default function Test(): JSX.Element {
     <div>
       {songs.map((song) => (
         <div key={song.id}>
-          <p>{song.title}</p>
+          <p>{song.songTitle}</p>
           <p>{song.duration}minutes</p>
         </div>
       ))}

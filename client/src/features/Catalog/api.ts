@@ -12,8 +12,9 @@ import type {
   RecordId,
   Song,
   FavoriteId,
-  Shop,
   ShopWithoutRecord,
+  Comment,
+  SongWithoutId,
 } from './type';
 
 export const fetchReocrdsLoad = async (): Promise<Record[]> => {
@@ -106,7 +107,7 @@ export const fetchFavoriteLoad = async (): Promise<Favorite[]> => {
   return data;
 };
 
-export const fetchFavoriteDelete = async (id: FavoriteId): Promise<FavoriteId> => {
+export const fetchFavoriteDelete = async (id: number): Promise<FavoriteId> => {
   const res = await fetch(`/api/favorite/item/${id}`, { method: 'DELETE' });
   const data = await res.json();
   // console.log(data, 'ddddddaaaata');
@@ -119,7 +120,7 @@ export const fetchSongsLoad = async (): Promise<Song[]> => {
   return data.songs;
 };
 
-export const fetchSongsAdd = async (obj: { songs: { title: string; duration: string; record_id: number; id: number }[] }): Promise<Song[]> => {
+export const fetchSongsAdd = async (obj: { songs: SongWithoutId[] }): Promise<Song[]> => {
   const res = await fetch('/api/records/songs', {
     method: 'post',
     headers: {
@@ -128,10 +129,12 @@ export const fetchSongsAdd = async (obj: { songs: { title: string; duration: str
     body: JSON.stringify(obj),
   })
   const data = await res.json()
+  console.log(data, 'asdasddsasdaasdasd');
+  
   return data
   }
 
-export const fetchShopLoad = async (id:number): Promise<{user:ShopWithoutRecord, record:Record[]}> => {
+export const fetchShopLoad = async (id:string | undefined): Promise<{user:ShopWithoutRecord, record:Record[]}> => {
   const res = await fetch(`/api/magazine/${id}`);
   const data = await res.json();
   // console.log(data, "SHOPPPPPPPP");
@@ -139,7 +142,7 @@ export const fetchShopLoad = async (id:number): Promise<{user:ShopWithoutRecord,
   return data;
 };
 
-export const fetchCommentAdd = async (obj:Comment): Promise<Comment[]> => {
+export const fetchCommentAdd = async (obj:Comment): Promise<Comment> => {
   const res = await fetch('/api/shop/comment', {
     method: 'post',
     headers: {
@@ -148,11 +151,13 @@ export const fetchCommentAdd = async (obj:Comment): Promise<Comment[]> => {
     body: JSON.stringify(obj),
   })
   const data = await res.json()
+  console.log(data, '1231321233xyi');
+  
   return data
   }
 
   
-export const fetchCommentLoad = async (id:number): Promise<Comment[]> => {
+export const fetchCommentLoad = async (id:string | undefined): Promise<Comment[]> => {
   const res = await fetch(`/api/shop/comments/${id}`);
   const data = await res.json();
   console.log(data, "Commentttttttttt");

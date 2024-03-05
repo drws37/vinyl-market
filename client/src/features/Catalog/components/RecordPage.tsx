@@ -1,5 +1,7 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-floating-promises */
+// @ts-check
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -12,12 +14,12 @@ import {
   PointElement,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import type { ChartOptions } from 'chart.js';
 import { useAppDispatch, type RootState } from '../../../store/store';
-import { recordRemove, recordUpdate, recordsLoad } from '../recordsSlice';
+import { recordRemove, recordUpdate } from '../recordsSlice';
 import '../styles/recordsPage.scss';
 import type { Song } from '../type';
 import { songsAdd } from '../songsSlice';
-import { shopLoad } from '../shopSlice';
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
@@ -46,10 +48,6 @@ function RecordPage(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(recordsLoad()).catch(console.log);
-  }, []);
 
   const updateRecordFetch = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -100,14 +98,19 @@ function RecordPage(): JSX.Element {
     ],
   };
 
-  const options = {
-    plugins: {
-      legend: true,
-      tooltip: {
-        label: 'Цена',
-      },
+const options: ChartOptions<'line'> = {
+  plugins: {
+    legend: {
+      display: false,
     },
-  };
+  },
+  scales: {
+    y: {
+      min: 2000,
+    },
+  },
+};
+  
 
   const [songs, setSongs] = useState<Song[]>([]);
   const [currentSong, setCurrentSong] = useState<Song>({
@@ -230,8 +233,8 @@ function RecordPage(): JSX.Element {
                   <Link to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
                   <div className='songs'>
                     <h4>Трек-лист</h4>
-                    {currentRecord.Songs.map((song, index) => (
-                    <p key={index}>{`${index + 1}: ${song.title}, ${song.duration}`}</p>
+                    {currentRecord.Songs.map((song: Song, index: number) => (
+                    <p key={index}>{`${index + 1}: ${song.songTitle}, ${song.duration}`}</p>
                      ))}
                   </div>
               </div>

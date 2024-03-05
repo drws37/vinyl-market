@@ -1,6 +1,5 @@
-import { User } from '../Auth/type';
-
 export type Record = {
+  user_id: number;
   id: number;
   title: string;
   artist: string;
@@ -9,7 +8,9 @@ export type Record = {
   quality: string;
   price: number;
   spotifyId: string;
+  status:boolean
   RecordPrices: RecordPrice[];
+  Songs: Song[];
 };
 export type RecordWithoutRecordPrice = Omit<Record, 'RecordPrices'>;
 
@@ -87,8 +88,8 @@ export type Shop = {
 };
 
 export type Comment = {
-  comment: string;
-  seller_id: number;
+  comment: string | undefined;
+  seller_id: number
 };
 
 export type ShopUser = {
