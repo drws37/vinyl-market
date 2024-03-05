@@ -101,11 +101,14 @@ export const fetchSongsLoad = async (): Promise<Song[]> => {
   return data.songs
 }
 
-export const fetchSongsAdd = async (formData: FormData): Promise<Song> => {
-const res = await fetch('/api/records/songs', {
-  method: 'post',
-  body: formData,
-})
-const data = await res.json()
-return data
-}
+export const fetchSongsAdd = async (obj: { songs: { title: string; duration: string; record_id: number; id: number }[] }): Promise<Song[]> => {
+  const res = await fetch('/api/records/songs', {
+    method: 'post',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(obj),
+  })
+  const data = await res.json()
+  return data
+  }

@@ -7,6 +7,7 @@ import recordsSlice from '../features/Catalog/recordsSlice';
 import categoriesSlice from '../features/Catalog/categoriesSlice';
 import ordersSlice from '../features/Catalog/ordersSlice';
 import favoriteSlice from '../features/Catalog/favoriteSlice';
+import songsSlice from '../features/Catalog/songsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,7 +15,8 @@ export const store = configureStore({
     records: recordsSlice,
     categories: categoriesSlice,
     order: ordersSlice,
-    favorite: favoriteSlice
+    favorite: favoriteSlice,
+    songs: songsSlice,
   },
 });
 

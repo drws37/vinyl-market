@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Record, Song, RecordPrice } = require('../../db/models');
+const { db, pgp } = require('../../db/models'); // Замените на свой файл конфигурации базы данных
 const multer = require('multer');
 const path = require('path');
 
@@ -98,7 +99,7 @@ router.delete('/:recordId', async (req, res) => {
 
 router.get('/songs', async (req, res) => {
   try {
-    const songs = await Song.findAll
+    const songs = await Song.findAll()
     res.json({songs})
   } catch ({message}) {
     res.json({type: 'records router', message})
@@ -106,7 +107,19 @@ router.get('/songs', async (req, res) => {
 })
 
 router.post('/songs', async (req, res) => {
-  
-})
+  const {songs} = req.body
+try {
+  const songsArray = await Promise.all(songs.map( async (songData) =>{
+
+    const {title, duration, record_id} = songData;
+    return await Song.create({title, duration, record_id})
+  }
+  ))
+  res.json(songsArray)
+} catch ({message}) {
+  res.json({type: 'records router', message})
+}
+});
+
 
 module.exports = router;

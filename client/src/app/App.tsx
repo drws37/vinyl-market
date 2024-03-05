@@ -15,6 +15,7 @@ import Order from '../features/Catalog/components/Order';
 import Favorite from '../features/Catalog/components/Favorite';
 import { favoriteLoad } from '../features/Catalog/favoriteSlice';
 import { orderLoad } from '../features/Catalog/ordersSlice';
+import { songsLoad } from '../features/Catalog/songsSlice';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ function App(): JSX.Element {
     dispatch(categoriesLoad()).catch(console.log);
     dispatch(authCheckUser()).catch(console.log);
     dispatch(favoriteLoad()).catch(console.log);
-  
+    dispatch(songsLoad()).catch(console.log);
   }, []);
 
   return (
