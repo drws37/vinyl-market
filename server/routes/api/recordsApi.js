@@ -80,17 +80,17 @@ router.put('/:recordId', upload.single('img'), async (req, res) => {
       newFileUrl = `/recordImg/${req.file.originalname}`;
     }
 
-    const record = await Record.findOne({ where: { id: recordId } });
+    const record = await Record.findOne({ where: { id: recordId, user_id: res.locals.user.id} });
 
     if (newFileUrl) {
       await record.update(
         { title, artist, description, price: +price, quality, img: newFileUrl },
-        { where: { id: recordId } }
+        { where: { id: recordId, user_id: res.locals.user.id } }
       );
     } else {
       await record.update(
         { title, artist, description, price: +price, quality },
-        { where: { id: recordId } }
+        { where: { id: recordId, user_id: res.locals.user.id } }
       );
     }
 
@@ -108,7 +108,15 @@ router.put('/:recordId', upload.single('img'), async (req, res) => {
         record_id: record.id,
       });
     }
-    res.json(updatedRecord);
+
+    const currentRecord = await Record.findOne({
+      where: {
+        id: record.id,
+      },
+      include: [{ model: RecordPrice }, { model: Song }],
+    });
+
+    res.json(currentRecord);
   } catch ({ message }) {
     res.json({ type: 'records router', message });
   }
