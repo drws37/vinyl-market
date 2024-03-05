@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable import/no-duplicates */
 
+
 import type {
   Category,
   Favorite,
@@ -9,9 +10,10 @@ import type {
   OrderItemId,
   Record,
   RecordId,
-  RecordWithoutRecordPrice,
   Song,
   FavoriteId,
+  Shop,
+  ShopWithoutRecord,
 } from './type';
 
 export const fetchReocrdsLoad = async (): Promise<Record[]> => {
@@ -48,7 +50,7 @@ export const fetchRecordUpdate = async (obj: {
 };
 
 export const fetchOrderAdd = async (obj: { id: number; status: string }): Promise<OrderItem[]> => {
-  console.log(obj, '1111');
+  // console.log(obj, '1111');
 
   const res = await fetch(`/api/order`, {
     method: 'POST',
@@ -56,7 +58,7 @@ export const fetchOrderAdd = async (obj: { id: number; status: string }): Promis
     body: JSON.stringify(obj),
   });
   const data = await res.json();
-  // console.log(data);
+  // console.log(data, 123123213321123);
 
   return data;
 };
@@ -70,7 +72,7 @@ export const fetchOrdersLoad = async (): Promise<{ orders: OrderItem[]; message:
 export const fetchOrderDel = async (id: OrderItemId): Promise<OrderItemId> => {
   const res = await fetch(`/api/order/${id}`, { method: 'DELETE' });
   const data = await res.json();
-  console.log(data, 'ddddddaaaata');
+  // console.log(data, 'ddddddaaaata');
   return data;
 };
 
@@ -99,7 +101,7 @@ export const fetchFavotireAdd = async (id: number): Promise<Favorite> => {
 export const fetchFavoriteLoad = async (): Promise<Favorite[]> => {
   const res = await fetch('/api/favorite');
   const data = await res.json();
-  console.log(data, 123321);
+  // console.log(data, 123321);
 
   return data;
 };
@@ -107,7 +109,7 @@ export const fetchFavoriteLoad = async (): Promise<Favorite[]> => {
 export const fetchFavoriteDelete = async (id: FavoriteId): Promise<FavoriteId> => {
   const res = await fetch(`/api/favorite/item/${id}`, { method: 'DELETE' });
   const data = await res.json();
-  console.log(data, 'ddddddaaaata');
+  // console.log(data, 'ddddddaaaata');
   return data;
 };
 
@@ -125,3 +127,12 @@ export const fetchSongsAdd = async (formData: FormData): Promise<Song> => {
   const data = await res.json();
   return data;
 };
+
+export const fetchShopLoad = async (id:number): Promise<{user:ShopWithoutRecord, record:Record[]}> => {
+  const res = await fetch(`/api/magazine/${id}`);
+  const data = await res.json();
+  // console.log(data, "SHOPPPPPPPP");
+  
+  return data;
+};
+

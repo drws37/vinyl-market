@@ -51,3 +51,10 @@
     display: flex;
     flex-wrap: wrap;
  }
+ .product-item {
+  transition: opacity 1s ease;
+}
+
+.product-item.deleting {
+  opacity: 0;
+}

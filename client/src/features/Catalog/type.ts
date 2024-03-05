@@ -1,3 +1,5 @@
+import { User } from "../Auth/type";
+
 export type Record = {
   id: number;
   title: string;
@@ -64,6 +66,29 @@ export type Song = {
   record_id: number | undefined
 }
 
+export type Seller = {
+  id:number
+  addres:string
+  itn:string
+  phone:string
+  user_id:string
+  
+}
+
+export type Shop = {
+  id:number
+  email:string
+  role:string 
+  username:string
+  Seller:Seller
+
+}
+
+export type ShopUser = {
+  user:Shop
+  record:Record[]
+}
+export type ShopWithoutRecord = Omit<Shop, 'record'>
 export type SongId = Song['id']
 
 export type StateSongs = {
@@ -91,5 +116,11 @@ export type CategoryId = Category['id']
 
 export type StateCategories = {
   categories: Category[];
+  message: string | undefined;
+};
+
+
+export type StateShop = {
+  shop: ShopUser;
   message: string | undefined;
 };
