@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Record, Song, RecordPrice } = require('../../db/models');
+const { Record, Song, RecordPrice, User } = require('../../db/models');
 const multer = require('multer');
 const path = require('path');
 
@@ -50,9 +50,10 @@ router.post('/', upload.single('img'), async (req, res) => {
       price: +price,
       quality,
       img: newFileUrl || '/recordImg/vinyl.png',
-      user_id: 1,
+      user_id: res.locals.user.id,
       category_id: +category,
     });
+  
     res.json({ record });
   } catch ({ message }) {
     res.json({ type: 'records router', message });
