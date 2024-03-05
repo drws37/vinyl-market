@@ -15,6 +15,7 @@ const dispatch = useAppDispatch()
 useEffect(() => {
     dispatch(shopLoad(+userId)).catch(console.log)
 },[])
+console.log(shop);
 
 
   return (

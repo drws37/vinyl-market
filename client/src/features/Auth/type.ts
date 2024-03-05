@@ -4,6 +4,7 @@ export type User = {
   password: string;
   rpassword: string;
   role: string;
+  img: string;
 };
 
 export type CheckUser = {

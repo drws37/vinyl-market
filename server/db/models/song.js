@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      title: {
+      songTitle: {
         allowNull: false,
         type: DataTypes.TEXT,
       },
@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
           model: 'Records',
           key: 'id',
         },
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,

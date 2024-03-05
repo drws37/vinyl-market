@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      title: {
+      songTitle: {
         allowNull: false,
         type: Sequelize.TEXT,
       },
@@ -24,6 +24,7 @@ module.exports = {
           model: 'Records',
           key: 'id',
         },
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,

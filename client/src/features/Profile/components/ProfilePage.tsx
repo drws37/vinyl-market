@@ -20,8 +20,10 @@ function ProfilePage(): JSX.Element {
   };
   
   const dispatch = useAppDispatch()
-
-
+  
+  useEffect(() => {
+    dispatch(authCheckUser()).catch(console.log);  
+  },[])
 
   return (
     <>
@@ -29,7 +31,6 @@ function ProfilePage(): JSX.Element {
       <div className="profile_main">
         <div className="sidebar">
         <UserPage />
-
         {user && user.role === 'seller' ? (<><button type="button" onClick={() => setContent('products')}>
             Мои товары
           </button>
@@ -54,9 +55,7 @@ function ProfilePage(): JSX.Element {
         <div>
           {content === 'personalData' ? (
             <div>{user.role === 'admin' ? (
-              <div>admin</div>
-            ) : (
-              <div>{records.map((record) => record.status === 'false' && (
+              <div><div>{records.map((record) => record.status === 'false' && (
                 <div>
             <div><img style={{width: '200px'}} src={record.img} alt="" /></div>
             <div><h3>{record.title}</h3>
@@ -69,7 +68,9 @@ function ProfilePage(): JSX.Element {
         </Link>
             </div>
            </div>
-              ))}</div>
+              ))}</div></div>
+            ) : (
+              <div>МАРК ВСТАВЬ СЮДА СЕЛЛЕРА И ЮЗЕРА</div>
             )}</div>
           ) : content === 'cart' ? (
             <div>КОРЗИНА</div>
