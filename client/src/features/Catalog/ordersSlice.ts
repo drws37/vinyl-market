@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as api from './api';
 // eslint-disable-next-line import/no-duplicates
-import type { OrderItem, OrderItemId, StateOrder } from './type';
+import type {OrderItemId, StateOrder } from './type';
 // eslint-disable-next-line import/no-cycle, import/no-duplicates
 
 
@@ -20,7 +20,7 @@ export const orderDelete = createAsyncThunk('order/delete', (id:OrderItemId) => 
 const recordsSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {},
+  reducers: {clear:(state)=>{state.orders=[]}},
   extraReducers: (builder) => {
     builder
     .addCase(orderAdd.fulfilled, (state, action) => {state.orders = action.payload})
@@ -38,5 +38,5 @@ const recordsSlice = createSlice({
     .addCase(orderDelete.rejected, (state, action) => {state.message = action.error.message})
   }
 })
-
+export const {clear} = recordsSlice.actions
 export default recordsSlice.reducer;

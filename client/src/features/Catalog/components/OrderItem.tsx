@@ -16,17 +16,13 @@ const handleDelete =async (id:OrderItemId):Promise<void> => {
   dispatch(orderDelete(id)).catch(console.log)
 
 }
-
-
-
   return (
     <div className="product-item">
-
     <div className="product-list">
       <h3>{order.Record.artist}</h3>
         <img src={order.Record.img} alt="" />
         <span className="price">{`${order.price} ₽`}</span>
-        <button type='button' onClick={() => {handleDelete(order.Record.id)}} className="button">Удалить</button>
+        <button type='button' onClick={() => {handleDelete(order.Record.id)}} className="button">Удалить из корзины</button>
     </div>
     
   </div>

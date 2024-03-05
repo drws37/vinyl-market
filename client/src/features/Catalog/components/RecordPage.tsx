@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Chart as ChartJS,
   LineElement,
@@ -17,19 +17,22 @@ import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordRemove, recordUpdate } from '../recordsSlice';
 
 import '../styles/recordsPage.scss';
+
 import type { Song } from '../type';
 import { songsAdd } from '../songsSlice';
 import Test from './Test';
-// import { RecordId } from '../type';
-// import { songsAdd } from '../songsSlice';
+import { shopLoad } from '../shopSlice';
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
   const records = useSelector((store: RootState) => store.records.records);
+  
   const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
+  console.log(currentRecord, 'CURRENT RECORD');
 
+  
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [artist, setArtist] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState<string | undefined>(undefined);
@@ -72,37 +75,30 @@ function RecordPage(): JSX.Element {
     navigate('/');
   };
 
-  const getAlbumData = () => {
-    console.log(records, 'RECORDS');
-    
-      if (recordId) {
-        const albumPrices = records.map((record) =>
-          record?.RecordPrices?.map((item) => (item.record_id === +recordId ? item.price : '')),
-        );
-        const albumDates = records.map((record) =>
-          record?.RecordPrices?.map((item) =>
-            item.record_id === +recordId ? item.createdAt.slice(2, 10) : '',
-          ),
-        );
-        const resPrices = albumPrices.filter((item) => (item?.length ? item : console.log('CANNOT FILTER resPRICES')));
-        const resDates = albumDates.filter((item) => (item?.length ? item : console.log('CANNOT FILTER resDATES')));
-        return [resDates, resPrices];
-      }
-    
-    return 'getAlbumPrices error';
-  };
+  function getAlbumData(): number[] {
+
+    if (currentRecord) {
+      const resPrices = currentRecord?.RecordPrices.map((item) => item?.price);
+      console.log(resPrices, 'RES PRICES');
+      const resDates = currentRecord?.RecordPrices.map((item) => item?.createdAt.slice(0, 10));
+      const sortedDates = resDates.sort((a, b) => a.localeCompare(b));
+      console.log(resDates, 'RES DATES');
+      return [resPrices, sortedDates];
+    }
+    return []
+  }
 
   // ChartJS
   const chartData = {
-    labels: getAlbumData()[0][0],
+    labels: getAlbumData()[1],
     datasets: [
       {
         labels: 'Месяц',
-        data: getAlbumData()[1][0],
+        data: getAlbumData()[0],
         backgroundColor: '#242424',
         borderColor: 'pink',
         pointBorderColor: '#242424',
-        tension: 0.3,
+        tension:0.3,
       },
     ],
   };
@@ -112,11 +108,6 @@ function RecordPage(): JSX.Element {
       legend: true,
       tooltip: {
         label: 'Цена',
-      },
-    },
-    scales: {
-      y: {
-        min: 2000,
       },
     },
   };
@@ -148,7 +139,6 @@ function RecordPage(): JSX.Element {
   
     dispatch(songsAdd({ songs: formattedSongs})).catch(console.log);
   };
-
 
   return (
     <div>
@@ -236,6 +226,7 @@ function RecordPage(): JSX.Element {
                   <div className="price">{`${currentRecord?.price} ₽`}</div>
                 </div>
                 <p>Описание: {currentRecord.description}</p>
+                  <Link to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
               </div>
               <div className="records-page_widget">
                 <iframe
@@ -257,7 +248,7 @@ function RecordPage(): JSX.Element {
                 <h3>Изменение цены</h3>
                 <Line data={chartData} options={options} />
               </div>
-              <div className='same_records'>
+              <div className="same_records">
                 <h2>У других продавцов:</h2>
               </div>
               <div>
@@ -270,6 +261,5 @@ function RecordPage(): JSX.Element {
     </div>
   );
 }
-
 
 export default RecordPage;

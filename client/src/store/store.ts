@@ -8,6 +8,7 @@ import categoriesSlice from '../features/Catalog/categoriesSlice';
 import ordersSlice from '../features/Catalog/ordersSlice';
 import favoriteSlice from '../features/Catalog/favoriteSlice';
 import songsSlice from '../features/Catalog/songsSlice';
+import shopSlice from '../features/Catalog/shopSlice';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     order: ordersSlice,
     favorite: favoriteSlice,
     songs: songsSlice,
+    shop:shopSlice
   },
 });
 

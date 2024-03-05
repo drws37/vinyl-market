@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useEffect }  from 'react'
 import { useSelector } from 'react-redux'
@@ -10,7 +11,7 @@ import { orderLoad } from '../ordersSlice';
 
 function Order():JSX.Element {
 const orders = useSelector((store:RootState) => store.order.orders)
-console.log(orders);
+// console.log(orders);
 
 const dispatch = useAppDispatch();
 

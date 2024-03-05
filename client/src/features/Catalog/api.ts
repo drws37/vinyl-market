@@ -1,7 +1,20 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable import/no-duplicates */
-import type { Category, Favorite, OrderItem, OrderItemId, Record, RecordId, RecordWithoutRecordPrice, Song } from "./type";
+
+
+import type {
+  Category,
+  Favorite,
+  OrderItem,
+  OrderItemId,
+  Record,
+  RecordId,
+  Song,
+  FavoriteId,
+  Shop,
+  ShopWithoutRecord,
+} from './type';
 
 export const fetchReocrdsLoad = async (): Promise<Record[]> => {
   const res = await fetch('/api/records');
@@ -37,7 +50,7 @@ export const fetchRecordUpdate = async (obj: {
 };
 
 export const fetchOrderAdd = async (obj: { id: number; status: string }): Promise<OrderItem[]> => {
-  console.log(obj, '1111');
+  // console.log(obj, '1111');
 
   const res = await fetch(`/api/order`, {
     method: 'POST',
@@ -45,61 +58,66 @@ export const fetchOrderAdd = async (obj: { id: number; status: string }): Promis
     body: JSON.stringify(obj),
   });
   const data = await res.json();
+  // console.log(data, 123123213321123);
+
+  return data;
+};
+
+export const fetchOrdersLoad = async (): Promise<{ orders: OrderItem[]; message: string }> => {
+  const res = await fetch('/api/order/order');
+  const data = await res.json();
+  return data;
+};
+
+export const fetchOrderDel = async (id: OrderItemId): Promise<OrderItemId> => {
+  const res = await fetch(`/api/order/${id}`, { method: 'DELETE' });
+  const data = await res.json();
+  // console.log(data, 'ddddddaaaata');
+  return data;
+};
+
+export const fetchRecordDelete = async (id: RecordId | undefined): Promise<RecordId> => {
+  const res = await fetch(`/api/records/${id}`, {
+    method: 'delete',
+  });
+  const data = await res.json();
+
+  // console.log(data);
+  return data;
+};
+
+export const fetchFavotireAdd = async (id: number): Promise<Favorite> => {
+  const res = await fetch(`/api/favorite/${id}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id }),
+  });
+  const data = await res.json();
   // console.log(data);
 
   return data;
 };
 
-export const fetchOrdersLoad = async ():Promise<{orders:OrderItem[] | undefined, message:string}> => {
-  const res = await fetch('/api/order/order')
-  const data = await res.json()  
-  return data
-}
-
-export const fetchOrderDel = async (id:OrderItemId): Promise<OrderItemId> => {
-  const res = await fetch(`/api/order/${id}`, {method: 'DELETE'})
-  const data = await res.json()
-  console.log(data,'ddddddaaaata')
-  return data
-}
-
-export const fetchRecordDelete = async (id: RecordId | undefined): Promise<RecordId> => {
-  const res = await fetch(`/api/records/${id}`, {
-    method: 'delete'
-  })
-  const data = await res.json()
-
-  // console.log(data);
-  return data
-}
-
-export const fetchFavotireAdd =async (id:number):Promise<RecordWithoutRecordPrice> => {
-  
-  const res = await fetch (`/api/favorite/${id}`, {
-    method: 'POST',
-    headers:{'Content-Type' : 'application/json'},
-    body:JSON.stringify({id})
-  })
-  const data = await res.json()
-  // console.log(data);
-  
-  return data
-  
-}
-
 export const fetchFavoriteLoad = async (): Promise<Favorite[]> => {
-  const res = await fetch('/api/favorite')
-  const data = await res.json()
-  console.log(data, 123321);
-  
-  return data
-}
+  const res = await fetch('/api/favorite');
+  const data = await res.json();
+  // console.log(data, 123321);
+
+  return data;
+};
+
+export const fetchFavoriteDelete = async (id: FavoriteId): Promise<FavoriteId> => {
+  const res = await fetch(`/api/favorite/item/${id}`, { method: 'DELETE' });
+  const data = await res.json();
+  // console.log(data, 'ddddddaaaata');
+  return data;
+};
 
 export const fetchSongsLoad = async (): Promise<Song[]> => {
-  const res = await fetch('/api/records/songs')
-  const data = await res.json()
-  return data.songs
-}
+  const res = await fetch('/api/records/songs');
+  const data = await res.json();
+  return data.songs;
+};
 
 export const fetchSongsAdd = async (obj: { songs: { title: string; duration: string; record_id: number; id: number }[] }): Promise<Song[]> => {
   const res = await fetch('/api/records/songs', {
@@ -112,3 +130,11 @@ export const fetchSongsAdd = async (obj: { songs: { title: string; duration: str
   const data = await res.json()
   return data
   }
+
+export const fetchShopLoad = async (id:number): Promise<{user:ShopWithoutRecord, record:Record[]}> => {
+  const res = await fetch(`/api/magazine/${id}`);
+  const data = await res.json();
+  // console.log(data, "SHOPPPPPPPP");
+  
+  return data;
+};

@@ -1,8 +1,9 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import type { RootState } from '../../store/store';
-import './styles/profile.css';
+import type { RootState } from '../../../store/store';
+import '../styles/profile.css';
+import UserPage from './UserPage';
 
 function ProfilePage(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
@@ -15,7 +16,7 @@ function ProfilePage(): JSX.Element {
       <div className="profile_main">
         <div className="sidebar">
           <button type="button" onClick={() => setContent('personalData')}>
-            Личные данные
+            <UserPage />
           </button>
           <button type="button" onClick={() => setContent('cart')}>
             Корзина

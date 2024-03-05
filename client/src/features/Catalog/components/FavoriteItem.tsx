@@ -1,14 +1,27 @@
 import React from 'react'
-import type { Favorite } from '../type'
+import type { Favorite, FavoriteId } from '../type'
+import { favoriteDelete } from '../favoriteSlice';
+import { useAppDispatch } from '../../../store/store';
 
 function FavoriteItem({favorite}:{favorite:Favorite}):JSX.Element {
-  console.log(favorite);
+  // console.log(favorite);
+
+const dispatch = useAppDispatch()
+  const handleDelete =async (id:FavoriteId):Promise<void> => {
+  
+    dispatch(favoriteDelete(id)).catch(console.log)
+  
+  }
   
   return (
-    <div>
-      1
-      <div>{favorite.Record.artist}</div>
+    <div className="product-item">
+    <div className="product-list">
+      <h3>{favorite.Record.artist}</h3>
+        <img src={favorite.Record.img} alt="" />
+        <span className="price">{favorite.Record.description}</span>
+        <button type='button' onClick={() => {handleDelete(favorite.Record.id)}}  className="button">Дизлайк</button>
     </div>
+  </div>
   )
 }
 

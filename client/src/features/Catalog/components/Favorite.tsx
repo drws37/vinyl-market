@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import type { RootState} from '../../../store/store';
@@ -19,15 +20,15 @@ useEffect(() => {
 }, []);
 
 
-console.log(favorites, 12312312);
-
 
 
   return (
-    <div>
-        <div>{
+    <div className='container-order'>
+
+          {
             favorites.map((favorite) => <FavoriteItem key={favorite.id} favorite={favorite}/>)
-            }</div>
+          }
+
     </div>
   )
 }

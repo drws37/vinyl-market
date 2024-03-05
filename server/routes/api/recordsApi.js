@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const { Record, Song, RecordPrice } = require('../../db/models');
-const { db, pgp } = require('../../db/models'); // Замените на свой файл конфигурации базы данных
+const { Record, Song, RecordPrice, User } = require('../../db/models');
 const multer = require('multer');
 const path = require('path');
 
@@ -43,7 +42,7 @@ router.post('/', upload.single('img'), async (req, res) => {
     if (req.file) {
       newFileUrl = `/recordImg/${req.file.originalname}`;
     }
-    
+
     const record = await Record.create({
       title,
       artist,
@@ -51,9 +50,15 @@ router.post('/', upload.single('img'), async (req, res) => {
       price: +price,
       quality,
       img: newFileUrl || '/recordImg/vinyl.png',
-      user_id: 1,
+      user_id: res.locals.user.id,
       category_id: +category,
     });
+
+    await RecordPrice.create({
+      price: record.price,
+      record_id: record.id,
+    });
+    
     res.json({ record });
   } catch ({ message }) {
     res.json({ type: 'records router', message });
@@ -71,14 +76,33 @@ router.put('/:recordId', upload.single('img'), async (req, res) => {
     }
 
     const record = await Record.findOne({ where: { id: recordId } });
-    
+
     if (newFileUrl) {
-      await record.update({ title, artist, description, price: +price, quality, img: newFileUrl }, { where: { id: recordId } });
+      await record.update(
+        { title, artist, description, price: +price, quality, img: newFileUrl },
+        { where: { id: recordId } }
+      );
     } else {
-      await record.update({ title, artist, description, price: +price, quality }, { where: { id: recordId } });
+      await record.update(
+        { title, artist, description, price: +price, quality },
+        { where: { id: recordId } }
+      );
     }
 
-    const updatedRecord = await Record.findOne({ where: { id: recordId } });
+    const findedPrice = await RecordPrice.findOne({
+      where: {
+        price: record.price,
+      },
+      order: [['createdAt', 'DESC']],
+    });
+    console.log(findedPrice);
+
+    if (!findedPrice) {
+      await RecordPrice.create({
+        price: record.price,
+        record_id: record.id,
+      });
+    }
     res.json(updatedRecord);
   } catch ({ message }) {
     res.json({ type: 'records router', message });
@@ -87,13 +111,13 @@ router.put('/:recordId', upload.single('img'), async (req, res) => {
 
 router.delete('/:recordId', async (req, res) => {
   try {
-    const {recordId} = req.params
-    const result = await Record.destroy({where: {id: recordId}})
+    const { recordId } = req.params;
+    const result = await Record.destroy({ where: { id: recordId } });
     if (result > 0) {
-      res.json(+recordId)
+      res.json(+recordId);
     }
-  } catch ({message}) {
-    res.json({type: 'records router', message})
+  } catch ({ message }) {
+    res.json({ type: 'records router', message });
   }
 });
 
@@ -104,7 +128,7 @@ router.get('/songs', async (req, res) => {
   } catch ({message}) {
     res.json({type: 'records router', message})
   }
-})
+});
 
 router.post('/songs', async (req, res) => {
   const {songs} = req.body
@@ -120,6 +144,5 @@ try {
   res.json({type: 'records router', message})
 }
 });
-
 
 module.exports = router;
