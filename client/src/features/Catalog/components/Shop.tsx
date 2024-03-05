@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-bitwise */
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -11,11 +12,11 @@ import { commentAddThunk, commentLoadThunk } from '../commentSlice';
 function Shop():JSX.Element {
 const shop = useSelector((store:RootState) => store.shop.shop)
 const comments = useSelector((store:RootState) => store.comment.comment)
-const [value, setComment] = useState()
+const [value, setComment] = useState('')
 const {userId} = useParams()
 const dispatch = useAppDispatch()
 
-const id = +userId
+const id = userId
 
 
 

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/function-component-definition */
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,7 +9,7 @@ import { useAppDispatch, type RootState } from '../../../store/store';
 import RecordItem from './RecordItem';
 import FilteredList from './FilteredList';
 import '../styles/input.css';
-import { recordAdd, recordsLoad } from '../recordsSlice';
+import { recordsLoad } from '../recordsSlice';
 
 const RecordsList = (): JSX.Element => {
   const [value, setValue] = useState('`');

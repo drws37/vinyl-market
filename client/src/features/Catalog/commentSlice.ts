@@ -8,7 +8,7 @@ const initialState: StateComment = {
 };
 
 export const commentAddThunk = createAsyncThunk('comment/add', (obj:Comment) => api.fetchCommentAdd(obj));
-export const commentLoadThunk = createAsyncThunk('comment/load', (id:number) => api.fetchCommentLoad(id));
+export const commentLoadThunk = createAsyncThunk('comment/load', (id:string | undefined) => api.fetchCommentLoad(id));
 
 
 const commentSlice = createSlice({
