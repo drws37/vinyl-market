@@ -23,7 +23,7 @@ export const loginFetch = async(obj:UserWithoutNameAndRpasswordAndRole):Promise<
     })
     if(res.ok){
         const data = await res.json()
-        return data
+        return data.user
     }
     const {message} = await res.json()
     throw message

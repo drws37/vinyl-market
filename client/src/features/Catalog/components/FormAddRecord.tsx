@@ -38,6 +38,8 @@ const FormAddRecord = (): JSX.Element => {
     setCategory('')
   }
 
+ 
+
   return (
     <div className='add__form__container'>
       <form className='add__form' onSubmit={addRecordFetch}>
