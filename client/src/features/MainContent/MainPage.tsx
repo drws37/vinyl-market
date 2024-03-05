@@ -7,7 +7,7 @@ function MainPage(): JSX.Element {
   return (
     <div>
       <CategoriesList />
-      <FormAddRecord />
+      <FormAddRecord/>
       <RecordsList />
     </div>
   );

@@ -25,6 +25,8 @@ function RecordPage(): JSX.Element {
   const { recordId } = useParams();
   const records = useSelector((store: RootState) => store.records.records);
   const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
+  console.log(currentRecord, '--------------');
+  
   console.log(currentRecord, 'CURRENT RECORD');
 
   const [title, setTitle] = useState<string | undefined>(undefined);
@@ -227,7 +229,13 @@ function RecordPage(): JSX.Element {
                   <div className="price">{`${currentRecord?.price} ₽`}</div>
                 </div>
                 <p>Описание: {currentRecord.description}</p>
-                <Link to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
+                  <Link to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
+                  <div className='songs'>
+                    <h4>Трек-лист</h4>
+                    {currentRecord.Songs.map((song, index) => (
+                    <p key={index}>{`${index + 1}: ${song.title}, ${song.duration}`}</p>
+                     ))}
+                  </div>
               </div>
               <div className="records-page_widget">
                 <iframe
