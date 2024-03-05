@@ -73,6 +73,7 @@ function RecordPage(): JSX.Element {
   };
 
   function getAlbumData(): number[] {
+
     if (currentRecord) {
       const resPrices = currentRecord?.RecordPrices.map((item) => item?.price);
       console.log(resPrices, 'RES PRICES');
@@ -94,7 +95,7 @@ function RecordPage(): JSX.Element {
         backgroundColor: '#242424',
         borderColor: 'pink',
         pointBorderColor: '#242424',
-        tension: 0.3,
+        tension:0.3,
       },
     ],
   };

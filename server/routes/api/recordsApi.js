@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { log } = require('console');
 const { Record, Song, RecordPrice } = require('../../db/models');
 const multer = require('multer');
 const path = require('path');
@@ -87,13 +88,20 @@ router.put('/:recordId', upload.single('img'), async (req, res) => {
       );
     }
 
-    const updatedRecord = await Record.findOne({ where: { id: recordId } });
-
-    await RecordPrice.create({
-      price: updatedRecord.price,
-      record_id: updatedRecord.id,
+    const findedPrice = await RecordPrice.findOne({
+      where: {
+        price: record.price,
+      },
+      order: [['createdAt', 'DESC']],
     });
+    console.log(findedPrice);
 
+    if (!findedPrice) {
+      await RecordPrice.create({
+        price: record.price,
+        record_id: record.id,
+      });
+    }
     res.json(updatedRecord);
   } catch ({ message }) {
     res.json({ type: 'records router', message });
