@@ -33,6 +33,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
+      status: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+      },
       category_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
