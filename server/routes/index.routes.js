@@ -6,6 +6,8 @@ const categoriesApiRouter = require('./api/categoriesApi')
 const ordersApiRouter = require('./api/orderApi')
 const favoriteApiRouter = require('./api/favoriteApi')
 const shopApiRouter = require('./api/shopApi')
+const profileApiRouter = require('./api/profileApi')
+
 
 
 
@@ -16,6 +18,8 @@ router.use('/api/categories', categoriesApiRouter)
 router.use('/api/order', ordersApiRouter)
 router.use('/api/favorite', favoriteApiRouter)
 router.use('/api/magazine', shopApiRouter)
+router.use('/api/profile', profileApiRouter)
+
 
 
 

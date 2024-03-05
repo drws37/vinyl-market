@@ -7,7 +7,7 @@ import UserPage from './UserPage';
 
 function ProfilePage(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
-
+  console.log(user);
   const [content, setContent] = useState('personalData');
 
   return (
@@ -16,7 +16,7 @@ function ProfilePage(): JSX.Element {
       <div className="profile_main">
         <div className="sidebar">
           <button type="button" onClick={() => setContent('personalData')}>
-            <UserPage />
+            Данные
           </button>
           <button type="button" onClick={() => setContent('cart')}>
             Корзина
@@ -30,7 +30,9 @@ function ProfilePage(): JSX.Element {
         </div>
         <div>
           {content === 'personalData' ? (
-            <div>PERSONAL DATA</div>
+            <div>
+              <UserPage user={user} />
+            </div>
           ) : content === 'cart' ? (
             <div>КОРЗИНА</div>
           ) : content === 'orders' ? (
