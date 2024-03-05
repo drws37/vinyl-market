@@ -73,25 +73,25 @@ function RecordPage(): JSX.Element {
     navigate('/');
   };
 
-  // function getAlbumData(): [number[], string[]] | [] {
-  //   if (currentRecord) {
-  //     const resPrices = currentRecord?.RecordPrices.map((item) => item?.price);
-  //     console.log(resPrices, 'RES PRICES');
-  //     const resDates = currentRecord?.RecordPrices.map((item) => item?.createdAt.slice(0, 10));
-  //     const sortedDates = resDates.sort((a, b) => a.localeCompare(b));
-  //     console.log(resDates, 'RES DATES');
-  //     return [resPrices, sortedDates];
-  //   }
-  //   return [];
-  // }
+  function getAlbumData(): [number[], string[]] | [] {
+    if (currentRecord) {
+      const resPrices = currentRecord?.RecordPrices.map((item) => item?.price);
+      console.log(resPrices, 'RES PRICES');
+      const resDates = currentRecord?.RecordPrices.map((item) => item?.createdAt.slice(0, 10));
+      const sortedDates = resDates.sort((a, b) => a.localeCompare(b));
+      console.log(resDates, 'RES DATES');
+      return [resPrices, sortedDates];
+    }
+    return [];
+  }
 
   // ChartJS
   const chartData = {
-    // labels: getAlbumData()[1],
+    labels: getAlbumData()[1],
     datasets: [
       {
         labels: 'Месяц',
-        // data: getAlbumData()[0],
+        data: getAlbumData()[0],
         backgroundColor: '#242424',
         borderColor: 'pink',
         pointBorderColor: '#242424',
