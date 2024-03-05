@@ -18,7 +18,7 @@ export const store = configureStore({
     order: ordersSlice,
     favorite: favoriteSlice,
     songs: songsSlice,
-    shop:shopSlice
+    shop:shopSlice,
   },
 });
 

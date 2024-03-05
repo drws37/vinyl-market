@@ -13,7 +13,7 @@ import { clear2 } from '../Catalog/favoriteSlice';
 
 function Header(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
-
+console.log(user,'888888')
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

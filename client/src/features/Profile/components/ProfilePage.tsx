@@ -1,14 +1,21 @@
 /* eslint-disable no-nested-ternary */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import type { RootState } from '../../../store/store';
+import { useAppDispatch, type RootState } from '../../../store/store';
 import '../styles/profile.css';
 import UserPage from './UserPage';
+import { authCheckUser } from '../../Auth/authSlice';
 
 function ProfilePage(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
   console.log(user);
+  const dispatch = useAppDispatch()
   const [content, setContent] = useState('personalData');
+
+  useEffect(() => {
+    dispatch(authCheckUser()).catch(console.log);
+    
+  },[])
 
   return (
     <>
@@ -31,7 +38,7 @@ function ProfilePage(): JSX.Element {
         <div>
           {content === 'personalData' ? (
             <div>
-              <UserPage user={user} />
+             {user &&  <UserPage user={user} />}
             </div>
           ) : content === 'cart' ? (
             <div>КОРЗИНА</div>
