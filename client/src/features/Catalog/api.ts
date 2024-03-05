@@ -138,3 +138,24 @@ export const fetchShopLoad = async (id:number): Promise<{user:ShopWithoutRecord,
   
   return data;
 };
+
+export const fetchCommentAdd = async (obj:Comment): Promise<Comment[]> => {
+  const res = await fetch('/api/shop/comment', {
+    method: 'post',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(obj),
+  })
+  const data = await res.json()
+  return data
+  }
+
+  
+export const fetchCommentLoad = async (id:number): Promise<Comment[]> => {
+  const res = await fetch(`/api/shop/comments/${id}`);
+  const data = await res.json();
+  console.log(data, "Commentttttttttt");
+  
+  return data;
+};
