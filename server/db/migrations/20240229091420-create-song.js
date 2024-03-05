@@ -24,6 +24,7 @@ module.exports = {
           model: 'Records',
           key: 'id',
         },
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,

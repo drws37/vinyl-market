@@ -13,7 +13,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { useAppDispatch, type RootState } from '../../../store/store';
-import { recordRemove, recordUpdate } from '../recordsSlice';
+import { recordRemove, recordUpdate, recordsLoad } from '../recordsSlice';
 import '../styles/recordsPage.scss';
 import type { Song } from '../type';
 import { songsAdd } from '../songsSlice';
@@ -24,7 +24,6 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
   const records = useSelector((store: RootState) => store.records.records);
-
   const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
   console.log(currentRecord, 'CURRENT RECORD');
 
@@ -48,6 +47,10 @@ function RecordPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    dispatch(recordsLoad()).catch(console.log);
+  }, []);
+
   const updateRecordFetch = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const imgFile = img?.[0];
@@ -70,25 +73,25 @@ function RecordPage(): JSX.Element {
     navigate('/');
   };
 
-  function getAlbumData(): number[] {
-    if (currentRecord) {
-      const resPrices = currentRecord?.RecordPrices.map((item) => item?.price);
-      console.log(resPrices, 'RES PRICES');
-      const resDates = currentRecord?.RecordPrices.map((item) => item?.createdAt.slice(0, 10));
-      const sortedDates = resDates.sort((a, b) => a.localeCompare(b));
-      console.log(resDates, 'RES DATES');
-      return [resPrices, sortedDates];
-    }
-    return [];
-  }
+  // function getAlbumData(): [number[], string[]] | [] {
+  //   if (currentRecord) {
+  //     const resPrices = currentRecord?.RecordPrices.map((item) => item?.price);
+  //     console.log(resPrices, 'RES PRICES');
+  //     const resDates = currentRecord?.RecordPrices.map((item) => item?.createdAt.slice(0, 10));
+  //     const sortedDates = resDates.sort((a, b) => a.localeCompare(b));
+  //     console.log(resDates, 'RES DATES');
+  //     return [resPrices, sortedDates];
+  //   }
+  //   return [];
+  // }
 
   // ChartJS
   const chartData = {
-    labels: getAlbumData()[1],
+    // labels: getAlbumData()[1],
     datasets: [
       {
         labels: 'Месяц',
-        data: getAlbumData()[0],
+        // data: getAlbumData()[0],
         backgroundColor: '#242424',
         borderColor: 'pink',
         pointBorderColor: '#242424',
@@ -196,7 +199,7 @@ function RecordPage(): JSX.Element {
               Добавить еще одну песню
             </button>
 
-            {songs.map((song, index) => (
+            {songs?.map((song, index) => (
               <div key={index}>
                 <p>
                   {`Песня ${index + 1}: ${song.songTitle}, ${song.duration}`}
