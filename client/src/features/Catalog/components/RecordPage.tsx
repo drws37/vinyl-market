@@ -24,9 +24,7 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
   const records = useSelector((store: RootState) => store.records.records);
-  const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
-  console.log(currentRecord, '--------------');
-  
+  const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;  
   console.log(currentRecord, 'CURRENT RECORD');
 
   const [title, setTitle] = useState<string | undefined>(undefined);

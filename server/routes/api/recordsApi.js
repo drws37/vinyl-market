@@ -62,7 +62,7 @@ router.post('/', upload.single('img'), async (req, res) => {
       where: {
         id: record.id,
       },
-      include: RecordPrice,
+      include: [{ model: RecordPrice }, { model: Song }],
     });
     res.json({ record: currentRecord });
   } catch ({ message }) {
