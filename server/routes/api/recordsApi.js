@@ -59,8 +59,13 @@ router.post('/', upload.single('img'), async (req, res) => {
       price: record.price,
       record_id: record.id,
     });
-
-    res.json({ record });
+    const currentRecord = await Record.findOne({
+      where: {
+        id: record.id,
+      },
+      include: RecordPrice,
+    });
+    res.json({ record: currentRecord });
   } catch ({ message }) {
     res.json({ type: 'records router', message });
   }

@@ -14,6 +14,7 @@ const RecordsList = (): JSX.Element => {
   const [value, setValue] = useState('`');
 
   const records = useSelector((store: RootState) => store.records.records);
+console.log(records);
 
   const filterVinil = records.filter((record) =>
     record.title.toLowerCase().includes(value.toLowerCase()),
