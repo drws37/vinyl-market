@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
@@ -7,7 +9,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import '../styles/form.css';
 import { useSelector } from 'react-redux';
 import { type RootState, useAppDispatch } from '../../../store/store';
-import type { User } from '../type';
+import type { RegUser } from '../type';
 import { authRegistration } from '../authSlice';
 
 const checkfild = object().shape({
@@ -34,9 +36,9 @@ function Registration(): JSX.Element {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<User>({ resolver: yupResolver(checkfild) });
+  } = useForm<RegUser>({ resolver: yupResolver(checkfild) });
 
-  const registration: SubmitHandler<User> = (data: User) => {
+  const registration: SubmitHandler<RegUser> = (data: RegUser) => {
     dispatch(authRegistration(data)).catch(console.log);
     navigate('/');
   };

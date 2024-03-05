@@ -1,15 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { StateAuth, User, UserWithoutNameAndRpasswordAndRole } from './type';
+import type { RegUser, StateAuth, Userr } from './type';
 import * as api from './api';
 import * as logoutApi from '../Main/api';
 
 const initialState: StateAuth = { user: null, message: '' };
 
-export const authRegistration = createAsyncThunk('auth/registration', (obj: User) =>
+export const authRegistration = createAsyncThunk('auth/registration', (obj: RegUser) =>
   api.registrationFetch(obj),
 );
 
-export const authLogin = createAsyncThunk('auth/login', (obj: UserWithoutNameAndRpasswordAndRole) =>
+export const authLogin = createAsyncThunk('auth/login', (obj: Userr) =>
   api.loginFetch(obj),
 );
 

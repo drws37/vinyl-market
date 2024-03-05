@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import React from 'react'
-import type { Favorite, FavoriteId } from '../type'
+import type { Favorite } from '../type'
 import { favoriteDelete } from '../favoriteSlice';
 import { useAppDispatch } from '../../../store/store';
 
@@ -7,7 +8,7 @@ function FavoriteItem({favorite}:{favorite:Favorite}):JSX.Element {
   // console.log(favorite);
 
 const dispatch = useAppDispatch()
-  const handleDelete =async (id:FavoriteId):Promise<void> => {
+  const handleDelete =async (id:number):Promise<void> => {
   
     dispatch(favoriteDelete(id)).catch(console.log)
   

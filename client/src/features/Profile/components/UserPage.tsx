@@ -1,11 +1,11 @@
 
 import React, { useState } from 'react';
-import type { UserAndId } from '../../Auth/type';
+import type { User, UserAndId } from '../../Auth/type';
 
 import { useAppDispatch } from '../../../store/store';
 import { sellerAddInfo, sellerUpdateInfo } from '../../Catalog/shopSlice';
 
-function UserPage({ user }: { user: UserAndId }): JSX.Element {
+function UserPage({ user }: { user: User | UserAndId | null }): JSX.Element {
   const dispatch = useAppDispatch();
 
   const [phone, setPhone] = useState('');
@@ -20,7 +20,7 @@ function UserPage({ user }: { user: UserAndId }): JSX.Element {
       phone,
       addres,
       itn,
-      user_id: user.id,
+      user_id: user?.id,
     };
     dispatch(sellerAddInfo(obj)).catch(console.log);
   };
@@ -31,7 +31,7 @@ function UserPage({ user }: { user: UserAndId }): JSX.Element {
       phone,
       addres,
       itn,
-      user_id: user.id,
+      user_id: user?.id,
     };
     dispatch(sellerUpdateInfo(obj)).catch(console.log);
   };
