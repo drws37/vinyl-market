@@ -1,7 +1,6 @@
 export type Record = {
   user_id: number;
   id: number;
-  user_id:number
   title: string;
   artist: string;
   description: string;
@@ -89,8 +88,8 @@ export type Shop = {
 };
 
 export type Comment = {
-  comment: string;
-  // seller_id: number
+  comment: string | undefined;
+  seller_id: number
 };
 
 export type ShopUser = {
