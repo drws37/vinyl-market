@@ -48,6 +48,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
+      status: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+      },
       category_id: {
         allowNull: false,
         type: DataTypes.INTEGER,
