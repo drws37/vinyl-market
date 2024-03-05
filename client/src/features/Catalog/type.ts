@@ -1,4 +1,4 @@
-import { User } from "../Auth/type";
+import { User } from '../Auth/type';
 
 export type Record = {
   id: number;
@@ -11,7 +11,7 @@ export type Record = {
   spotifyId: string;
   RecordPrices: RecordPrice[];
 };
-export type RecordWithoutRecordPrice = Omit<Record, 'RecordPrices'>
+export type RecordWithoutRecordPrice = Omit<Record, 'RecordPrices'>;
 
 export type Order = {
   id: number;
@@ -23,25 +23,23 @@ export type Order = {
 };
 
 export type OrderItem = {
-  id:number
-  order_id:number
-  record_id:number
-  price:number
-  count:number
-  Record:Record
-}
-
-
+  id: number;
+  order_id: number;
+  record_id: number;
+  price: number;
+  count: number;
+  Record: Record;
+};
 
 export type Favorite = {
-  id:number
-  user_id:number
-  record_id:number
-  Record:Record
-}
+  id: number;
+  user_id: number;
+  record_id: number;
+  Record: Record;
+};
 export type FavoriteId = {
-  id:number
-}
+  id: number;
+};
 
 export type OrderItemId = OrderItem['id'];
 
@@ -63,44 +61,47 @@ export type Song = {
   id: number;
   songTitle: string;
   duration: string;
-  record_id: number | undefined
-}
+  record_id: number | undefined;
+};
 
 export type SongWithoutId = {
   songTitle: string;
   duration: string;
-  record_id: number | undefined
-}
+  record_id: number | undefined;
+};
 
 export type Seller = {
-  id:number
-  addres:string
-  itn:string
-  phone:string
-  user_id:string
-  
-}
+  id: number;
+  addres: string;
+  itn: string;
+  phone: string;
+  user_id: string;
+};
 
 export type Shop = {
-  id:number
-  email:string
-  role:string 
-  username:string
-  Seller:Seller
+  id: number;
+  email: string;
+  role: string;
+  username: string;
+  Seller: Seller;
+};
 
-}
+export type Comment = {
+  comment: string;
+  seller_id: number;
+};
 
 export type ShopUser = {
-  user:Shop
-  record:Record[]
-}
-export type ShopWithoutRecord = Omit<Shop, 'record'>
-export type SongId = Song['id']
+  user: Shop;
+  record: Record[];
+};
+export type ShopWithoutRecord = Omit<Shop, 'record'>;
+export type SongId = Song['id'];
 
 export type StateSongs = {
   songs: Song[];
-  message: string | undefined
-}
+  message: string | undefined;
+};
 
 export type StateOrder = {
   orders: OrderItem[];
@@ -118,13 +119,17 @@ export type Category = {
   Records?: Record[];
 };
 
-export type CategoryId = Category['id']
+export type CategoryId = Category['id'];
 
 export type StateCategories = {
   categories: Category[];
   message: string | undefined;
 };
 
+export type StateComment = {
+  comment: Comment[];
+  message: string | undefined;
+};
 
 export type StateShop = {
   shop: ShopUser;
