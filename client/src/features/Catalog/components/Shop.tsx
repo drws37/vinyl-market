@@ -26,7 +26,7 @@ useEffect(() => {
 
 },[])
 
-console.log(shop);
+// console.log(shop);
 
 const commentAdd = (e:React.FormEvent<HTMLFormElement>):void => {
   e.preventDefault()

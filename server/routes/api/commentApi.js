@@ -9,7 +9,7 @@ router.post('/comment', async (req, res) => {
     if(res.locals.user){
       console.log(123123);
       const commentAdd = await SellersComment.create({seller_id, comment, user_id:res.locals.user.id})
-      console.log(commentAdd);
+      res.json({comment})
     }
   
 

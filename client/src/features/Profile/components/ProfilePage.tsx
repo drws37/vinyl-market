@@ -1,4 +1,9 @@
+
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable jsx-a11y/control-has-associated-label */
+
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -7,8 +12,6 @@ import { useAppDispatch, type RootState } from '../../../store/store';
 import FormAddRecord from '../../Catalog/components/FormAddRecord';
 import '../styles/profile.css';
 import UserPage from './UserPage';
-import RecordItem from '../../Catalog/components/RecordItem';
-import { recordAdd } from '../../Catalog/recordsSlice';
 import { authCheckUser } from '../../Auth/authSlice';
 
 function ProfilePage(): JSX.Element {
@@ -34,8 +37,17 @@ function ProfilePage(): JSX.Element {
       <h1>ProfilePage</h1>
       <div className="profile_main">
         <div className="sidebar">
+
+        <UserPage user={user} />
+        {user && user.role === 'seller' ? (<><button type="button" onClick={() => setContent('products')}>
+            Мои товары
+          </button>
+                    <button type="button" onClick={() => setContent('personalData')}>
+                  </button></>) : user && user.role === 'buyer' &&(
+
           <UserPage />
           {user && user?.role === 'seller' ? (
+
             <>
               <button type="button" onClick={() => setContent('products')}>
                 Мои товары
@@ -62,8 +74,13 @@ function ProfilePage(): JSX.Element {
         </div>
         <div>
           {content === 'personalData' ? (
+
+            <div>{user.role === 'admin' ? (
+              <div><div>{records.map((record) => record.status === false && (
+
             <div>
               {user?.role === 'admin' ? (
+
                 <div>
                   <div>
                     {records.map(
@@ -96,6 +113,13 @@ function ProfilePage(): JSX.Element {
                 <div>МАРК ВСТАВЬ СЮДА СЕЛЛЕРА И ЮЗЕРА</div>
               )}
             </div>
+
+           </div>
+              ))}</div></div>
+            ) : (
+              <div>марк СЮДА СЕЛЛЕРА И ЮЗЕРА</div>
+            )}</div>
+
           ) : content === 'cart' ? (
             <div>КОРЗИНА</div>
           ) : content === 'orders' ? (

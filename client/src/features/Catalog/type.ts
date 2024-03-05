@@ -1,6 +1,7 @@
 export type Record = {
   user_id: number;
   id: number;
+  user_id:number
   title: string;
   artist: string;
   description: string;
@@ -8,6 +9,7 @@ export type Record = {
   quality: string;
   price: number;
   spotifyId: string;
+  status:boolean
   RecordPrices: RecordPrice[];
   Songs: Song[];
 };
@@ -88,7 +90,7 @@ export type Shop = {
 
 export type Comment = {
   comment: string;
-  seller_id: number;
+  // seller_id: number
 };
 
 export type ShopUser = {
