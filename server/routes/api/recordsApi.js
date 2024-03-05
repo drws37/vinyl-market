@@ -50,6 +50,7 @@ router.post('/', upload.single('img'), async (req, res) => {
       price: +price,
       quality,
       img: newFileUrl || '/recordImg/vinyl.png',
+      status: false,
       user_id: res.locals.user.id,
       category_id: +category,
     });
@@ -58,7 +59,7 @@ router.post('/', upload.single('img'), async (req, res) => {
       price: record.price,
       record_id: record.id,
     });
-    
+
     res.json({ record });
   } catch ({ message }) {
     res.json({ type: 'records router', message });
@@ -123,26 +124,26 @@ router.delete('/:recordId', async (req, res) => {
 
 router.get('/songs', async (req, res) => {
   try {
-    const songs = await Song.findAll()
-    res.json({songs})
-  } catch ({message}) {
-    res.json({type: 'records router', message})
+    const songs = await Song.findAll();
+    res.json({ songs });
+  } catch ({ message }) {
+    res.json({ type: 'records router', message });
   }
 });
 
 router.post('/songs', async (req, res) => {
-  const {songs} = req.body
-try {
-  const songsArray = await Promise.all(songs.map( async (songData) =>{
-
-    const {title, duration, record_id} = songData;
-    return await Song.create({title, duration, record_id})
+  const { songs } = req.body;
+  try {
+    const songsArray = await Promise.all(
+      songs.map(async (songData) => {
+        const { songTitle, duration, record_id } = songData;
+        return await Song.create({ songTitle, duration, record_id });
+      })
+    );
+    res.json(songsArray);
+  } catch ({ message }) {
+    res.json({ type: 'records router', message });
   }
-  ))
-  res.json(songsArray)
-} catch ({message}) {
-  res.json({type: 'records router', message})
-}
 });
 
 module.exports = router;
