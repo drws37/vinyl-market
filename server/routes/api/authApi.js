@@ -43,7 +43,7 @@ router.post('/registration', async (req, res) => {
           });
           res.status(201).json({
             message: 'success',
-            user: { username: user.name, id: user.id },
+            user,
           });
         }
       } else {
@@ -66,7 +66,7 @@ router.post('/login', async (req, res) => {
       const user = await User.findOne({ where: { email } });
       if (user && (await bcrypt.compare(password, user.password))) {
         const { accessToken, refreshToken } = generateTokens({
-          user: { name: user.name, id: user.id, role: user.role },
+          user: { email: email, id: user.id, role: user.role },
         });
 
         res.cookie(cookiesConfig.access, accessToken, {
@@ -79,7 +79,7 @@ router.post('/login', async (req, res) => {
         });
         res
           .status(200)
-          .json({ message: 'success', user: { name: user.name, id: user.id } });
+          .json({ message: 'success', user});
       } else {
         res.status(400).json({ message: 'логин или пароль не верный' });
       }

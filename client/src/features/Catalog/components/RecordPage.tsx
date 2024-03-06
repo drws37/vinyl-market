@@ -25,6 +25,9 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
+  const user = useSelector((store: RootState) => store.auth.user)
+  console.log(user, '------0--------0--------');
+  
   const records = useSelector((store: RootState) => store.records.records);
   const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;  
   console.log(currentRecord, 'CURRENT RECORD');
@@ -145,12 +148,14 @@ const options: ChartOptions<'line'> = {
   };
 
   const allSongs = useSelector((store: RootState) => store.songs.songs);
-  const currentSongs = allSongs.filter((song) => song.record_id === currentRecord?.id);    
+  const currentSongs = allSongs.filter((song) => song.record_id === currentRecord?.id);  
 
   return (
     <div>
       {currentRecord && (
         <>
+        {(user?.role === 'admin' || user?.role === 'seller') && (
+          <>
           <div className="update__form__container">
             <form className="update__form" onSubmit={updateRecordFetch}>
               <input
@@ -221,6 +226,8 @@ const options: ChartOptions<'line'> = {
               Добавить все песни
             </button>
           </div>
+          </>
+        )}
           <div className="record-page">
             <div className="record-card_main">
               <div className="card_img">
