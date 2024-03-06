@@ -24,7 +24,6 @@ router.post('/comment', async (req, res) => {
 router.get('/comments/:id', async (req, res) => {
   try {
     const {id} = req.params
-    console.log(+id);
     const seller = await Seller.findOne({where: {user_id:+id}})
     const comments = await SellersComment.findAll({include: {model: User}, where:{seller_id:seller.id}})
     res.json(comments)
@@ -33,16 +32,17 @@ router.get('/comments/:id', async (req, res) => {
   }
 })
 
-router.delete('/:id', async(req, res) => {
+router.delete('/:comId', async(req, res) => {
+  const {comId} = req.params
+  console.log(comId, 'ID COMMENTA')
+  const comment = await SellersComment.findOne({where: {id: comId}})
   try {
-    const {id} = req.params
-    console.log(id, 'back ');
-    const commentDelete = await SellersComment.destroy({where: {id: +id, user_id: res.locals.user.id}})
-    if(commentDelete){
-      res.json(+id)
-  
+    if (res.locals.user.role === 'admin' || comment.user_id === res.locals.user.id) {
+      const result = await SellersComment.destroy({ where: { id: comId } });
+      if (result > 0) {
+        res.json(+comId);
+      }
     }
-    
   } catch ({message}) {
     res.json(message)
     
