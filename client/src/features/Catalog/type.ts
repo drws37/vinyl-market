@@ -71,6 +71,14 @@ export type Song = {
   id: number;
   songTitle: string;
   duration: string;
+  user_id: number
+  record_id: number | undefined;
+};
+
+export type SongWithoutUser = {
+  id: number;
+  songTitle: string;
+  duration: string;
   record_id: number | undefined;
 };
 

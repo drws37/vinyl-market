@@ -19,13 +19,15 @@ import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordRemove, recordUpdate } from '../recordsSlice';
 import { songsAdd, songsDelete, songsLoad } from '../songsSlice';
 import '../styles/recordsPage.scss';
-import type { Song, SongId } from '../type';
+import type { Song, SongId, SongWithoutUser } from '../type';
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
   const user = useSelector((store: RootState) => store.auth.user)
+  console.log(user?.id, '-----user-----');
+  
   console.log(user, '------0--------0--------');
   
   const records = useSelector((store: RootState) => store.records.records);
@@ -107,8 +109,8 @@ const options: ChartOptions<'line'> = {
 };
   
 
-  const [songs, setSongs] = useState<Song[]>([]);
-  const [currentSong, setCurrentSong] = useState<Song>({
+  const [songs, setSongs] = useState<SongWithoutUser[]>([]);
+  const [currentSong, setCurrentSong] = useState<SongWithoutUser>({
     id: 0,
     songTitle: '',
     duration: '',
@@ -243,8 +245,12 @@ const options: ChartOptions<'line'> = {
                       {currentSongs.map((song, index) => (
                         <div style={{display: 'flex'}}>
                        <p key={index}>{`${index + 1}: ${song.songTitle}, ${song.duration}`}</p>
-                        <button onClick={() => deleteSong(song.id)} type='button'>Удалить</button>
-                        <button type='button'>Изменить</button>
+                       {(user?.id === song.user_id || user?.role === 'admin') && (
+                        <>
+                         <button onClick={() => deleteSong(song.id)} type='button'>Удалить</button>
+                         <button type='button'>Изменить</button>
+                         </>
+                       )}
                        </div>
                       ))}
                     </div>
