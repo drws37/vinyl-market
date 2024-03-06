@@ -99,7 +99,6 @@ function UserPage({ user }: { user: User | UserAndId | null }): JSX.Element {
                 <button type="submit">Сохранить Данные</button>
               </form>
             )}
-
             <div>{user?.username}</div>
             <div>{user?.email}</div>
           </div>

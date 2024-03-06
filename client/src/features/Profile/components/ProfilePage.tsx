@@ -68,14 +68,8 @@ setTimeout(() => {
               <button type="button" onClick={() => setContent('personalData')}>
                 Личные данные
               </button>
-              <button type="button" onClick={() => setContent('cart')}>
-                Корзина
-              </button>
               <button type="button" onClick={() => setContent('orders')}>
                 Мои заказы
-              </button>
-              <button type="button" onClick={() => setContent('favorites')}>
-                Избранное
               </button>
             </>
           )}
@@ -103,7 +97,7 @@ setTimeout(() => {
                   ))}
                 </div>
               ) : (
-                <div>МАРК ВСТАВЬ СЮДА СЕЛЛЕРА И ЮЗЕРА</div>
+                <div>МАРК ИДИ НАХУЙ</div>
               )}
             </div>
           ) : content === 'cart' ? (

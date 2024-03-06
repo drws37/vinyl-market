@@ -118,6 +118,7 @@ function Shop(): JSX.Element {
             </div>
           </div>
         )}
+          <div className='itemShop'>Товар магазина</div>
         <div className="container-order">
           {shop.record?.map((record) => <ShopItem key={record.id} record={record} />)}
         </div>

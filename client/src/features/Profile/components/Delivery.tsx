@@ -14,7 +14,8 @@ function DeliveryItem({delev}:{delev:Delivery}):JSX.Element {
         <div>{`Отчество: ${delev?.middle_name}`}</div>
         <div>{`Телефон: ${delev?.phone}`}</div>
         <div>{`Адрес: ${delev?.adress}`}</div>
-        <div>{`День: ${delev?.data}`}</div>
+        <div>{`Дата доставки: ${delev?.data}`}</div>
+
       </div>
 
 
