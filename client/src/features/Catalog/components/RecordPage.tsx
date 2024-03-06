@@ -154,7 +154,7 @@ const options: ChartOptions<'line'> = {
     <div>
       {currentRecord && (
         <>
-        {(user?.role === 'admin' || user?.role === 'seller') && (
+        {(user?.role === 'admin' || user?.role === 'seller' && user.id === currentRecord.user_id) && (
           <>
           <div className="update__form__container">
             <form className="update__form" onSubmit={updateRecordFetch}>

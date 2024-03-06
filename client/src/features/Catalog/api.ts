@@ -164,3 +164,17 @@ export const fetchCommentLoad = async (id:string | undefined): Promise<Comment[]
   
   return data;
 };
+
+export const fetchChangeRecordStatus = async (id: number): Promise<RecordId> => {
+  const res = await fetch(`/api/records/${id}/update`, {
+    method: 'put',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      status: true,
+    })
+  })
+  const data = await res.json()
+  return data
+}
