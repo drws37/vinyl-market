@@ -17,12 +17,10 @@ import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordRemove, recordUpdate } from '../recordsSlice';
-import { songsAdd, songsLoad } from '../songsSlice';
+import { songsAdd } from '../songsSlice';
 import '../styles/recordsPage.scss';
 import type { Song } from '../type';
-import { songsAdd } from '../songsSlice';
 import RecordPageSameItem from './RecordPageSameItem';
-
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
