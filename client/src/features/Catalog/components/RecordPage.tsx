@@ -20,6 +20,9 @@ import { recordRemove, recordUpdate } from '../recordsSlice';
 import { songsAdd, songsLoad } from '../songsSlice';
 import '../styles/recordsPage.scss';
 import type { Song } from '../type';
+import { songsAdd } from '../songsSlice';
+import RecordPageSameItem from './RecordPageSameItem';
+
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
@@ -27,7 +30,7 @@ function RecordPage(): JSX.Element {
   const { recordId } = useParams();
   const user = useSelector((store: RootState) => store.auth.user)
   console.log(user, '------0--------0--------');
-  
+ 
   const records = useSelector((store: RootState) => store.records.records);
   const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;  
 
@@ -98,14 +101,13 @@ function RecordPage(): JSX.Element {
     ],
   };
 
-const options: ChartOptions<'line'> = {
-  plugins: {
-    legend: {
-      display: false,
+  const options: ChartOptions<'line'> = {
+    plugins: {
+      legend: {
+        display: false,
+      },
     },
-  },
-};
-  
+  };
 
   const [songs, setSongs] = useState<Song[]>([]);
   const [currentSong, setCurrentSong] = useState<Song>({
@@ -138,6 +140,13 @@ const options: ChartOptions<'line'> = {
 
     dispatch(songsAdd({ songs: formattedSongs })).catch(console.log);
   };
+
+  const sameRecords = records.filter((item) =>
+    item.id !== currentRecord?.id && item.title === currentRecord?.title ? item : '',
+  );
+  const sameArtist = records.filter((item) =>
+    item.id !== currentRecord?.id && item.artist === currentRecord?.artist ? item : '',
+  );
 
   const allSongs = useSelector((store: RootState) => store.songs.songs);
   const currentSongs = allSongs.filter((song) => song.record_id === currentRecord?.id);  
@@ -255,16 +264,19 @@ const options: ChartOptions<'line'> = {
               </div>
               <div className="same_artist">
                 <h2>От того же исполнителя:</h2>
+                {sameArtist?.map((record) => (
+                  <RecordPageSameItem key={record.id} sameRecord={record} />
+                ))}
               </div>
               <div className="chart">
                 <h3>Изменение цены</h3>
                 <Line data={chartData} options={options} />
               </div>
               <div className="same_records">
-                <h2>У других продавцов:</h2>
-              </div>
-              <div>
-                <h2>Комментарии</h2>
+                <h2>Похожие товары:</h2>
+                {sameRecords?.map((record) => (
+                  <RecordPageSameItem key={record.id} sameRecord={record} />
+                ))}
               </div>
             </div>
           </div>
