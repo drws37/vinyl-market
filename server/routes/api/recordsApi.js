@@ -1,7 +1,9 @@
 const router = require('express').Router();
+const { log } = require('console');
 const { Record, Song, RecordPrice, User } = require('../../db/models');
 const multer = require('multer');
 const path = require('path');
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -159,5 +161,19 @@ router.post('/songs', async (req, res) => {
     res.json({ type: 'records router', message });
   }
 });
+
+router.put('/:recordId/update', async (req, res) => {
+  const {recordId} = req.params
+  console.log(recordId);
+  const {status} = req.body
+  console.log(status)
+  try {
+    const record = await Record.findOne({where: {id: recordId}})
+    const result = await record.update({status: status})
+      res.json(+recordId)
+  } catch ({message}) {
+    res.json({type: 'records router', message})
+  }
+})
 
 module.exports = router;

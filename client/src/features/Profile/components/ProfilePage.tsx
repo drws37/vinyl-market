@@ -80,13 +80,10 @@ function ProfilePage(): JSX.Element {
                         <p>{record.description}</p>
                         <p>{record.quality}</p>
                         <p>{record.price} ₽</p>
-                        <Link
-                          onClick={() => updateRecordStatus(record.id)}
-                          className="btn__more"
-                          to={`/records/${record.id}`}
-                        >
-                          Внести изменения
-                        </Link>
+                        <button onClick={() => updateRecordStatus(record.id)}
+                          className="btn__more" type='button'>
+                          Одобрить
+                        </button>
                       </div>
                     </div>
                   ))}
