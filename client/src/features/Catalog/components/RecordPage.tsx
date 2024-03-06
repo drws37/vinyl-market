@@ -243,7 +243,7 @@ const options: ChartOptions<'line'> = {
                       {currentSongs.map((song, index) => (
                         <div style={{display: 'flex'}}>
                        <p key={index}>{`${index + 1}: ${song.songTitle}, ${song.duration}`}</p>
-                        <button onClick={() => deleteSong} type='button'>Удалить</button>
+                        <button onClick={() => deleteSong(song.id)} type='button'>Удалить</button>
                         <button type='button'>Изменить</button>
                        </div>
                       ))}

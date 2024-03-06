@@ -176,4 +176,16 @@ router.put('/:recordId/update', async (req, res) => {
   }
 })
 
+router.delete('/:songId/songs', async (req, res) => {
+  const {songId} = req.params
+  try {
+    const result = await Song.destroy({where: {id: songId}})
+    if (result > 0) {
+      res.json(+songId)
+    }
+  } catch ({message}) {
+    res.json({type: 'recordds router', message})
+  }
+})
+
 module.exports = router;
