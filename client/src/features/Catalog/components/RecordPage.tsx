@@ -20,14 +20,15 @@ import { recordRemove, recordUpdate } from '../recordsSlice';
 import '../styles/recordsPage.scss';
 import type { Song } from '../type';
 import { songsAdd } from '../songsSlice';
+import RecordPageSameItem from './RecordPageSameItem';
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
   const records = useSelector((store: RootState) => store.records.records);
-  const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;  
-  console.log(currentRecord, 'CURRENT RECORD');
+  const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
+  console.log(records, 'RECORDS');
 
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [artist, setArtist] = useState<string | undefined>(undefined);
@@ -98,14 +99,13 @@ function RecordPage(): JSX.Element {
     ],
   };
 
-const options: ChartOptions<'line'> = {
-  plugins: {
-    legend: {
-      display: false,
+  const options: ChartOptions<'line'> = {
+    plugins: {
+      legend: {
+        display: false,
+      },
     },
-  },
-};
-  
+  };
 
   const [songs, setSongs] = useState<Song[]>([]);
   const [currentSong, setCurrentSong] = useState<Song>({
@@ -137,6 +137,14 @@ const options: ChartOptions<'line'> = {
 
     dispatch(songsAdd({ songs: formattedSongs })).catch(console.log);
   };
+
+  const sameRecords = records.filter((item) =>
+    item.id !== currentRecord?.id && item.title === currentRecord?.title ? item : '',
+  );
+  const sameArtist = records.filter((item) =>
+    item.id !== currentRecord?.id && item.artist === currentRecord?.artist ? item : '',
+  );
+  console.log(sameRecords, 'SAME RECORDS');
 
   return (
     <div>
@@ -225,13 +233,13 @@ const options: ChartOptions<'line'> = {
                   <div className="price">{`${currentRecord?.price} ₽`}</div>
                 </div>
                 <p>Описание: {currentRecord.description}</p>
-                  <Link to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
-                  <div className='songs'>
-                    <h4>Трек-лист</h4>
-                    {currentRecord.Songs.map((song: Song, index: number) => (
+                <Link to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
+                <div className="songs">
+                  <h4>Трек-лист</h4>
+                  {currentRecord.Songs.map((song: Song, index: number) => (
                     <p key={index}>{`${index + 1}: ${song.songTitle}, ${song.duration}`}</p>
-                     ))}
-                  </div>
+                  ))}
+                </div>
               </div>
               <div className="records-page_widget">
                 <iframe
@@ -247,16 +255,19 @@ const options: ChartOptions<'line'> = {
               </div>
               <div className="same_artist">
                 <h2>От того же исполнителя:</h2>
+                {sameArtist?.map((record) => (
+                  <RecordPageSameItem key={record.id} sameRecord={record} />
+                ))}
               </div>
               <div className="chart">
                 <h3>Изменение цены</h3>
                 <Line data={chartData} options={options} />
               </div>
               <div className="same_records">
-                <h2>У других продавцов:</h2>
-              </div>
-              <div>
-                <h2>Комментарии</h2>
+                <h2>Похожие товары:</h2>
+                {sameRecords?.map((record) => (
+                  <RecordPageSameItem key={record.id} sameRecord={record} />
+                ))}
               </div>
             </div>
           </div>

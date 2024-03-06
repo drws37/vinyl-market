@@ -1,9 +1,9 @@
 {
   "development": {
-    "use_env_variable": "DATABASE_URL"
-  },
-  "production": {
-    "use_env_variable": "DATABASE_URL"
-
+    "username": "postgres",
+    "password": "postgres",
+    "database": "VINYL-MARKET",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   }
 }

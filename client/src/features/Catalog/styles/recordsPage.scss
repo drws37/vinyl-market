@@ -12,7 +12,8 @@
       grid-template-areas:
         'image card_info'
         'widget chart'
-        'same_artist same_artist';
+        'same_artist same_artist'
+        'same_records same_records';
 
       .card_img {
         grid-area: image;
@@ -25,6 +26,48 @@
 
       .same_artist {
         grid-area: same_artist;
+      }
+
+      .same_records {
+        grid-area: same_records;
+      }
+
+      .same_records, .same_artist {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        .same_record {
+          transition: background-color 0.4s ease;
+          background-color: rgb(255, 255, 255);
+          padding: 10px;
+          display: flex;
+          text-decoration: none;
+          color: black;
+
+          &_img {
+            img {
+              width: 100px;
+              margin-right: 10px;
+            }
+          }
+          &_footer {
+            display: flex;
+            align-items: center;
+            &_quality {
+              font-size: 1rem;
+              background-color: rgb(92, 212, 92);
+              color: white;
+              padding: 5px 10px;
+              max-width: 80px;
+              border-radius: 12px;
+              margin-right: 10px;
+            }
+          }
+        }
+
+        .same_record:hover {
+          background-color: rgb(229, 229, 229);
+        }
       }
     }
 
