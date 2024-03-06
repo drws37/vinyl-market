@@ -34,7 +34,10 @@ const recordsSlice = createSlice({
       }
         )
     .addCase(orderLoad.rejected, (state, action) => {state.message = action.error.message})
-    .addCase(orderDelete.fulfilled, (state, action) => {state.orders = state.orders.filter((el) => el.Record.id !== action.payload)})
+    .addCase(orderDelete.fulfilled, (state, action) => {
+      state.orders = state.orders.filter((el) => el.Record.id !== +action.payload.id)
+      state.orders = state.orders.map(el=>({...el, Order:{...el.Order,total_price:action.payload.order.total_price}}))
+    })
     .addCase(orderDelete.rejected, (state, action) => {state.message = action.error.message})
   }
 })

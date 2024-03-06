@@ -6,7 +6,6 @@
 import type {
   Category,
   Favorite,
-  OrderItem,
   OrderItemId,
   Record,
   RecordId,
@@ -16,6 +15,10 @@ import type {
   Comment,
   SongWithoutId,
   CommentFetch,
+  OrderItemm,
+  Order,
+  Delivery,
+  Deliverryy,
 } from './type';
 
 export const fetchReocrdsLoad = async (): Promise<Record[]> => {
@@ -51,7 +54,7 @@ export const fetchRecordUpdate = async (obj: {
   return data;
 };
 
-export const fetchOrderAdd = async (obj: { id: number; status: string }): Promise<OrderItem[]> => {
+export const fetchOrderAdd = async (obj: { id: number; status: string }): Promise<OrderItemm[]> => {
   // console.log(obj, '1111');
 
   const res = await fetch(`/api/order`, {
@@ -65,13 +68,15 @@ export const fetchOrderAdd = async (obj: { id: number; status: string }): Promis
   return data;
 };
 
-export const fetchOrdersLoad = async (): Promise<{ orders: OrderItem[]; message: string }> => {
+export const fetchOrdersLoad = async (): Promise<{ orders: OrderItemm[]; message: string }> => {
   const res = await fetch('/api/order/order');
   const data = await res.json();
+  console.log(data);
+  
   return data;
 };
 
-export const fetchOrderDel = async (id: OrderItemId): Promise<OrderItemId> => {
+export const fetchOrderDel = async (id: OrderItemId): Promise<{id:OrderItemId, order:Order}> => {
   const res = await fetch(`/api/order/${id}`, { method: 'DELETE' });
   const data = await res.json();
   // console.log(data, 'ddddddaaaata');
@@ -130,7 +135,7 @@ export const fetchSongsAdd = async (obj: { songs: SongWithoutId[] }): Promise<So
     body: JSON.stringify(obj),
   })
   const data = await res.json()
-  console.log(data, 'asdasddsasdaasdasd');
+  // console.log(data, 'asdasddsasdaasdasd');
   
   return data
   }
@@ -152,7 +157,7 @@ export const fetchCommentAdd = async (obj:Comment): Promise<{commentUser: Commen
     body: JSON.stringify(obj),
   })
   const data: {commentUser: CommentFetch} = await res.json() as {commentUser: CommentFetch}
-  console.log(data, '123123123123123123123123123213');
+  // console.log(data, '123123123123123123123123123213');
   
   return data
   }
@@ -161,7 +166,7 @@ export const fetchCommentAdd = async (obj:Comment): Promise<{commentUser: Commen
 export const fetchCommentLoad = async (id:string | undefined): Promise<CommentFetch[]> => {
   const res = await fetch(`/api/shop/comments/${id}`);
   const data = await res.json();
-  console.log(data, "Commentttttttttt");
+  // console.log(data, "Commentttttttttt");
   
   return data;
 };
@@ -170,5 +175,28 @@ export const fetchCommentDel = async (id: number | undefined): Promise<{id:numbe
   const res = await fetch(`/api/shop/${id}`, { method: 'DELETE' });
   const data = await res.json();
   // console.log(data, 'ddddddaaaata');
+  return data;
+};
+
+
+
+export const fetchDeliveryAdd = async (obj:Delivery): Promise<Deliverryy> => {
+  const res = await fetch(`/api/delivery`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(obj),
+  });
+  const data = await res.json();
+  // console.log(data);
+
+  return data;
+};
+
+export const fetchDeliveryLoad = async (id:number): Promise<Deliverryy[]> => {
+  const res = await fetch(`/api/delivery/${id}`);
+  const data = await res.json();
+  console.log(data, 'delyveryyyyyyyyy');
+  
+
   return data;
 };

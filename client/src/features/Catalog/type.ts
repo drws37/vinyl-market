@@ -27,18 +27,27 @@ export type Order = {
   id: number;
   order_id: number;
   record_id: number;
-  price: number;
+  total_price: number;
   count: number;
   Record: Record;
+  Order: Order
 };
 
-export type OrderItem = {
+export type OrderItemOrder = {
+  id:number
+  status:string
+  total_price:number
+  user_id:number
+
+}
+export type OrderItemm = {
   id: number;
   order_id: number;
   record_id: number;
   price: number;
   count: number;
   Record: Record;
+  Order:OrderItemOrder
 };
 
 export type Favorite = {
@@ -51,7 +60,7 @@ export type FavoriteId = {
   id: number;
 };
 
-export type OrderItemId = OrderItem['id'];
+export type OrderItemId = OrderItemm['id'];
 
 export type RecordId = Record['id'];
 
@@ -125,7 +134,7 @@ export type StateSongs = {
 };
 
 export type StateOrder = {
-  orders: OrderItem[];
+  orders: OrderItemm[];
   message: string | undefined;
 };
 
@@ -156,3 +165,28 @@ export type StateShop = {
   shop: ShopUser;
   message: string | undefined;
 };
+
+
+export type StateDelivery = {
+  delivery: Deliverryy[]; // Исправлено на Deliverryy, не Deliverryy[]
+  message: string | undefined;
+}
+
+export type Delivery = {
+  first_name:string
+  middle_name:string
+  last_name:string
+  adress:string
+  phone:string
+  data:string
+  order_id:number | undefined
+}
+
+
+export type Deliverryy = {
+  id: number;
+  user_id: number;
+  total_price: number;
+  status: string;
+  Deliveries: Delivery[]; // Здесь используется массив Delivery, который содержит вложенные доставки
+}

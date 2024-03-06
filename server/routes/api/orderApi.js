@@ -7,14 +7,14 @@ try {
   // console.log(123123123);
   const {id} = req.params
   // console.log(id, '123123 ');
-
+const orderItem = await OrderItem.findOne({where:{record_id: id}})
+console.log(orderItem,'111')
   const orderDelete = await OrderItem.destroy({where: {record_id: id}})
-  console.log(orderDelete, '123123123');
-  if(orderDelete){
-    // console.log('-------------');
-    res.json(+id)
-
-  }
+  const order = await Order.findOne ({where:{id:orderItem.order_id}})
+  const price = orderItem.price * orderItem.count
+  order.total_price -= price
+  order.save()
+res.json({id, order})
 } catch ({message}) {
   res.json(message)
   
@@ -60,7 +60,7 @@ router.get('/order', async (req,res) => {
       const orders1 = await Order.findOne({where:{user_id:res.locals.user.id}})
       // console.log(orders1);
       if(orders1){
-        const orders = await OrderItem.findAll({include:[{model: Record}], where: {order_id: orders1.id}})
+        const orders = await OrderItem.findAll({include:[{model: Record}, {model: Order}], where: {order_id: orders1.id}})
         res.json({orders, message: 'ok'})
       }else{
         res.json({message: 'clear'})
