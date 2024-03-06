@@ -129,7 +129,7 @@ export const fetchSongsAdd = async (obj: { songs: SongWithoutId[] }): Promise<So
     body: JSON.stringify(obj),
   })
   const data = await res.json()
-  console.log(data, 'asdasddsasdaasdasd');
+  console.log(data, 'asdasddsasdaasdasd9999');
   
   return data
   }

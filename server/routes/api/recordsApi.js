@@ -145,11 +145,13 @@ router.get('/songs', async (req, res) => {
 
 router.post('/songs', async (req, res) => {
   const { songs } = req.body;
+  console.log(songs);
   try {
+    const filtredArray = songs.filter((song) => song.user_id === res.locals.user.id)
     const songsArray = await Promise.all(
-      songs.map(async (songData) => {
-        const { songTitle, duration, record_id } = songData;
-        return await Song.create({ songTitle, duration, record_id });
+      filtredArray.map(async (songData) => {
+        const { songTitle, duration, record_id, user_id } = songData;
+        return await Song.create({ songTitle, duration, record_id, user_id });
       })
     );
     res.json(songsArray);
