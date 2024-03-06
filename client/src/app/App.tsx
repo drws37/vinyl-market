@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { Route, Routes, } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Main from '../features/Main/Main';
 import MainPage from '../features/MainContent/MainPage';
-import { useAppDispatch } from '../store/store';
+import { type RootState, useAppDispatch } from '../store/store';
 import { recordsLoad } from '../features/Catalog/recordsSlice';
 import Registration from '../features/Auth/components/Registration';
 import Login from '../features/Auth/components/Login';
@@ -20,23 +21,28 @@ import Shop from '../features/Catalog/components/Shop';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-  
+  const user = useSelector((store: RootState)=> store.auth.user);
+  console.log(user, 'USER')
   useEffect(() => {
+    dispatch(authCheckUser()).catch(console.log);
     dispatch(recordsLoad()).catch(console.log);
     dispatch(categoriesLoad()).catch(console.log);
-    dispatch(authCheckUser()).catch(console.log);
-    dispatch(favoriteLoad()).catch(console.log);
     dispatch(songsLoad()).catch(console.log);
   }, []);
+  
+  useEffect(() => {
+    if (user !== null) {
+      dispatch(favoriteLoad()).catch(console.log);
+    }
+  }, [user]);
 
   return (
     <Routes>
       <Route path="/" element={<Main />}>
         <Route index element={<MainPage />} />
-        <Route path='order' element={<Order />} />
-        <Route path='magazine/:userId' element={<Shop />} />
-
-        <Route path='favorite' element={<Favorite />} />
+        <Route path="order" element={<Order />} />
+        <Route path="magazine/:userId" element={<Shop />} />
+        <Route path="favorite" element={<Favorite />} />
         <Route path="sign-up" element={<Registration />} />
         <Route path="sign-in" element={<Login />} />
         <Route path="/profile/:userId" element={<ProfilePage />} />

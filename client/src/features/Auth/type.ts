@@ -24,7 +24,6 @@ export type CheckUser = {
 };
 
 export type RegUser = {
-  
   username: string;
   email: string;
   role: string;
