@@ -16,6 +16,7 @@ import type {
   Comment,
   SongWithoutId,
   CommentFetch,
+  SongId,
 } from './type';
 
 export const fetchReocrdsLoad = async (): Promise<Record[]> => {
@@ -134,6 +135,14 @@ export const fetchSongsAdd = async (obj: { songs: SongWithoutId[] }): Promise<So
   
   return data
   }
+
+export const fetchSongDelete = async (id: SongId): Promise<SongId> => {
+  const res = await fetch(`/api/records/${id}/songs`, {
+    method: 'delete'
+  })
+  const data = await res.json()
+  return data
+}
 
 export const fetchShopLoad = async (id:string | undefined): Promise<{user:ShopWithoutRecord, record:Record[]}> => {
   const res = await fetch(`/api/magazine/${id}`);
