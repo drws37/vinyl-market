@@ -15,16 +15,16 @@ const RecordsList = (): JSX.Element => {
   const [value, setValue] = useState('`');
 
   const records = useSelector((store: RootState) => store.records.records);
-console.log(records);
+  console.log(records);
 
-  const filterVinil = records.filter((record) =>
+  const filterVinil = records?.filter((record) =>
     record.title.toLowerCase().includes(value.toLowerCase()),
   );
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(recordsLoad()).catch(console.log)
+    dispatch(recordsLoad()).catch(console.log);
   }, []);
 
   return (
@@ -36,20 +36,19 @@ console.log(records);
           className="search-input-size"
         />
         <div className="container-search">
-          {filterVinil?.map((record) => (
-            <FilteredList key={record.id} record={record} />
-          ))}
+          {filterVinil?.map((record) => <FilteredList key={record.id} record={record} />)}
         </div>
       </div>
       <Swiper spaceBetween={30} slidesPerView={5} onSlideChange={() => console.log('slide change')}>
         <div className="records__container">
-          {records?.map((record) => (
-            record.status === true && (
-            <SwiperSlide key={record.id}>
-              <RecordItem key={record.id} record={record} />
-            </SwiperSlide>
-            )
-          ))}
+          {records?.map(
+            (record) =>
+              record.status === true && (
+                <SwiperSlide key={record.id}>
+                  <RecordItem key={record.id} record={record} />
+                </SwiperSlide>
+              ),
+          )}
         </div>
       </Swiper>
     </>
