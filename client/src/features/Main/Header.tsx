@@ -1,8 +1,9 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React from 'react';
 
 // import '../main.css'
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import './styles/nav.css';
 import { useSelector } from 'react-redux';
 import { useAppDispatch, type RootState } from '../../store/store';
@@ -29,27 +30,26 @@ console.log(user,'888888')
   };
 
   return (
-    <nav className="nav">
-      <div className="nav-bar">
-        <NavLink to="/">LOGO</NavLink>
-
+    <nav className="page__menu page__custom-settings menu">
+      <ul className="menu__list r-list">
+      <li className="menu__group"><NavLink to='/'><img className='logo' src='/MarketLogoBlack.png' alt="" /></NavLink></li>
         {!user ? (
           <>
-            <NavLink to="/sign-up">Регистрация</NavLink>
-            <NavLink to="/sign-in">Вход</NavLink>
+            <li className="menu__group"><NavLink className='menu__link r-link text-underlined' to="/sign-up">Регистрация</NavLink></li>
+            <li className="menu__group"> <NavLink className='menu__link r-link text-underlined' to="/sign-in">Вход</NavLink></li>
           </>
         ) : (
           <>
-            <NavLink to={`/profile/${user?.id}`}>Профиль</NavLink>
-            <NavLink to="/order">Корзина</NavLink>
-            <NavLink to="/favorite">Избранное</NavLink>
+           <li className="menu__group">  <NavLink className='menu__link r-link text-underlined' to="/order">Корзина</NavLink></li>
+           <li className="menu__group"> <NavLink className='menu__link r-link text-underlined' to={`/profile/${user?.id}`}>Профиль</NavLink></li>
+           <li className="menu__group"><NavLink className='menu__link r-link text-underlined' to="/favorite">Избранное</NavLink></li>
 
-            <NavLink onClick={handleLogout} to="/logout">
+           <li className="menu__group">  <NavLink className='menu__link r-link text-underlined' onClick={handleLogout} to="/logout">
               Выйти
-            </NavLink>
+            </NavLink></li>
           </>
         )}
-      </div>
+      </ul>
     </nav>
   );
 }
