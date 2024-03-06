@@ -104,11 +104,6 @@ const options: ChartOptions<'line'> = {
       display: false,
     },
   },
-  scales: {
-    y: {
-      min: 2000,
-    },
-  },
 };
   
 
