@@ -30,6 +30,7 @@ const commentSlice = createSlice({
         state.message = action.error.message;
       })
       .addCase(commentDelThunk.fulfilled, (state, action) => {
+        console.log(action.payload, 'PAYLOAD');
         state.comment = state.comment.filter((el) => el.id !== +action.payload)
       })
       .addCase(commentDelThunk.rejected, (state, action) => {

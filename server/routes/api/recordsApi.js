@@ -4,7 +4,6 @@ const { Record, Song, RecordPrice, User } = require('../../db/models');
 const multer = require('multer');
 const path = require('path');
 
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/recordImg');
@@ -82,7 +81,9 @@ router.put('/:recordId', upload.single('img'), async (req, res) => {
       newFileUrl = `/recordImg/${req.file.originalname}`;
     }
 
-    const record = await Record.findOne({ where: { id: recordId, user_id: res.locals.user.id} });
+    const record = await Record.findOne({
+      where: { id: recordId, user_id: res.locals.user.id },
+    });
 
     if (newFileUrl) {
       await record.update(
@@ -149,7 +150,9 @@ router.post('/songs', async (req, res) => {
   const { songs } = req.body;
   console.log(songs);
   try {
-    const filtredArray = songs.filter((song) => song.user_id === res.locals.user.id)
+    const filtredArray = songs.filter(
+      (song) => song.user_id === res.locals.user.id
+    );
     const songsArray = await Promise.all(
       filtredArray.map(async (songData) => {
         const { songTitle, duration, record_id, user_id } = songData;
@@ -163,32 +166,35 @@ router.post('/songs', async (req, res) => {
 });
 
 router.put('/:recordId/update', async (req, res) => {
-  const {recordId} = req.params
+  const { recordId } = req.params;
   console.log(recordId);
-  const {status} = req.body
-  console.log(status)
+  const { status } = req.body;
+  console.log(status);
   try {
-    const record = await Record.findOne({where: {id: recordId}})
-    const result = await record.update({status: status})
-      res.json(+recordId)
-  } catch ({message}) {
-    res.json({type: 'records router', message})
+    const record = await Record.findOne({ where: { id: recordId } });
+    const result = await record.update({ status: status });
+    res.json(+recordId);
+  } catch ({ message }) {
+    res.json({ type: 'records router', message });
   }
-})
+});
 
 router.delete('/:songId/songs', async (req, res) => {
-  const {songId} = req.params
-  const song = await Song.findOne({where: {id: songId}})
+  const { songId } = req.params;
+  const song = await Song.findOne({ where: { id: songId } });
   try {
-    if(song.user_id === res.locals.user.id || res.locals.user.role === 'admin') {
-      const result = await Song.destroy({where: {id: songId}})
+    if (
+      song.user_id === res.locals.user.id ||
+      res.locals.user.role === 'admin'
+    ) {
+      const result = await Song.destroy({ where: { id: songId } });
       if (result > 0) {
-        res.json(+songId)
+        res.json(+songId);
       }
     }
-  } catch ({message}) {
-    res.json({type: 'recordds router', message})
+  } catch ({ message }) {
+    res.json({ type: 'recordds router', message });
   }
-})
+});
 
 module.exports = router;
