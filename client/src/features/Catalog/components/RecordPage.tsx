@@ -2,29 +2,32 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 // @ts-check
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router';
-import { Link, useNavigate } from 'react-router-dom';
+import type { ChartOptions } from 'chart.js';
 import {
+  CategoryScale,
   Chart as ChartJS,
-  LineElement,
-  CategoryScale, // x axis
+  LineElement, // x axis
   LinearScale, // y axis
   PointElement,
 } from 'chart.js';
+import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import type { ChartOptions } from 'chart.js';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordRemove, recordUpdate } from '../recordsSlice';
+import { songsAdd, songsLoad } from '../songsSlice';
 import '../styles/recordsPage.scss';
 import type { Song } from '../type';
-import { songsAdd } from '../songsSlice';
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
+  const user = useSelector((store: RootState) => store.auth.user)
+  console.log(user, '------0--------0--------');
+  
   const records = useSelector((store: RootState) => store.records.records);
   const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;  
 
@@ -130,15 +133,21 @@ const options: ChartOptions<'line'> = {
       songTitle: song.songTitle,
       duration: song.duration,
       record_id: currentRecord?.id || 0,
+      user_id: currentRecord?.user_id
     }));
 
     dispatch(songsAdd({ songs: formattedSongs })).catch(console.log);
   };
 
+  const allSongs = useSelector((store: RootState) => store.songs.songs);
+  const currentSongs = allSongs.filter((song) => song.record_id === currentRecord?.id);  
+
   return (
     <div>
       {currentRecord && (
         <>
+        {(user?.role === 'admin' || user?.role === 'seller' && user.id === currentRecord.user_id) && (
+          <>
           <div className="update__form__container">
             <form className="update__form" onSubmit={updateRecordFetch}>
               <input
@@ -209,6 +218,8 @@ const options: ChartOptions<'line'> = {
               Добавить все песни
             </button>
           </div>
+          </>
+        )}
           <div className="record-page">
             <div className="record-card_main">
               <div className="card_img">
@@ -223,12 +234,12 @@ const options: ChartOptions<'line'> = {
                 </div>
                 <p>Описание: {currentRecord.description}</p>
                   <Link to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
-                  <div className='songs'>
+                  <div className="songs">
                     <h4>Трек-лист</h4>
-                    {currentRecord.Songs.map((song: Song, index: number) => (
-                    <p key={index}>{`${index + 1}: ${song.songTitle}, ${song.duration}`}</p>
-                     ))}
-                  </div>
+                      {currentSongs.map((song, index) => (
+                       <p key={index}>{`${index + 1}: ${song.songTitle}, ${song.duration}`}</p>
+                      ))}
+                    </div>
               </div>
               <div className="records-page_widget">
                 <iframe

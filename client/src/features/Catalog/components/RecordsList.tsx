@@ -44,9 +44,11 @@ console.log(records);
       <Swiper spaceBetween={30} slidesPerView={5} onSlideChange={() => console.log('slide change')}>
         <div className="records__container">
           {records?.map((record) => (
+            record.status === true && (
             <SwiperSlide key={record.id}>
               <RecordItem key={record.id} record={record} />
             </SwiperSlide>
+            )
           ))}
         </div>
       </Swiper>
