@@ -22,7 +22,6 @@ import '../styles/recordsPage.scss';
 import type { Song } from '../type';
 import RecordPageSameItem from './RecordPageSameItem';
 
-
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function RecordPage(): JSX.Element {
