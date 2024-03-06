@@ -23,12 +23,11 @@ import Shop from '../features/Catalog/components/Shop';
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useSelector((store: RootState) => store.auth.user);
-
+  
   useEffect(() => {
     dispatch(recordsLoad()).catch(console.log);
     dispatch(categoriesLoad()).catch(console.log);
     dispatch(authCheckUser()).catch(console.log);
-    dispatch(favoriteLoad()).catch(console.log);
     dispatch(songsLoad()).catch(console.log);
   }, []);
 
@@ -36,7 +35,7 @@ function App(): JSX.Element {
     if (user !== null) {
       dispatch(favoriteLoad()).catch(console.log);
     }
-  }, []);
+  }, [user]);
 
   return (
     <Routes>
