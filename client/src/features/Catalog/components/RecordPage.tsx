@@ -30,7 +30,6 @@ function RecordPage(): JSX.Element {
   
   const records = useSelector((store: RootState) => store.records.records);
   const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;  
-  console.log(currentRecord, 'CURRENT RECORD');
 
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [artist, setArtist] = useState<string | undefined>(undefined);
@@ -77,10 +76,8 @@ function RecordPage(): JSX.Element {
   function getAlbumData(): [number[], string[]] | [] {
     if (currentRecord) {
       const resPrices = currentRecord?.RecordPrices.map((item) => item?.price);
-      console.log(resPrices, 'RES PRICES');
       const resDates = currentRecord?.RecordPrices.map((item) => item?.createdAt.slice(0, 10));
       const sortedDates = resDates.sort((a, b) => a.localeCompare(b));
-      console.log(resDates, 'RES DATES');
       return [resPrices, sortedDates];
     }
     return [];
@@ -105,11 +102,6 @@ const options: ChartOptions<'line'> = {
   plugins: {
     legend: {
       display: false,
-    },
-  },
-  scales: {
-    y: {
-      min: 2000,
     },
   },
 };

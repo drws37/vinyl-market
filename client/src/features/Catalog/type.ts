@@ -1,3 +1,12 @@
+export type UserComment = {
+  email:string
+  id:number
+  img:string
+  role:string
+  username:string
+
+}
+
 export type Record = {
   user_id: number;
   id: number;
@@ -73,7 +82,7 @@ export type SongWithoutId = {
 
 export type Seller = {
   id: number;
-  addres: string;
+  adress: string;
   itn: string;
   phone: string;
   user_id: string;
@@ -88,8 +97,19 @@ export type Shop = {
 };
 
 export type Comment = {
+  id: number | undefined
+  comment: string | undefined;
+  seller_id: number;
+  User?: UserComment
+
+};
+
+export type CommentFetch = {
+  id: number | undefined
   comment: string | undefined;
   seller_id: number
+  User:UserComment
+  
 };
 
 export type ShopUser = {
