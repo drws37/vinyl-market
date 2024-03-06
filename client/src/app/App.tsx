@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Main from '../features/Main/Main';
@@ -19,10 +19,19 @@ import Favorite from '../features/Catalog/components/Favorite';
 import { favoriteLoad } from '../features/Catalog/favoriteSlice';
 import { songsLoad } from '../features/Catalog/songsSlice';
 import Shop from '../features/Catalog/components/Shop';
+import PreLoader from '../features/Main/PreLoader';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useSelector((store: RootState) => store.auth.user);
+  const [loading, setLoading] = useState(true)
+  useEffect(() =>{
+  setTimeout(() => {
+    setLoading(false)
+  },2000)
+
+},[])
+
   
   useEffect(() => {
     dispatch(recordsLoad()).catch(console.log);
@@ -38,20 +47,23 @@ function App(): JSX.Element {
   }, [user]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Main />}>
-        <Route index element={<MainPage />} />
-        <Route path="order" element={<Order />} />
-        <Route path="magazine/:userId" element={<Shop />} />
+loading ? <PreLoader/> : (
+  <Routes>
+  <Route path="/" element={<Main />}>
+    <Route index element={<MainPage />} />
+    <Route path="order" element={<Order />} />
+    <Route path="magazine/:userId" element={<Shop />} />
+    <Route path="favorite" element={<Favorite />} />
+    <Route path="sign-up" element={<Registration />} />
+    <Route path="sign-in" element={<Login />} />
+    <Route path="/profile/:userId" element={<ProfilePage />} />
+    <Route path="/records/:recordId" element={<RecordPage />} />
+    <Route path="/categories/:categoryTitle" element={<CategoryPage />} />
+  </Route>
+</Routes>
 
-        <Route path="favorite" element={<Favorite />} />
-        <Route path="sign-up" element={<Registration />} />
-        <Route path="sign-in" element={<Login />} />
-        <Route path="/profile/:userId" element={<ProfilePage />} />
-        <Route path="/records/:recordId" element={<RecordPage />} />
-        <Route path="/categories/:categoryTitle" element={<CategoryPage />} />
-      </Route>
-    </Routes>
+)
+
   );
 }
 

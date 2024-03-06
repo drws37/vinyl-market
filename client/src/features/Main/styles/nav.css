@@ -118,7 +118,7 @@
   */
   
   .page__custom-settings{
-    --menuBackgroundColor: #b6aeae;
+    --menuBackgroundColor: #f2a4a4;
     --menuLinkColor: #fff;
     --menuLinkColorUnactive: #241c69;
     --menuLinkOutlineOffset: -.5rem; 
@@ -136,6 +136,7 @@
     min-height: 100vh;
     display: flex;  
     flex-direction: column;
+    background-image: url();
   }
   
   .page{
@@ -150,8 +151,10 @@
     margin-top: 3rem;
   }
   .logo{
-    margin-top: 10px;
-    width: 100px;
+    margin-top: 5px;
+    margin-left: 10px;
+
+    width: 60px;
     display: flex;
     justify-content: center;
     align-items: center;

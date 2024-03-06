@@ -17,7 +17,6 @@ import CommentItem from './CommentItem';
 function Shop(): JSX.Element {
   const shop = useSelector((store: RootState) => store.shop.shop);
   const comments = useSelector((store: RootState) => store.comment.comment);
-  const user = useSelector((store: RootState) => store.auth.user);
   const [value, setComment] = useState('');
   const [btn, setBtn] = useState(false);
 

@@ -32,7 +32,7 @@ console.log(user,'888888')
   return (
     <nav className="page__menu page__custom-settings menu">
       <ul className="menu__list r-list">
-      <li className="menu__group"><NavLink to='/'><img className='logo' src='/MarketLogoBlack.png' alt="" /></NavLink></li>
+      <li className="menu__group"><NavLink to='/'><img className='logo'  src='/lp.png' alt="" /></NavLink></li>
         {!user ? (
           <>
             <li className="menu__group"><NavLink className='menu__link r-link text-underlined' to="/sign-up">Регистрация</NavLink></li>
