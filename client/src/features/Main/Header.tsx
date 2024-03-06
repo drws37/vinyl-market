@@ -3,7 +3,7 @@
 import React from 'react';
 
 // import '../main.css'
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './styles/nav.css';
 import { useSelector } from 'react-redux';
 import { useAppDispatch, type RootState } from '../../store/store';

@@ -19,6 +19,7 @@ import type {
   Order,
   Delivery,
   Deliverryy,
+  SongId,
 } from './type';
 
 export const fetchReocrdsLoad = async (): Promise<Record[]> => {
@@ -135,10 +136,17 @@ export const fetchSongsAdd = async (obj: { songs: SongWithoutId[] }): Promise<So
     body: JSON.stringify(obj),
   })
   const data = await res.json()
-  // console.log(data, 'asdasddsasdaasdasd');
   
   return data
   }
+
+export const fetchSongDelete = async (id: SongId): Promise<SongId> => {
+  const res = await fetch(`/api/records/${id}/songs`, {
+    method: 'delete'
+  })
+  const data = await res.json()
+  return data
+}
 
 export const fetchShopLoad = async (id:string | undefined): Promise<{user:ShopWithoutRecord, record:Record[]}> => {
   const res = await fetch(`/api/magazine/${id}`);
@@ -174,11 +182,8 @@ export const fetchCommentLoad = async (id:string | undefined): Promise<CommentFe
 export const fetchCommentDel = async (id: number | undefined): Promise<{id:number}> => {
   const res = await fetch(`/api/shop/${id}`, { method: 'DELETE' });
   const data = await res.json();
-  // console.log(data, 'ddddddaaaata');
   return data;
 };
-
-
 
 export const fetchDeliveryAdd = async (obj:Delivery): Promise<Deliverryy> => {
   const res = await fetch(`/api/delivery`, {
@@ -200,3 +205,18 @@ export const fetchDeliveryLoad = async (id:number): Promise<Deliverryy[]> => {
 
   return data;
 };
+
+export const fetchChangeRecordStatus = async (id: number): Promise<RecordId> => {
+  const res = await fetch(`/api/records/${id}/update`, {
+    method: 'put',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      status: true,
+    })
+  })
+  const data = await res.json()
+  return data
+}
+

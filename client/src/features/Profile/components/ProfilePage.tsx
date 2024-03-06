@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 
 /* eslint-disable no-nested-ternary */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import type { RootState } from '../../../store/store';
@@ -17,23 +17,15 @@ import { deliveryLoad } from '../../Catalog/deliverySlice';
 import { orderLoad } from '../../Catalog/ordersSlice';
 import DeliveryItem from './Delivery';
 import type { Delivery } from '../../Catalog/type';
+import { changeRecordStatus } from '../../Catalog/recordsSlice';
+import type { RecordId } from '../../Catalog/type';
 
 function ProfilePage(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
-  console.log(user, 'UUUUUUSSSSSSSSSEEEEEEERRRRRRRRR');
-
   const records = useSelector((store: RootState) => store.records.records);
-
   const [content, setContent] = useState('personalData');
-
   const orders = useSelector((store:RootState) => store.order.orders)
-
-  
-
-
   const dispatch = useAppDispatch();
-
-
 
 useEffect(() => {
 setTimeout(() => {
@@ -60,9 +52,10 @@ setTimeout(() => {
   };
   const delivery = useSelector((store:RootState) => store.delivery.delivery)
 
+  const updateRecordStatus = (id: RecordId): void=> {
+    dispatch(changeRecordStatus(id)).catch(console.log)
+  }
 
-  console.log(delivery, '123123132');
-  
   return (
     <>
       <h1>ProfilePage</h1>
@@ -110,13 +103,10 @@ setTimeout(() => {
                         <p>{record.description}</p>
                         <p>{record.quality}</p>
                         <p>{record.price} ₽</p>
-                        <Link
-                          onClick={scrollToTop}
-                          className="btn__more"
-                          to={`/records/${record.id}`}
-                        >
-                          Внести изменения
-                        </Link>
+                        <button onClick={() => updateRecordStatus(record.id)}
+                          className="btn__more" type='button'>
+                          Одобрить
+                        </button>
                       </div>
                     </div>
                   ))}
