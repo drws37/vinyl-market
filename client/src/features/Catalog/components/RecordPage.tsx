@@ -2,33 +2,37 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 // @ts-check
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router';
-import { Link, useNavigate } from 'react-router-dom';
+import type { ChartOptions } from 'chart.js';
 import {
+  CategoryScale,
   Chart as ChartJS,
-  LineElement,
-  CategoryScale, // x axis
+  LineElement, // x axis
   LinearScale, // y axis
   PointElement,
 } from 'chart.js';
+import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import type { ChartOptions } from 'chart.js';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordRemove, recordUpdate } from '../recordsSlice';
+import { songsAdd, songsLoad } from '../songsSlice';
 import '../styles/recordsPage.scss';
 import type { Song } from '../type';
 import { songsAdd } from '../songsSlice';
 import RecordPageSameItem from './RecordPageSameItem';
 
+
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
+  const user = useSelector((store: RootState) => store.auth.user)
+  console.log(user, '------0--------0--------');
+ 
   const records = useSelector((store: RootState) => store.records.records);
-  const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
-  console.log(records, 'RECORDS');
+  const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;  
 
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [artist, setArtist] = useState<string | undefined>(undefined);
@@ -75,10 +79,8 @@ function RecordPage(): JSX.Element {
   function getAlbumData(): [number[], string[]] | [] {
     if (currentRecord) {
       const resPrices = currentRecord?.RecordPrices.map((item) => item?.price);
-      console.log(resPrices, 'RES PRICES');
       const resDates = currentRecord?.RecordPrices.map((item) => item?.createdAt.slice(0, 10));
       const sortedDates = resDates.sort((a, b) => a.localeCompare(b));
-      console.log(resDates, 'RES DATES');
       return [resPrices, sortedDates];
     }
     return [];
@@ -133,6 +135,7 @@ function RecordPage(): JSX.Element {
       songTitle: song.songTitle,
       duration: song.duration,
       record_id: currentRecord?.id || 0,
+      user_id: currentRecord?.user_id
     }));
 
     dispatch(songsAdd({ songs: formattedSongs })).catch(console.log);
@@ -144,12 +147,16 @@ function RecordPage(): JSX.Element {
   const sameArtist = records.filter((item) =>
     item.id !== currentRecord?.id && item.artist === currentRecord?.artist ? item : '',
   );
-  console.log(sameRecords, 'SAME RECORDS');
+
+  const allSongs = useSelector((store: RootState) => store.songs.songs);
+  const currentSongs = allSongs.filter((song) => song.record_id === currentRecord?.id);  
 
   return (
     <div>
       {currentRecord && (
         <>
+        {(user?.role === 'admin' || user?.role === 'seller' && user.id === currentRecord.user_id) && (
+          <>
           <div className="update__form__container">
             <form className="update__form" onSubmit={updateRecordFetch}>
               <input
@@ -220,6 +227,8 @@ function RecordPage(): JSX.Element {
               Добавить все песни
             </button>
           </div>
+          </>
+        )}
           <div className="record-page">
             <div className="record-card_main">
               <div className="card_img">
@@ -233,13 +242,13 @@ function RecordPage(): JSX.Element {
                   <div className="price">{`${currentRecord?.price} ₽`}</div>
                 </div>
                 <p>Описание: {currentRecord.description}</p>
-                <Link to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
-                <div className="songs">
-                  <h4>Трек-лист</h4>
-                  {currentRecord.Songs.map((song: Song, index: number) => (
-                    <p key={index}>{`${index + 1}: ${song.songTitle}, ${song.duration}`}</p>
-                  ))}
-                </div>
+                  <Link to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
+                  <div className="songs">
+                    <h4>Трек-лист</h4>
+                      {currentSongs.map((song, index) => (
+                       <p key={index}>{`${index + 1}: ${song.songTitle}, ${song.duration}`}</p>
+                      ))}
+                    </div>
               </div>
               <div className="records-page_widget">
                 <iframe

@@ -21,7 +21,10 @@ const songsSlice = createSlice({
     }).addCase(songsLoad.rejected, (state, action) => {
       state.message = action.error.message
     }).
-    addCase(songsAdd.fulfilled, (state, action) => {state.songs = [...state.songs, ...action.payload]}).
+    addCase(songsAdd.fulfilled, (state, action) => {
+      console.log(action.payload, 'songssssssssssss');
+      
+      state.songs = [...state.songs, ...action.payload]}).
     addCase(songsAdd.rejected, (state, action) => {state.message = action.error.message})
   }
 })

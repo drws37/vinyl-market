@@ -9,9 +9,9 @@ function CategoriesList(): JSX.Element {
   
   return (
     <div className="categories__container">
-      {categories.map((category) => (
+      {categories.map((category) => 
         <CategoryItem key={category.id} category={category} />
-      ))}
+      )}
     </div>
   );
 }

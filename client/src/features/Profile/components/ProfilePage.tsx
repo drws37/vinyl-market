@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 
 /* eslint-disable no-nested-ternary */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import type { RootState } from '../../../store/store';
@@ -12,7 +12,8 @@ import { useAppDispatch } from '../../../store/store';
 import FormAddRecord from '../../Catalog/components/FormAddRecord';
 import '../styles/profile.css';
 import UserPage from './UserPage';
-import { authCheckUser } from '../../Auth/authSlice';
+import { changeRecordStatus } from '../../Catalog/recordsSlice';
+import type { RecordId } from '../../Catalog/type';
 
 function ProfilePage(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
@@ -24,13 +25,13 @@ function ProfilePage(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(authCheckUser()).catch(console.log);
-  }, []);
-
   const scrollToTop = (): void => {
     window.scrollTo(0, 0);
   };
+
+  const updateRecordStatus = (id: RecordId): void=> {
+    dispatch(changeRecordStatus(id)).catch(console.log)
+  }
 
   return (
     <>
@@ -79,13 +80,10 @@ function ProfilePage(): JSX.Element {
                         <p>{record.description}</p>
                         <p>{record.quality}</p>
                         <p>{record.price} ₽</p>
-                        <Link
-                          onClick={scrollToTop}
-                          className="btn__more"
-                          to={`/records/${record.id}`}
-                        >
-                          Внести изменения
-                        </Link>
+                        <button onClick={() => updateRecordStatus(record.id)}
+                          className="btn__more" type='button'>
+                          Одобрить
+                        </button>
                       </div>
                     </div>
                   ))}

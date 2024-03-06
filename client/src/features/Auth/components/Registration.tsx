@@ -57,7 +57,7 @@ function Registration(): JSX.Element {
                 {...register('username')}
               />
               <i className="fa fa-user" />
-              <span>{errors.username?.message}</span>
+              <div>{errors.username?.message}</div>
             </div>
             <div className="form-group">
               <input
@@ -67,7 +67,7 @@ function Registration(): JSX.Element {
                 {...register('email')}
               />
               <i className="fa fa-user" />
-              <span>{errors.email?.message}</span>
+              <div>{errors.email?.message}</div>
             </div>
             <div className="form-group">
               <input
@@ -77,7 +77,7 @@ function Registration(): JSX.Element {
                 {...register('password')}
               />
               <i className="fa fa-user" />
-              <span>{errors.password?.message}</span>
+              <div>{errors.password?.message}</div>
             </div>
             <div className="form-group">
               <input
@@ -87,7 +87,7 @@ function Registration(): JSX.Element {
                 {...register('rpassword')}
               />
               <i className="fa fa-user" />
-              <span>{errors.rpassword?.message}</span>
+              <div>{errors.rpassword?.message}</div>
             </div>
             <div className="form-group help">
               <select {...register('role')}>

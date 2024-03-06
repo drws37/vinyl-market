@@ -15,6 +15,7 @@ import type {
   ShopWithoutRecord,
   Comment,
   SongWithoutId,
+  CommentFetch,
 } from './type';
 
 export const fetchReocrdsLoad = async (): Promise<Record[]> => {
@@ -129,7 +130,7 @@ export const fetchSongsAdd = async (obj: { songs: SongWithoutId[] }): Promise<So
     body: JSON.stringify(obj),
   })
   const data = await res.json()
-  console.log(data, 'asdasddsasdaasdasd');
+  console.log(data, 'asdasddsasdaasdasd9999');
   
   return data
   }
@@ -142,7 +143,7 @@ export const fetchShopLoad = async (id:string | undefined): Promise<{user:ShopWi
   return data;
 };
 
-export const fetchCommentAdd = async (obj:Comment): Promise<Comment> => {
+export const fetchCommentAdd = async (obj:Comment): Promise<{commentUser: CommentFetch}> => {
   const res = await fetch('/api/shop/comment', {
     method: 'post',
     headers: {
@@ -150,17 +151,37 @@ export const fetchCommentAdd = async (obj:Comment): Promise<Comment> => {
     },
     body: JSON.stringify(obj),
   })
-  const data = await res.json()
-  console.log(data, '1231321233xyi');
+  const data: {commentUser: CommentFetch} = await res.json() as {commentUser: CommentFetch}
+  console.log(data, '123123123123123123123123123213');
   
   return data
   }
 
   
-export const fetchCommentLoad = async (id:string | undefined): Promise<Comment[]> => {
+export const fetchCommentLoad = async (id:string | undefined): Promise<CommentFetch[]> => {
   const res = await fetch(`/api/shop/comments/${id}`);
   const data = await res.json();
   console.log(data, "Commentttttttttt");
   
   return data;
 };
+
+export const fetchCommentDel = async (id: number | undefined): Promise<{id:number}> => {
+  const res = await fetch(`/api/shop/${id}`, { method: 'DELETE' });
+  const data = await res.json();
+  return data;
+};
+
+export const fetchChangeRecordStatus = async (id: number): Promise<RecordId> => {
+  const res = await fetch(`/api/records/${id}/update`, {
+    method: 'put',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      status: true,
+    })
+  })
+  const data = await res.json()
+  return data
+}
