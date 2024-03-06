@@ -74,41 +74,38 @@ const addDelivery = (e:React.FormEvent<HTMLFormElement>):void => {
 
 
     <div className='container-order'>
-      {
-        orders.length > 0 ?
-        orders.map((order) => 
-        <OrderItem key={order.id} order={order}/>)
-        :
-        <div>Ваша корзина пуста</div>
-      }
+  {orders.length > 0 ? 
+    orders.map((order) => (
+      <OrderItem key={order.id} order={order}/>
+    )) : 
+    <div className='order-text'>Ваша корзина пуста</div>
+  }
+
+  <button type="button" onClick={openModal}>
+    Open Modal
+  </button>
+
+  <Modal
+    isOpen={modalIsOpen}
+    onRequestClose={closeModal}
+    style={customStyles}
+    contentLabel="Example Modal"
+  >
+    <h2>Оплата заказа</h2>
+    <div>{`Общая цена вашей корзины ${orders.length > 0 ? orders[0].Order.total_price : 0}₽`}</div>
+    <form onSubmit={addDelivery}>
+      <input value={firstname} onChange={(e) => setFirstname(e.target.value)} type="text" placeholder="Имя" />
+      <input value={middlename} onChange={(e) => setMiddlename(e.target.value)} type="text" placeholder="Отчество" />
+      <input value={lastname} onChange={(e) => setLastname(e.target.value)} type="text" placeholder="Фамилия" />
+      <input value={adress} onChange={(e) => setAdress(e.target.value)} type="text" placeholder="Адрес доставки" />
+      <input value={phone} onChange={(e) => setPhone(e.target.value)} type="text" placeholder="Номер телефона" />
+      <input value={data} onChange={(e) => setData(e.target.value)} type="date" placeholder="Желаемая дата доставки" />
       <div>
-      <button type="button" onClick={openModal}>
-        Open Modal
-      </button>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <h2>Оплата заказа</h2>
-
-        <div>{`Общаю цена вашей корзины ${orders[0]?.Order.total_price}₽`}</div>
-        <form onSubmit={addDelivery}>
-          <input value={firstname} onChange={(e) => setFirstname(e.target.value)} type="text" placeholder="Имя" />
-          <input value={middlename} onChange={(e) => setMiddlename(e.target.value)} type="text" placeholder="Отчество" />
-          <input value={lastname} onChange={(e) => setLastname(e.target.value)} type="text" placeholder="Фамилия" />
-          <input value={adress} onChange={(e) => setAdress(e.target.value)} type="text" placeholder="Адрес доставки" />
-          <input value={phone} onChange={(e) => setPhone(e.target.value)} type="text" placeholder="Номер телефона" />
-          <input value={data} onChange={(e) => setData(e.target.value)} type="date" placeholder="Желаемая дата доставки" />
-          <div>
-            <button type="submit">Оплатить</button>
-          </div>
-        </form>
-      </Modal>
+        <button type="submit">Оплатить</button>
       </div>
-
-    </div>
+    </form>
+  </Modal>
+</div>
   )
 }
 

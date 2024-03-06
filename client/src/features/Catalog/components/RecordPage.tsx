@@ -246,8 +246,10 @@ function RecordPage(): JSX.Element {
                   <div className="quality">{currentRecord?.quality}</div>
                   <div className="price">{`${currentRecord?.price} ₽`}</div>
                 </div>
+                  <Link className="button-shop" to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
                 <p>Описание: {currentRecord.description}</p>
-                  <Link to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
+                
+                  
                   <div className="songs">
                     <h4>Трек-лист</h4>
                       {currentSongs.map((song, index) => (
