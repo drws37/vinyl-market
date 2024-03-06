@@ -17,9 +17,9 @@ import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordRemove, recordUpdate } from '../recordsSlice';
-import { songsAdd, songsLoad } from '../songsSlice';
+import { songsAdd, songsDelete, songsLoad } from '../songsSlice';
 import '../styles/recordsPage.scss';
-import type { Song } from '../type';
+import type { Song, SongId } from '../type';
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
@@ -140,7 +140,11 @@ const options: ChartOptions<'line'> = {
   };
 
   const allSongs = useSelector((store: RootState) => store.songs.songs);
-  const currentSongs = allSongs.filter((song) => song.record_id === currentRecord?.id);  
+  const currentSongs = allSongs.filter((song) => song.record_id === currentRecord?.id); 
+
+  const deleteSong = (id: SongId): void=> {
+    dispatch(songsDelete(id)).catch(console.log)
+  }
 
   return (
     <div>
@@ -237,7 +241,11 @@ const options: ChartOptions<'line'> = {
                   <div className="songs">
                     <h4>Трек-лист</h4>
                       {currentSongs.map((song, index) => (
+                        <div style={{display: 'flex'}}>
                        <p key={index}>{`${index + 1}: ${song.songTitle}, ${song.duration}`}</p>
+                        <button onClick={() => deleteSong} type='button'>Удалить</button>
+                        <button type='button'>Изменить</button>
+                       </div>
                       ))}
                     </div>
               </div>
