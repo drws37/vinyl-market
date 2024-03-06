@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 
 /* eslint-disable no-nested-ternary */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import type { RootState } from '../../../store/store';
@@ -16,9 +16,9 @@ import { authCheckUser } from '../../Auth/authSlice';
 import { deliveryLoad } from '../../Catalog/deliverySlice';
 import { orderLoad } from '../../Catalog/ordersSlice';
 import DeliveryItem from './Delivery';
-import type { Delivery } from '../../Catalog/type';
+import type { Delivery , RecordId } from '../../Catalog/type';
 import { changeRecordStatus } from '../../Catalog/recordsSlice';
-import type { RecordId } from '../../Catalog/type';
+
 
 function ProfilePage(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
@@ -26,21 +26,12 @@ function ProfilePage(): JSX.Element {
   const [content, setContent] = useState('personalData');
   const orders = useSelector((store:RootState) => store.order.orders)
   const dispatch = useAppDispatch();
-
+  const id1 = orders[0]?.Order.id;
 useEffect(() => {
 setTimeout(() => {
-  dispatch(orderLoad())
-  .then(() => {
-      // Если заказы загружены, получаем идентификатор первого заказа
-      const id = orders[0]?.Order.id;
-      if (id) {
-          // Если идентификатор существует, загружаем доставку
-          dispatch(deliveryLoad(id))
-          .catch(console.log);
-      }
-  })
-  .catch(console.log);
-},1500)
+  dispatch(orderLoad()).catch(console.log)
+          dispatch(deliveryLoad(id1))
+          .catch(console.log)})
 
 
   dispatch(authCheckUser())
@@ -120,7 +111,7 @@ setTimeout(() => {
           ) : content === 'orders' ? (
             <div>
             {
-              delivery.Deliveries.map((delev: Delivery) => <DeliveryItem delev={delev}/>)
+              delivery?.Deliveries?.map((delev: Delivery) => <DeliveryItem delev={delev}/>)
             }
             </div>
           ) : content === 'products' ? (
