@@ -2,7 +2,8 @@
 /* eslint-disable react/function-component-definition */
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
+import { Navigation, Pagination, A11y } from 'swiper/modules';
+import 'swiper/css/bundle';
 
 import { useSelector } from 'react-redux';
 import { useAppDispatch, type RootState } from '../../../store/store';
@@ -16,6 +17,8 @@ const RecordsList = (): JSX.Element => {
 
   const records = useSelector((store: RootState) => store.records.records);
   console.log(records);
+
+  const lastAddedRecords = records.slice(0, 16).filter((record) => record.status === true);
 
   const filterVinil = records?.filter((record) =>
     record.title.toLowerCase().includes(value.toLowerCase()),
@@ -39,16 +42,21 @@ const RecordsList = (): JSX.Element => {
           {filterVinil?.map((record) => <FilteredList key={record.id} record={record} />)}
         </div>
       </div>
-      <Swiper spaceBetween={30} slidesPerView={5} onSlideChange={() => console.log('slide change')}>
+      <Swiper
+        modules={[Navigation, Pagination, A11y]}
+        spaceBetween={50}
+        slidesPerView={4}
+        slidesPerGroup={4}
+        navigation
+        pagination={{ clickable: true }}
+        onSlideChange={() => console.log('slide change')}
+      >
         <div className="records__container">
-          {records?.map(
-            (record) =>
-              record.status === true && (
-                <SwiperSlide key={record.id}>
-                  <RecordItem key={record.id} record={record} />
-                </SwiperSlide>
-              ),
-          )}
+          {lastAddedRecords.map((record) => (
+            <SwiperSlide key={record?.id}>
+              <RecordItem key={record?.id} record={record} />
+            </SwiperSlide>
+          ))}
         </div>
       </Swiper>
     </>
