@@ -1,8 +1,8 @@
 .footer {
   width: 100%;
 
-  background-color: #b6aeae;
-  height: 80px;
+  background-color: #232323;
+  height: 40px;
 
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
     img {
-      max-height: 50px;
+      max-height: 30px;
       margin: 0 10px;
     }
     p {

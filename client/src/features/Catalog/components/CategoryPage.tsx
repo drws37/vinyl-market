@@ -17,14 +17,13 @@ function CategoryPage(): JSX.Element {
 
   return (
     <div className="category__page__main">
-      <div className="sidebar">
-        <h2>Жанры:</h2>
+      <div className="sidebar-categories">
         {categories.map((category) => (
           <CategoryItem key={category.id} category={category} />
         ))}
       </div>
       <div className="content">
-        {currentCategory?.Records?.map((record) => <RecordItem key={record.id} record={record} />)}
+        {currentCategory?.Records?.map((record) => record.status === true &&<RecordItem key={record.id} record={record} />)}
       </div>
     </div>
   );

@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', upload.single('img'), async (req, res) => {
   try {
-    const { title, artist, description, price, quality, category } = req.body;
+    const { title, artist, description, price, quality, category, spotify } = req.body;
 
     let newFileUrl = '';
     if (req.file) {
@@ -51,6 +51,7 @@ router.post('/', upload.single('img'), async (req, res) => {
       quality,
       img: newFileUrl || '/recordImg/vinyl.png',
       status: false,
+      spotifyId: spotify,
       user_id: res.locals.user.id,
       category_id: +category,
     });

@@ -14,6 +14,7 @@ const FormAddRecord = (): JSX.Element => {
   const [price, setPrice] = useState('')
   const [quality, setQuality] = useState('')
   const [category, setCategory] = useState('')
+  const [spotify, setSpotify] = useState('')
 
   const categories = useSelector((store: RootState) => store.categories.categories)
   const dispatch = useAppDispatch();
@@ -29,6 +30,7 @@ const FormAddRecord = (): JSX.Element => {
     formData.append('img', imgFile !== null && imgFile !== undefined ? imgFile : '')
     formData.append('quality', quality)
     formData.append('category', category)
+    formData.append('spotify', spotify)
     dispatch(recordAdd(formData)).catch(console.log)
     setTitle('')
     setArtist('')
@@ -36,6 +38,7 @@ const FormAddRecord = (): JSX.Element => {
     setPrice('')
     setQuality('')
     setCategory('')
+    setSpotify('')
   }
 
  
@@ -52,6 +55,7 @@ const FormAddRecord = (): JSX.Element => {
             <input value={title} placeholder='title' required onChange={(e)=>setTitle(e.target.value)} />
             <input value={artist} placeholder='artist' onChange={(e)=>setArtist(e.target.value)}/>
             <input value={description} placeholder='description' onChange={(e)=>setDescription(e.target.value)}/>
+            <input value={spotify} placeholder='spotify' onChange={(e)=>setSpotify(e.target.value)}/>
             <input value={price} placeholder='price' type='number' onChange={(e)=>setPrice(e.target.value)}/>
             <input  placeholder='img' type='file' onChange={(e)=>setImg(e.target.files)}/>
             <select value={quality} onChange={(e) => setQuality(e.target.value)}>

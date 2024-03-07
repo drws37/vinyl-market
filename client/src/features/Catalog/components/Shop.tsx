@@ -11,14 +11,14 @@ import { useAppDispatch } from '../../../store/store';
 import { shopLoad } from '../shopSlice';
 import ShopItem from './ShopItem';
 import { commentAddThunk, commentLoadThunk } from '../commentSlice';
-import '../styles/shopCard.css';
 import CommentItem from './CommentItem';
+import '../styles/shopCard.css';
 
 function Shop(): JSX.Element {
+  const user = useSelector((store: RootState) => store.auth.user);
   const shop = useSelector((store: RootState) => store.shop.shop);
   const comments = useSelector((store: RootState) => store.comment.comment);
   const [value, setComment] = useState('');
-  const [btn, setBtn] = useState(false);
 
   const { userId } = useParams();
   const dispatch = useAppDispatch();
@@ -31,8 +31,6 @@ function Shop(): JSX.Element {
     dispatch(shopLoad(id)).catch(console.log);
     dispatch(commentLoadThunk(id)).catch(console.log);
   }, []);
-
-  // console.log(shop, 123123132);
 
   const commentAdd = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -53,16 +51,14 @@ function Shop(): JSX.Element {
         <div>{`Инн: ${shop.user?.Seller.itn}`}</div>
         <div>{`Почта: ${shop.user?.email}`}</div>
       </div>
-      <button className="comm-button" onClick={() => setBtn((prev) => !prev)} type="button">
-        Комментарии
-      </button>
 
-      <div className="">
-        {btn && (
-          <div className="container-input-comm">
-            <div className="container-comment">
-              {comments?.map((comment) => <CommentItem key={comment.id} comment={comment} />)}
-            </div>
+      <div className="shop_content_main">
+        <div className="container-order">
+          {shop.record?.map((record) => <ShopItem key={record.id} record={record} />)}
+        </div>
+        <div className="container-input-comm">
+          <h2>Отзывы о магазине</h2>
+          {user && (
             <div className="input-wrapper">
               <form onSubmit={commentAdd}>
                 <div className="input-container">
@@ -116,11 +112,10 @@ function Shop(): JSX.Element {
                 </div>
               </form>
             </div>
+          )}
+          <div className="container-comment">
+            {comments?.map((comment) => <CommentItem key={comment.id} comment={comment} />)}
           </div>
-        )}
-          <div className='itemShop'>Товар магазина</div>
-        <div className="container-order">
-          {shop.record?.map((record) => <ShopItem key={record.id} record={record} />)}
         </div>
       </div>
     </>

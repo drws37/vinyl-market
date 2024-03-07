@@ -1,19 +1,31 @@
+canvas {
+  margin-top: 25% !important;
+}
+
 .record-page {
   padding: 10px;
+
+  &_widget {
+    grid-area: widget;
+  }
 
   .record-card {
     &_main {
       display: grid;
       gap: 20px;
       justify-content: center;
-      grid-template-columns: repeat(2, 500px);
-      grid-template-rows: repeat(4, 500px);
+      grid-template-columns: repeat(3, 450px);
+      grid-template-rows: repeat(2, 450px);
+      grid-auto-rows: auto;
 
       grid-template-areas:
-        'image card_info'
-        'widget chart'
-        'same_artist same_artist'
-        'same_records same_records';
+        'image card_info chart'
+        'widget same_artist same_records';
+
+      .chart {
+        margin-bottom: 0;
+        grid-area: chart;
+      }
 
       .card_img {
         grid-area: image;
@@ -32,12 +44,14 @@
         grid-area: same_records;
       }
 
-      .same_records, .same_artist {
+      .same_records,
+      .same_artist {
         width: 100%;
         display: flex;
         flex-direction: column;
         .same_record {
-          transition: background-color 0.4s ease;
+          transition: background-color 0.3s ease;
+          transition: transform 0.4s ease;
           background-color: rgb(255, 255, 255);
           padding: 10px;
           display: flex;
@@ -53,20 +67,27 @@
           &_footer {
             display: flex;
             align-items: center;
+            margin-top: 25px;
+
             &_quality {
+              display: inline-block;
               font-size: 1rem;
               background-color: rgb(92, 212, 92);
               color: white;
               padding: 5px 10px;
-              max-width: 80px;
               border-radius: 12px;
               margin-right: 10px;
+
+              p {
+                margin: 0;
+              }
             }
           }
         }
 
         .same_record:hover {
-          background-color: rgb(229, 229, 229);
+          background-color: rgb(244, 244, 244);
+           transform: scale(1.03);
         }
       }
     }
@@ -91,6 +112,11 @@
 
         .quality {
           background-color: rgb(92, 212, 92);
+          display: inline-block;
+
+          p {
+            margin: 0;
+          }
         }
         .price {
           background-color: #232323;
@@ -100,19 +126,18 @@
   }
 }
 
-
 $color: #0cf;
 
 .button-shop {
   display: inline-block;
   text-decoration: none;
-  padding: .75rem 1.25rem;
-  border-radius: 10rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
   color: #fff;
   text-transform: uppercase;
   font-size: 1rem;
-  letter-spacing: .15rem;
-  transition: all .3s;
+  letter-spacing: 0.15rem;
+  transition: all 0.3s;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -124,7 +149,7 @@ $color: #0cf;
     width: 100%;
     height: 100%;
     background-color: $color;
-    border-radius: 10rem;
+    border-radius: 12px;
     z-index: -2;
   }
   &:before {
@@ -135,8 +160,8 @@ $color: #0cf;
     width: 0%;
     height: 100%;
     background-color: darken($color, 15%);
-    transition: all .3s;
-    border-radius: 10rem;
+    transition: all 0.3s;
+    border-radius: 12px;
     z-index: -1;
   }
   &:hover {
@@ -148,7 +173,3 @@ $color: #0cf;
 }
 
 /* optional reset for presentation */
-
-
-
-

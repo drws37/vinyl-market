@@ -42,7 +42,7 @@ const RecordsList = (): JSX.Element => {
           onChange={(e) => (e.target.value === '' ? setValue('`') : setValue(e.target.value))}
         />
         <div className="container-search">
-          {filterVinil?.map((record) => <FilteredList key={record.id} record={record} />)}
+          {filterVinil?.map((record, idx) => <FilteredList idx={idx}  key={record.id} record={record} />)}
         </div>
       </div>
       <Swiper

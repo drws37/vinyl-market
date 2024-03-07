@@ -118,9 +118,9 @@
   */
   
   .page__custom-settings{
-    --menuBackgroundColor: #cce6f9;
-    --menuLinkColor: #ffffff;
-    --menuLinkColorUnactive: #241c69;
+    --menuBackgroundColor: #232323;
+    --menuLinkColor: #fff;
+    --menuLinkColorUnactive: #ffffff;
     --menuLinkOutlineOffset: -.5rem; 
   }
   
