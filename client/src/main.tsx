@@ -5,16 +5,11 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './app/App';
 import './index.css';
 import { store } from './store/store';
-// import './features/Auth/styles/form.css';
-
-
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <BrowserRouter>
-  <Provider store={store}>
+    <Provider store={store}>
       <App />
-      </Provider>
-  </BrowserRouter>
-
-
+    </Provider>
+  </BrowserRouter>,
 );
