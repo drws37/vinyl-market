@@ -16,24 +16,25 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, type RootState } from '../../../store/store';
+import { fetchOrderAdd } from '../api';
+import { favoriteAdd } from '../favoriteSlice';
 import { recordRemove, recordUpdate } from '../recordsSlice';
 import { songsAdd, songsDelete } from '../songsSlice';
 import '../styles/recordsPage.scss';
 import type { SongId, SongWithoutUser } from '../type';
 import RecordPageSameItem from './RecordPageSameItem';
 
-
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
-  const user = useSelector((store: RootState) => store.auth.user)
+  const user = useSelector((store: RootState) => store.auth.user);
   console.log(user?.id, '-----user-----');
-  
+
   console.log(user, '------0--------0--------');
- 
+
   const records = useSelector((store: RootState) => store.records.records);
-  const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;  
+  const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;
 
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [artist, setArtist] = useState<string | undefined>(undefined);
@@ -136,7 +137,7 @@ function RecordPage(): JSX.Element {
       songTitle: song.songTitle,
       duration: song.duration,
       record_id: currentRecord?.id || 0,
-      user_id: currentRecord?.user_id
+      user_id: currentRecord?.user_id,
     }));
 
     dispatch(songsAdd({ songs: formattedSongs })).catch(console.log);
@@ -150,90 +151,103 @@ function RecordPage(): JSX.Element {
   );
 
   const allSongs = useSelector((store: RootState) => store.songs.songs);
-  const currentSongs = allSongs.filter((song) => song.record_id === currentRecord?.id); 
+  const currentSongs = allSongs.filter((song) => song.record_id === currentRecord?.id);
 
-  const deleteSong = (id: SongId): void=> {
-    dispatch(songsDelete(id)).catch(console.log)
-  }
+  const deleteSong = (id: SongId): void => {
+    dispatch(songsDelete(id)).catch(console.log);
+  };
+
+  const AddItemInOrder = async (): Promise<void> => {
+    await fetchOrderAdd({ status: 'Корзина', id: currentRecord?.id }).catch(console.log);
+  };
+
+  const AddFavoritre = async (id: number): Promise<void> => {
+    dispatch(favoriteAdd(id)).catch(console.log);
+  };
 
   return (
     <div>
       {currentRecord && (
         <>
-        {(user?.role === 'admin' || user?.role === 'seller' && user.id === currentRecord.user_id) && (
-          <>
-          <div className="update__form__container">
-            <form className="update__form" onSubmit={updateRecordFetch}>
-              <input
-                value={title}
-                placeholder="title"
-                required
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <input
-                value={artist}
-                placeholder="artist"
-                onChange={(e) => setArtist(e.target.value)}
-              />
-              <input
-                value={description}
-                placeholder="description"
-                onChange={(e) => setDescription(e.target.value)}
-              />
-              <input value={price} placeholder="price" onChange={(e) => setPrice(e.target.value)} />
-              <input placeholder="img" type="file" onChange={(e) => setImg(e.target.files)} />
-              <select value={quality} onChange={(e) => setQuality(e.target.value)}>
-                <option value="Empty">Не выбрано</option>
-                <option value="Mint">Mint</option>
-                <option value="Near Mint">Near mint</option>
-                <option value="Very Good">Very good</option>
-                <option value="Good">Good</option>
-                <option value="Fair">Fair</option>
-                <option value="Poor">Poor</option>
-                <option value="Bad">Bad</option>
-              </select>
-              <button className="button__update" type="submit">
-                Изменить
-              </button>
-              <button onClick={onHandleDelete} className="button__delete" type="button">
-                Удалить
-              </button>
-            </form>
-          </div>
-          <div>
-            <input
-              value={currentSong.songTitle}
-              placeholder="songTitle"
-              required
-              onChange={(e) => handleInputChange('songTitle', e.target.value)}
-            />
-            <input
-              value={currentSong.duration}
-              placeholder="duration"
-              required
-              onChange={(e) => handleInputChange('duration', e.target.value)}
-            />
-            <button type="button" onClick={addSong}>
-              Добавить еще одну песню
-            </button>
-
-            {songs?.map((song, index) => (
-              <div key={index}>
-                <p>
-                  {`Песня ${index + 1}: ${song.songTitle}, ${song.duration}`}
-                  <button type="button" onClick={() => removeSong(index)}>
+          {(user?.role === 'admin' ||
+            (user?.role === 'seller' && user.id === currentRecord.user_id)) && (
+            <>
+              <div className="update__form__container">
+                <form className="update__form" onSubmit={updateRecordFetch}>
+                  <input
+                    value={title}
+                    placeholder="title"
+                    required
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                  <input
+                    value={artist}
+                    placeholder="artist"
+                    onChange={(e) => setArtist(e.target.value)}
+                  />
+                  <input
+                    value={description}
+                    placeholder="description"
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                  <input
+                    value={price}
+                    placeholder="price"
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
+                  <input placeholder="img" type="file" onChange={(e) => setImg(e.target.files)} />
+                  <select value={quality} onChange={(e) => setQuality(e.target.value)}>
+                    <option value="Empty">Не выбрано</option>
+                    <option value="Mint">Mint</option>
+                    <option value="Near Mint">Near mint</option>
+                    <option value="Very Good">Very good</option>
+                    <option value="Good">Good</option>
+                    <option value="Fair">Fair</option>
+                    <option value="Poor">Poor</option>
+                    <option value="Bad">Bad</option>
+                  </select>
+                  <button className="button__update" type="submit">
+                    Изменить
+                  </button>
+                  <button onClick={onHandleDelete} className="button__delete" type="button">
                     Удалить
                   </button>
-                </p>
+                </form>
               </div>
-            ))}
+              <div>
+                <input
+                  value={currentSong.songTitle}
+                  placeholder="songTitle"
+                  required
+                  onChange={(e) => handleInputChange('songTitle', e.target.value)}
+                />
+                <input
+                  value={currentSong.duration}
+                  placeholder="duration"
+                  required
+                  onChange={(e) => handleInputChange('duration', e.target.value)}
+                />
+                <button type="button" onClick={addSong}>
+                  Добавить еще одну песню
+                </button>
 
-            <button type="button" onClick={addAllSongs}>
-              Добавить все песни
-            </button>
-          </div>
-          </>
-        )}
+                {songs?.map((song, index) => (
+                  <div key={index}>
+                    <p>
+                      {`Песня ${index + 1}: ${song.songTitle}, ${song.duration}`}
+                      <button type="button" onClick={() => removeSong(index)}>
+                        Удалить
+                      </button>
+                    </p>
+                  </div>
+                ))}
+
+                <button type="button" onClick={addAllSongs}>
+                  Добавить все песни
+                </button>
+              </div>
+            </>
+          )}
           <div className="record-page">
             <div className="record-card_main">
               <div className="card_img">
@@ -246,24 +260,28 @@ function RecordPage(): JSX.Element {
                   <div className="quality">{currentRecord?.quality}</div>
                   <div className="price">{`${currentRecord?.price} ₽`}</div>
                 </div>
-                  <Link className="button-shop" to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
+                <Link className="button-shop" to={`/magazine/${currentRecord?.user_id}`}>
+                  Перейти в магазин
+                </Link>
                 <p>Описание: {currentRecord.description}</p>
-                
-                  
-                  <div className="songs">
-                    <h4>Трек-лист</h4>
+
+                <div className="songs">
+                  {currentSongs.length > 0 && (
+                    <>
+                      <h4>Трек-лист</h4>
                       {currentSongs.map((song, index) => (
-                        <div style={{display: 'flex'}}>
-                       <p key={index}>{`${index + 1}: ${song.songTitle}, ${song.duration}`}</p>
-                       {(user?.id === song.user_id || user?.role === 'admin') && (
-                        <>
-                         <button onClick={() => deleteSong(song.id)} type='button'>Удалить</button>
-                         <button type='button'>Изменить</button>
-                         </>
-                       )}
-                       </div>
+                        <div style={{ display: 'flex' }}>
+                          <p key={index}>{`${index + 1}: ${song.songTitle}, ${song.duration}`}</p>
+                          {(user?.id === song.user_id || user?.role === 'admin') && (
+                            <button onClick={() => deleteSong(song.id)} type="button">
+                              Удалить
+                            </button>
+                          )}
+                        </div>
                       ))}
-                    </div>
+                    </>
+                  )}
+                </div>
               </div>
               <div className="records-page_widget">
                 <iframe

@@ -56,7 +56,7 @@ export const fetchRecordUpdate = async (obj: {
   return data;
 };
 
-export const fetchOrderAdd = async (obj: { id: number; status: string }): Promise<OrderItemm[]> => {
+export const fetchOrderAdd = async (obj: { id: number | undefined; status: string }): Promise<OrderItemm[]> => {
   // console.log(obj, '1111');
 
   const res = await fetch(`/api/order`, {
