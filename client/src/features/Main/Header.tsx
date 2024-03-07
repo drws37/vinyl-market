@@ -32,7 +32,7 @@ function Header(): JSX.Element {
       <ul className="menu__list r-list">
         <li className="menu__group">
           <NavLink to="/">
-            <img className="logo" src="/vinyl.png" alt="" />
+            <img className="logo" src="/MarketLogoWhite.png" alt="" />
           </NavLink>
         </li>
         {!user ? (
