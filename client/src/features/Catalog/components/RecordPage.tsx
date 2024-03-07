@@ -302,7 +302,6 @@ function RecordPage(): JSX.Element {
                 ))}
               </div>
               <div className="chart">
-                <h3>Изменение цены</h3>
                 <Line data={chartData} options={options} />
               </div>
               <div className="same_records">
