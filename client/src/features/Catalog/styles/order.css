@@ -1,6 +1,8 @@
 * {
     box-sizing: border-box;
  }
+
+ 
  .product-item {
    padding-left: 20px;
     width: 300px;
@@ -82,6 +84,10 @@
    flex-wrap: wrap;
    flex-direction: column;
 }
+.container-order1{
+   display: flex;
+   flex-wrap: wrap;
+}
 
  .product-item {
   transition: opacity 1s ease;
@@ -143,7 +149,7 @@
 }
 .add__form{
    display: flex;
-   /* flex-direction: column; */
+   flex-wrap: wrap;
 }
 
 .container-card-profile{
@@ -161,4 +167,43 @@
 }
 .form-add-record{
    margin-left: 30px;
+   display: flex;
+   flex-wrap: wrap;
+}
+.color{
+   background: #fafafa;
+}
+
+.update__form{
+   display: flex;
+   flex-direction: column;
+}
+
+.update__form__container{
+   margin: 20px;
+}
+
+.center{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   margin-top: 10%;
+}
+
+.order-text{
+   font-size: 45px;
+}
+
+.deletee{
+   margin-top: 10px;
+   background-color: rgb(174, 33, 33);
+}
+.deletee:hover{
+   margin-top: 10px;
+   background-color: rgb(212, 16, 16);
+}
+
+.add-song{
+   margin-left: 10px;
 }
