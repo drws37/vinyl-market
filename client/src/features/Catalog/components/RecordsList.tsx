@@ -39,7 +39,7 @@ const RecordsList = (): JSX.Element => {
           className="search-input-size"
         />
         <div className="container-search">
-          {filterVinil?.map((record) => <FilteredList key={record.id} record={record} />)}
+          {filterVinil?.map((record, idx) => <FilteredList idx={idx}  key={record.id} record={record} />)}
         </div>
       </div>
       <Swiper
