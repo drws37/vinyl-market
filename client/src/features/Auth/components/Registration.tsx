@@ -31,6 +31,7 @@ function Registration(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const message = useSelector((store: RootState) => store.auth.message);
+  
 
   const {
     register,
@@ -57,7 +58,7 @@ function Registration(): JSX.Element {
                 {...register('username')}
               />
               <i className="fa fa-user" />
-              <span>{errors.username?.message}</span>
+              <div className='color-er'>{errors.username?.message}</div>
             </div>
             <div className="form-group">
               <input
@@ -67,7 +68,7 @@ function Registration(): JSX.Element {
                 {...register('email')}
               />
               <i className="fa fa-user" />
-              <span>{errors.email?.message}</span>
+              <div className='color-er'>{errors.email?.message}</div>
             </div>
             <div className="form-group">
               <input
@@ -77,7 +78,7 @@ function Registration(): JSX.Element {
                 {...register('password')}
               />
               <i className="fa fa-user" />
-              <span>{errors.password?.message}</span>
+              <div className='color-er'>{errors.password?.message}</div>
             </div>
             <div className="form-group">
               <input
@@ -87,13 +88,13 @@ function Registration(): JSX.Element {
                 {...register('rpassword')}
               />
               <i className="fa fa-user" />
-              <span>{errors.rpassword?.message}</span>
+              <div className='color-er'>{errors.rpassword?.message}</div>
             </div>
             <div className="form-group help">
               <select {...register('role')}>
                 <option value="buyer">Покупатель</option>
                 <option value="seller">Магазин</option>
-                <span>{errors.role?.message}</span>
+                <div className='color-er'>{errors.role?.message}</div>
               </select>
               <NavLink to="#" className="fa fa-question-circle" />
             </div>

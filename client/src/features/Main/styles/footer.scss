@@ -1,0 +1,24 @@
+.footer {
+  width: 100%;
+
+  background-color: #b6aeae;
+  height: 80px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+  &_top {
+    display: flex;
+    align-items: center;
+    img {
+      max-height: 50px;
+      margin: 0 10px;
+    }
+    p {
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+}

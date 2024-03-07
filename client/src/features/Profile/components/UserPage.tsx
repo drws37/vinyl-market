@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useState } from 'react';
 import type { User, UserAndId } from '../../Auth/type';
@@ -35,6 +36,7 @@ function UserPage({ user }: { user: User | UserAndId | null }): JSX.Element {
     };
     dispatch(sellerUpdateInfo(obj)).catch(console.log);
   };
+
 
   return (
     <div>
@@ -97,7 +99,6 @@ function UserPage({ user }: { user: User | UserAndId | null }): JSX.Element {
                 <button type="submit">Сохранить Данные</button>
               </form>
             )}
-
             <div>{user?.username}</div>
             <div>{user?.email}</div>
           </div>
