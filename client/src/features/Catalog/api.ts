@@ -20,6 +20,7 @@ import type {
   Delivery,
   Deliverryy,
   SongId,
+  OrderClose,
 } from './type';
 
 export const fetchReocrdsLoad = async (): Promise<Record[]> => {
@@ -185,7 +186,7 @@ export const fetchCommentDel = async (id: number | undefined): Promise<{id:numbe
   return data;
 };
 
-export const fetchDeliveryAdd = async (obj:Delivery): Promise<Deliverryy> => {
+export const fetchDeliveryAdd = async (obj:Delivery): Promise<OrderClose> => {
   const res = await fetch(`/api/delivery`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -197,7 +198,7 @@ export const fetchDeliveryAdd = async (obj:Delivery): Promise<Deliverryy> => {
   return data;
 };
 
-export const fetchDeliveryLoad = async (id:number): Promise<Deliverryy[]> => {
+export const fetchDeliveryLoad = async (id:number): Promise<OrderClose[]> => {
   const res = await fetch(`/api/delivery/${id}`);
   const data = await res.json();
   console.log(data, 'delyveryyyyyyyyy');

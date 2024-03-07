@@ -176,7 +176,7 @@ export type StateShop = {
 
 
 export type StateDelivery = {
-  delivery: Deliverryy[]; // Исправлено на Deliverryy, не Deliverryy[]
+  delivery: OrderClose[]; // Исправлено на Deliverryy, не Deliverryy[]
   message: string | undefined;
 }
 
@@ -197,4 +197,11 @@ export type Deliverryy = {
   total_price: number;
   status: string;
   Deliveries: Delivery[]; // Здесь используется массив Delivery, который содержит вложенные доставки
+}
+export type OrderClose ={
+  id:number;
+  status:string;
+  total_price:number;
+  Deliveries:Delivery[];
+  OrderItems:OrderItemm[]
 }

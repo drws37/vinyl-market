@@ -16,8 +16,9 @@ import { authCheckUser } from '../../Auth/authSlice';
 import { deliveryLoad } from '../../Catalog/deliverySlice';
 import { orderLoad } from '../../Catalog/ordersSlice';
 import DeliveryItem from './Delivery';
-import type { Delivery , RecordId } from '../../Catalog/type';
+import type { RecordId } from '../../Catalog/type';
 import { changeRecordStatus } from '../../Catalog/recordsSlice';
+import '../styles/button.scss'
 
 
 function ProfilePage(): JSX.Element {
@@ -42,6 +43,8 @@ setTimeout(() => {
     window.scrollTo(0, 0);
   };
   const delivery = useSelector((store:RootState) => store.delivery.delivery)
+  console.log(delivery);
+  
 
   const updateRecordStatus = (id: RecordId): void=> {
     dispatch(changeRecordStatus(id)).catch(console.log)
@@ -65,10 +68,10 @@ setTimeout(() => {
           )}
           {user && user.role === 'buyer' && (
             <>
-              <button type="button" onClick={() => setContent('personalData')}>
+              <button className='button' type="button" onClick={() => setContent('personalData')}>
                 Личные данные
               </button>
-              <button type="button" onClick={() => setContent('orders')}>
+              <button className='button' type="button" onClick={() => setContent('orders')}>
                 Мои заказы
               </button>
             </>
@@ -97,7 +100,7 @@ setTimeout(() => {
                   ))}
                 </div>
               ) : (
-                <div>МАРК ИДИ НАХУЙ</div>
+                <div>1</div>
               )}
             </div>
           ) : content === 'cart' ? (
@@ -105,7 +108,7 @@ setTimeout(() => {
           ) : content === 'orders' ? (
             <div>
             {
-              delivery?.Deliveries?.map((delev: Delivery) => <DeliveryItem delev={delev}/>)
+              delivery.map(el=><DeliveryItem key={el.id} delev={el} />)
             }
             </div>
           ) : content === 'products' ? (
