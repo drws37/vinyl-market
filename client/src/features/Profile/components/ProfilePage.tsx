@@ -11,7 +11,6 @@ import type { RootState } from '../../../store/store';
 import { useAppDispatch } from '../../../store/store';
 import FormAddRecord from '../../Catalog/components/FormAddRecord';
 import '../styles/profile.css';
-import UserPage from './UserPage';
 import { authCheckUser, userUpdate } from '../../Auth/authSlice';
 import { deliveryLoad } from '../../Catalog/deliverySlice';
 import { orderLoad } from '../../Catalog/ordersSlice';
@@ -81,11 +80,9 @@ const updateUserFetch = (e: React.FormEvent<HTMLFormElement>): void => {
 }
 
   return (
-    <>
-      <h1>ProfilePage</h1>
+   
       <div className="profile_main">
         <div className="sidebar">
-          <UserPage user={user} />
           {user && user.role === 'seller' && (
             <>
               <button type="button" onClick={() => setContent('products')}>
@@ -187,7 +184,7 @@ const updateUserFetch = (e: React.FormEvent<HTMLFormElement>): void => {
           )}
         </div>
       </div>
-    </>
+
   );
 }
 
