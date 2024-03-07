@@ -33,7 +33,6 @@ function Registration(): JSX.Element {
   const navigate = useNavigate();
   const message = useSelector((store: RootState) => store.auth.message);
   const [role, setRole] = useState('');
-  console.log(role, '==-----------------==');
 
   const {
     register,
@@ -45,7 +44,6 @@ function Registration(): JSX.Element {
     dispatch(authRegistration(data)).catch(console.log);
     navigate('/');
   };
-  console.log(role);
 
   return (
     <div className="container">
@@ -158,11 +156,15 @@ function Registration(): JSX.Element {
                 </div>
               </>
             )}
-            <select style={{width:'0.1px', height:'0.1px'}} {...register('role')}>
-  <option value={role} selected={role === 'buyer'}>buyer</option>
-  <option value={role} selected={role === 'seller'}>seller</option>
-  <option value="admin">admin</option>
-</select>
+            <select style={{ width: '0.1px', height: '0.1px' }} {...register('role')}>
+              <option value={role} selected={role === 'buyer'}>
+                buyer
+              </option>
+              <option value={role} selected={role === 'seller'}>
+                seller
+              </option>
+              <option value="admin">admin</option>
+            </select>
           </form>
           <div className="errRega err"> {message}</div>
         </div>

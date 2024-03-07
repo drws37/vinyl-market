@@ -20,9 +20,9 @@ export const store = configureStore({
     order: ordersSlice,
     favorite: favoriteSlice,
     songs: songsSlice,
-    shop:shopSlice,
-    comment:commentSlice,
-    delivery:deliverySlice
+    shop: shopSlice,
+    comment: commentSlice,
+    delivery: deliverySlice,
   },
 });
 
