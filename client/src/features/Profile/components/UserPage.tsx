@@ -1,26 +1,44 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useState } from 'react';
+import Modal from 'react-modal';
 import type { User, UserAndId } from '../../Auth/type';
-
 import { useAppDispatch } from '../../../store/store';
 import { sellerAddInfo, sellerUpdateInfo } from '../../Catalog/shopSlice';
 import '../styles/profile.css';
 
+import '../../Catalog/styles/order.css'
+
+
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
+
 function UserPage({ user }: { user: User | UserAndId | null }): JSX.Element {
   const dispatch = useAppDispatch();
 
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalIsOpen1, setIsOpen1] = useState(false);
+
+
+
+
   const [phone, setPhone] = useState('');
-  const [addres, setAddres] = useState('');
+  const [adress, setAddres] = useState('');
   const [itn, setItn] = useState('');
-  const [addstate, setAddstate] = useState(false);
-  const [updatestate, setUpdatestate] = useState(false);
 
   const addInfoSeller = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const obj = {
       phone,
-      addres,
+      adress,
       itn,
       user_id: user?.id,
     };
@@ -31,84 +49,143 @@ function UserPage({ user }: { user: User | UserAndId | null }): JSX.Element {
     e.preventDefault();
     const obj = {
       phone,
-      addres,
+      adress,
       itn,
       user_id: user?.id,
     };
     dispatch(sellerUpdateInfo(obj)).catch(console.log);
   };
 
+
+  const openModal = (): void => {
+    setIsOpen(true);
+  };
+
+  const closeModal = (): void => {
+    setIsOpen(false);
+  };
+  const closeModal1 = (): void => {
+    setIsOpen1(false);
+  };
+
+  const openModal11 = (): void => {
+    setIsOpen1(true);
+  };
+
+
+
   return (
     <div>
       {user?.role === 'seller' ? (
-        <>
-          <button onClick={() => setAddstate((prev) => !prev)} type="submit">
+
+
+
+          <div>
+          <div className="card">
+              <img className="img-profile" src={user?.img} alt="" />
+              <h1>{user?.username}</h1>
+              <p className="title">{user?.email}</p>
+            </div>
+            <div className='user-btn'>
+            <button className='btn-profile1' onClick={openModal} type="button">
             {' '}
             Заполнить данные о магазине
           </button>
-          <button onClick={() => setUpdatestate((prev) => !prev)} type="submit">
+          <button className='btn-profile1' onClick={openModal11} type="submit">
             {' '}
             Изменить данные о магазине
           </button>
-
-          <div>
-            {addstate && (
+          </div>
+           
+              
+      <Modal
+      isOpen={modalIsOpen}
+      onRequestClose={closeModal}
+      style={customStyles}
+      contentLabel="Example Modal"
+    >
+      <h3>Заполните данные о магазине</h3>
               <form onSubmit={addInfoSeller}>
                 <input
+                 className='input-order1 modal-flex'
                   value={phone}
                   type="phone"
                   placeholder="Телефон"
                   onChange={(e) => setPhone(e.target.value)}
                 />
                 <input
-                  value={addres}
+                className='input-order1 modal-flex'
+                  value={adress}
                   type="text"
                   placeholder="Адрес"
                   onChange={(e) => setAddres(e.target.value)}
                 />
                 <input
+                className='input-order1 modal-flex'
                   value={itn}
                   type="text"
                   placeholder="ИНН"
                   onChange={(e) => setItn(e.target.value)}
                 />
-                <button type="submit">Сохранить Данные</button>
+                <div className='button-profile-1'>
+                <button className='button1' type="submit">Сохранить Данные</button>
+                </div>
               </form>
-            )}
+              </Modal>
 
-            {updatestate && (
+              <Modal
+      isOpen={modalIsOpen1}
+      onRequestClose={closeModal1}
+      style={customStyles}
+      contentLabel="Example Modal"
+    >
+      <h3>Обновите данные </h3>
               <form onSubmit={updateInfoSeller}>
                 <input
+                className='input-order1 modal-flex'
                   value={phone}
                   type="phone"
                   placeholder="Телефон"
                   onChange={(e) => setPhone(e.target.value)}
                 />
                 <input
-                  value={addres}
+                className='input-order1 modal-flex'
+                  value={adress}
                   type="text"
                   placeholder="Адрес"
                   onChange={(e) => setAddres(e.target.value)}
                 />
                 <input
+                className='input-order1 modal-flex'
                   value={itn}
                   type="text"
                   placeholder="ИНН"
                   onChange={(e) => setItn(e.target.value)}
                 />
-                <button type="submit">Сохранить Данные</button>
+                <button className='button1' type="submit">Сохранить Данные</button>
               </form>
-            )}
-            <div className="container-user">
-              <div className="user">{`Название магазина: ${user?.username}`}</div>
-              <div className="user"> {`Почта: ${user?.email}`}</div>
-            </div>
+
+
+          </Modal>
+
+
           </div>
-        </>
+
       ) : (
-        <div className="container-user">
-          <div className="user">{`Ваше имя: ${user?.username}`}</div>
-          <div className="user">{`Почта: ${user?.email}`}</div>
+
+        <div className="card-div">
+          <div className="card">
+            <img className="img-profile" src={user?.img} alt="" />
+            <h1>{user?.username}</h1>
+            <p className="title">{user?.email}</p>
+            <p>Harvard University</p>
+            <p>
+              <button className="btn-profile" type="button">
+                Contact
+              </button>
+            </p>
+          </div>
+
         </div>
       )}
     </div>
