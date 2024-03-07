@@ -174,29 +174,43 @@ function RecordPage(): JSX.Element {
               <div className="update__form__container">
                 <form className="update__form" onSubmit={updateRecordFetch}>
                   <input
+                  className='input-order'
                     value={title}
-                    placeholder="title"
+                    placeholder="Название"
                     required
                     onChange={(e) => setTitle(e.target.value)}
                   />
                   <input
+                  required
+                  className='input-order'
+
                     value={artist}
-                    placeholder="artist"
+                    placeholder="Артист"
                     onChange={(e) => setArtist(e.target.value)}
                   />
                   <input
+                  required
+                  className='input-order'
+
                     value={description}
-                    placeholder="description"
+                    placeholder="Описание"
                     onChange={(e) => setDescription(e.target.value)}
                   />
                   <input
+                  required
+                  className='input-order'
+
                     value={price}
-                    placeholder="price"
+                    placeholder="Цена"
                     onChange={(e) => setPrice(e.target.value)}
                   />
-                  <input placeholder="img" type="file" onChange={(e) => setImg(e.target.files)} />
-                  <select value={quality} onChange={(e) => setQuality(e.target.value)}>
-                    <option value="Empty">Не выбрано</option>
+                  <input
+                  className='input-order'
+                  required placeholder="img" type="file" onChange={(e) => setImg(e.target.files)} />
+                  <select
+                  className='input-order'
+                  required   value={quality} onChange={(e) => setQuality(e.target.value)}>
+                    <option  value="Empty">Не выбрано</option>
                     <option value="Mint">Mint</option>
                     <option value="Near Mint">Near mint</option>
                     <option value="Very Good">Very good</option>
@@ -205,10 +219,10 @@ function RecordPage(): JSX.Element {
                     <option value="Poor">Poor</option>
                     <option value="Bad">Bad</option>
                   </select>
-                  <button className="button__update" type="submit">
+                  <button className="button1" type="submit">
                     Изменить
                   </button>
-                  <button onClick={onHandleDelete} className="button__delete" type="button">
+                  <button onClick={onHandleDelete} className="button1 deletee" type="button">
                     Удалить
                   </button>
                 </form>
@@ -216,17 +230,21 @@ function RecordPage(): JSX.Element {
               <div>
                 <input
                   value={currentSong.songTitle}
-                  placeholder="songTitle"
+                  className='input-order'
+
+                  placeholder="Название трека"
                   required
                   onChange={(e) => handleInputChange('songTitle', e.target.value)}
                 />
                 <input
                   value={currentSong.duration}
-                  placeholder="duration"
+                  className='input-order'
+
+                  placeholder="Длительность трека"
                   required
                   onChange={(e) => handleInputChange('duration', e.target.value)}
                 />
-                <button type="button" onClick={addSong}>
+                <button  type="button" className='button1' onClick={addSong}>
                   Добавить еще одну песню
                 </button>
 
@@ -234,14 +252,14 @@ function RecordPage(): JSX.Element {
                   <div key={index}>
                     <p>
                       {`Песня ${index + 1}: ${song.songTitle}, ${song.duration}`}
-                      <button type="button" onClick={() => removeSong(index)}>
+                      <button type="button" className='button1' onClick={() => removeSong(index)}>
                         Удалить
                       </button>
                     </p>
                   </div>
                 ))}
 
-                <button type="button" onClick={addAllSongs}>
+                <button type="button" className='button1 add-song' onClick={addAllSongs}>
                   Добавить все песни
                 </button>
               </div>
@@ -272,11 +290,12 @@ function RecordPage(): JSX.Element {
                           <svg
                             width="30px"
                             height="30px"
+                            className="svg-favorite"
+                            fill='none'
                             viewBox="0 0 64 64"
                             xmlns="http://www.w3.org/2000/svg"
                             aria-hidden="true"
                             role="img"
-                            className="iconify iconify--emojione"
                             preserveAspectRatio="xMidYMid meet"
                           >
                             <path
@@ -295,6 +314,7 @@ function RecordPage(): JSX.Element {
                             width="30px"
                             height="30px"
                             viewBox="0 0 24 24"
+                            className='svg-order'
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
                           >

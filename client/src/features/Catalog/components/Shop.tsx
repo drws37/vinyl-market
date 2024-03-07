@@ -72,7 +72,7 @@ function Shop(): JSX.Element {
                     placeholder="Оставить комментарий..."
                   />
                   <div className="button-container">
-                    <button type="submit">
+                    <button type="submit" className='btn-add'>
                       <svg
                         width="20px"
                         height="20px"

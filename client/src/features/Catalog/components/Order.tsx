@@ -8,6 +8,7 @@ import Modal from 'react-modal';
 import { useForm } from 'react-hook-form';
 import { object, string } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
 import type { RootState } from '../../../store/store';
 import { useAppDispatch } from '../../../store/store';
 import OrderItem from './OrderItem';
@@ -32,15 +33,15 @@ const customStyles = {
 const checkField = object().shape({
   first_name: string().required('Необходимо указать имя'),
   last_name: string().required('Необходимо указать фамилию'),
-  middle_name: string().required('Необходимо указать фамилию'),
-  adress: string().required('Необходимо указать фамилию'),
+  middle_name: string().required('Необходимо указать отчество'),
+  adress: string().required('Необходимо указать адрес'),
   phone: string().required('Необходимо указать номер телефона'),
   data: string().required('Необходимо указать желаемую дату доставки'),
 });
 
 function Order(): JSX.Element {
   const [modalIsOpen, setIsOpen] = useState(false);
-
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -60,6 +61,7 @@ function Order(): JSX.Element {
 
   useEffect(() => {
     dispatch(orderLoad()).catch(console.log);
+
   }, []);
 
   const id = orders[0]?.Order.id;
@@ -68,6 +70,9 @@ function Order(): JSX.Element {
     const dataWithOrderId = { ...formData, order_id: id };
     dispatch(deliveryAdd(dataWithOrderId)).catch(console.log);
     dispatch(clear());
+    setTimeout(() => {
+      navigate('/')
+    },1500)
     // reset()
   };
 
@@ -85,7 +90,9 @@ function Order(): JSX.Element {
           </button>
         </>
       ) : (
-        <div className="order-text">Ваша корзина пуста</div>
+        <div className='center'>
+        <div className="order-text">Корзина пустая</div>
+        </div>
       )}
 
       <Modal
@@ -142,7 +149,7 @@ function Order(): JSX.Element {
             <div className="btn-modal">
               {orders.length > 0 ? (
                 <button
-                  className="button"
+                  className="button1"
                   type="submit"
                 >{`Оплатить: ${orders.length > 0 ? orders[0].Order.total_price : 0}₽`}</button>
               ) : (
