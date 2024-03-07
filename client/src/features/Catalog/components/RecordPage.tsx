@@ -17,9 +17,9 @@ import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordRemove, recordUpdate } from '../recordsSlice';
-import { songsAdd, songsDelete, songsLoad } from '../songsSlice';
+import { songsAdd, songsDelete } from '../songsSlice';
 import '../styles/recordsPage.scss';
-import type { Song, SongId, SongWithoutUser } from '../type';
+import type { SongId, SongWithoutUser } from '../type';
 import RecordPageSameItem from './RecordPageSameItem';
 
 

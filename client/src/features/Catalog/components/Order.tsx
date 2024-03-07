@@ -8,7 +8,7 @@ import type { RootState} from '../../../store/store';
 import { useAppDispatch } from '../../../store/store'
 import OrderItem from './OrderItem'
 import '../styles/order.css'
-import { orderLoad } from '../ordersSlice';
+import { clear, orderLoad } from '../ordersSlice';
 import { deliveryAdd } from '../deliverySlice';
 
 
@@ -67,6 +67,7 @@ const addDelivery = (e:React.FormEvent<HTMLFormElement>):void => {
   }
 
   dispatch(deliveryAdd(obj)).catch(console.log)
+  dispatch(clear())
 }
 
 

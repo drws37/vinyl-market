@@ -57,7 +57,7 @@ router.get('/order', async (req,res) => {
 
   try {
     if(res.locals.user){
-      const orders1 = await Order.findOne({where:{user_id:res.locals.user.id}})
+      const orders1 = await Order.findOne({where:{user_id:res.locals.user.id, status:'Корзина'}})
       // console.log(orders1);
       if(orders1){
         const orders = await OrderItem.findAll({include:[{model: Record}, {model: Order}], where: {order_id: orders1.id}})
