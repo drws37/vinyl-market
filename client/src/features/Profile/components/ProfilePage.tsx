@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/self-closing-comp */
@@ -18,7 +19,11 @@ import DeliveryItem from './Delivery';
 import type { RecordId } from '../../Catalog/type';
 import { changeRecordStatus } from '../../Catalog/recordsSlice';
 import '../styles/button.scss';
+
+import UserPage from './UserPage';
+
 import '../styles/admin.css'
+
 
 function ProfilePage(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
@@ -27,7 +32,6 @@ function ProfilePage(): JSX.Element {
 
 
   const orders = useSelector((store:RootState) => store.order.orders)
-  const shop = useSelector((store: RootState) => store.shop.shop);
 
 
   const dispatch = useAppDispatch();
@@ -72,28 +76,34 @@ function ProfilePage(): JSX.Element {
   return (
     <div className="profile_main">
       <div className="sidebar">
+
+        <UserPage user={user} />
         {user && user.role === 'seller' && (
           <>
-            <button type="button" onClick={() => setContent('products')}>
+            <button className='btn-profile' type="button" onClick={() => setContent('products')}>
               Мои товары
             </button>
-            <button type="button" onClick={() => setContent('personalData')}>
+            <button className='btn-profile' type="button" onClick={() => setContent('personalData')}>
+
               Личные данные
             </button>
           </>
         )}
         {user && user.role === 'buyer' && (
           <>
-            <button className="button" type="button" onClick={() => setContent('personalData')}>
+
+            <button className='btn-profile' type="button" onClick={() => setContent('personalData')}>
               Личные данные
             </button>
-            <button className="button" type="button" onClick={() => setContent('orders')}>
+            <button className='btn-profile' type="button" onClick={() => setContent('orders')}>
+
               Мои заказы
             </button>
           </>
         )}
       </div>
       <div>
+
         {content === 'personalData' ? (
           <div>
             {user?.role === 'admin' ? (
@@ -121,43 +131,47 @@ function ProfilePage(): JSX.Element {
                       </div>
                     ),
                 )}
+
               </div>
             ) : (
               <div>
                 <div className="update__form__container">
                   <form className="update__form" onSubmit={updateUserFetch}>
                     <input
+                    className='input-order'
                       value={username}
                       placeholder="username"
                       required
                       onChange={(e) => setUsername(e.target.value)}
                     />
                     <input
+                    className='input-order'
+
                       value={email}
                       placeholder="email"
                       onChange={(e) => setEmail(e.target.value)}
                     />
-                    <input placeholder="img" type="file" onChange={(e) => setImg(e.target.files)} />
-                    <button type="submit">Добавить</button>
+                    <input className='input-order'   placeholder="img" type="file" onChange={(e) => setImg(e.target.files)} />
+                    <button className='button1' type="submit">Добавить</button>
                   </form>
                 </div>
-              ) : (
-                <div>1</div>
-              )}
-            </div>
-          ) : content === 'cart' ? (
-            <div>КОРЗИНА</div>
-          ) : content === 'orders' ? (
-            <div>
-            {
-              delivery.map(el=><DeliveryItem key={el.id} delev={el} />)
-            }
-            </div>
-          ) : content === 'products' ? (
-            <div className='container-card-profile'>
-              <div className='form-add-record'>
-              <FormAddRecord />
               </div>
+            )}
+          </div>
+        )}
+        {content === 'cart' && (
+          <div>КОРЗИНА</div>
+        )}
+        {content === 'orders' && (
+          <div>
+            {delivery.map(el => <DeliveryItem key={el.id} delev={el} />)}
+          </div>
+        )}
+        {content === 'products' && (
+          <div className='container-card-profile'>
+            <div className='form-add-record'>
+              <FormAddRecord />
+            </div>
             <div className='card-cont'>
               {records.map(
                 (record) =>
@@ -177,20 +191,18 @@ function ProfilePage(): JSX.Element {
                         >
                           Внести изменения
                         </Link>
-                        
                       </div>
                     </div>
                   ),
               )}
-          </div>
-
             </div>
-          ) : (
-            <div>ИЗБРАННОЕ</div>
-          )}
-        </div>
+          </div>
+        )}
+        {content === 'favorite' && (
+          <div>ИЗБРАННОЕ</div>
+        )}
       </div>
-
+    </div>
   );
 }
 
