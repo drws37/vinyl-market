@@ -65,7 +65,8 @@
   
   .menu__link{
     padding: var(--menuLinkPadding, 1.5rem 2.5rem);
-    font-weight: 700;
+    font-weight: 600;
+    font-size: 20px;
     text-transform: uppercase;
   }
   
