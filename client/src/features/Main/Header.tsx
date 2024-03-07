@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React from 'react';
@@ -34,7 +35,7 @@ function Header(): JSX.Element {
       <ul className="menu__list r-list">
         <li className="menu__group">
           <NavLink to="/">
-            <img className="logo" src="/lp.png" alt="" />
+            <img className="logo" src="/vinyl.png" alt="" />
           </NavLink>
         </li>
         {!user ? (
