@@ -7,6 +7,8 @@ import { object, string } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import '../styles/form.css';
+import { useSelector } from 'react-redux';
+import type { RootState} from '../../../store/store';
 import { useAppDispatch } from '../../../store/store';
 import type { Userr } from '../type';
 import { authLogin } from '../authSlice';
@@ -19,6 +21,9 @@ const checkfild = object().shape({
 function Login(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const message = useSelector((store: RootState) => store.auth.message);
+  console.log(message);
+  
 
   const {
     register,
@@ -30,7 +35,10 @@ function Login(): JSX.Element {
     data: Userr,
   ) => {
     dispatch(authLogin(data)).catch(console.log);
-    navigate('/');
+    if(message === ''){
+      navigate('/');
+
+    }
   };
   return (
     <div className="container">
@@ -46,7 +54,7 @@ function Login(): JSX.Element {
                 {...register('email')}
               />
               <i className="fa fa-user" />
-              <span>{errors.email?.message}</span>
+              <div className='color-er'>{errors.email?.message}</div>
             </div>
             <div className="form-group">
               <input
@@ -56,7 +64,7 @@ function Login(): JSX.Element {
                 {...register('password')}
               />
               <i className="fa fa-user" />
-              <span>{errors.password?.message}</span>
+              <div className='color-er'>{errors.password?.message}</div>
             </div>
             <div className="form-group help" />
             <div className="form-group">
@@ -65,7 +73,7 @@ function Login(): JSX.Element {
               </button>
             </div>
           </form>
-          {/* <div className='errRega err'> {message}</div> */}
+          <div className='errRega err'> {message}</div>
         </div>
       </div>
     </div>

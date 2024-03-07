@@ -2,32 +2,38 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 // @ts-check
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router';
-import { Link, useNavigate } from 'react-router-dom';
+import type { ChartOptions } from 'chart.js';
 import {
+  CategoryScale,
   Chart as ChartJS,
-  LineElement,
-  CategoryScale, // x axis
+  LineElement, // x axis
   LinearScale, // y axis
   PointElement,
 } from 'chart.js';
+import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import type { ChartOptions } from 'chart.js';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, type RootState } from '../../../store/store';
 import { recordRemove, recordUpdate } from '../recordsSlice';
+import { songsAdd, songsDelete } from '../songsSlice';
 import '../styles/recordsPage.scss';
-import type { Song } from '../type';
-import { songsAdd } from '../songsSlice';
+import type { SongId, SongWithoutUser } from '../type';
+import RecordPageSameItem from './RecordPageSameItem';
+
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 function RecordPage(): JSX.Element {
   const { recordId } = useParams();
+  const user = useSelector((store: RootState) => store.auth.user)
+  console.log(user?.id, '-----user-----');
+  
+  console.log(user, '------0--------0--------');
+ 
   const records = useSelector((store: RootState) => store.records.records);
   const currentRecord = recordId ? records.find((record) => record.id === +recordId) : undefined;  
-  console.log(currentRecord, 'CURRENT RECORD');
 
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [artist, setArtist] = useState<string | undefined>(undefined);
@@ -74,10 +80,8 @@ function RecordPage(): JSX.Element {
   function getAlbumData(): [number[], string[]] | [] {
     if (currentRecord) {
       const resPrices = currentRecord?.RecordPrices.map((item) => item?.price);
-      console.log(resPrices, 'RES PRICES');
       const resDates = currentRecord?.RecordPrices.map((item) => item?.createdAt.slice(0, 10));
       const sortedDates = resDates.sort((a, b) => a.localeCompare(b));
-      console.log(resDates, 'RES DATES');
       return [resPrices, sortedDates];
     }
     return [];
@@ -98,22 +102,16 @@ function RecordPage(): JSX.Element {
     ],
   };
 
-const options: ChartOptions<'line'> = {
-  plugins: {
-    legend: {
-      display: false,
+  const options: ChartOptions<'line'> = {
+    plugins: {
+      legend: {
+        display: false,
+      },
     },
-  },
-  scales: {
-    y: {
-      min: 2000,
-    },
-  },
-};
-  
+  };
 
-  const [songs, setSongs] = useState<Song[]>([]);
-  const [currentSong, setCurrentSong] = useState<Song>({
+  const [songs, setSongs] = useState<SongWithoutUser[]>([]);
+  const [currentSong, setCurrentSong] = useState<SongWithoutUser>({
     id: 0,
     songTitle: '',
     duration: '',
@@ -138,15 +136,32 @@ const options: ChartOptions<'line'> = {
       songTitle: song.songTitle,
       duration: song.duration,
       record_id: currentRecord?.id || 0,
+      user_id: currentRecord?.user_id
     }));
 
     dispatch(songsAdd({ songs: formattedSongs })).catch(console.log);
   };
 
+  const sameRecords = records.filter((item) =>
+    item.id !== currentRecord?.id && item.title === currentRecord?.title ? item : '',
+  );
+  const sameArtist = records.filter((item) =>
+    item.id !== currentRecord?.id && item.artist === currentRecord?.artist ? item : '',
+  );
+
+  const allSongs = useSelector((store: RootState) => store.songs.songs);
+  const currentSongs = allSongs.filter((song) => song.record_id === currentRecord?.id); 
+
+  const deleteSong = (id: SongId): void=> {
+    dispatch(songsDelete(id)).catch(console.log)
+  }
+
   return (
     <div>
       {currentRecord && (
         <>
+        {(user?.role === 'admin' || user?.role === 'seller' && user.id === currentRecord.user_id) && (
+          <>
           <div className="update__form__container">
             <form className="update__form" onSubmit={updateRecordFetch}>
               <input
@@ -217,6 +232,8 @@ const options: ChartOptions<'line'> = {
               Добавить все песни
             </button>
           </div>
+          </>
+        )}
           <div className="record-page">
             <div className="record-card_main">
               <div className="card_img">
@@ -229,14 +246,24 @@ const options: ChartOptions<'line'> = {
                   <div className="quality">{currentRecord?.quality}</div>
                   <div className="price">{`${currentRecord?.price} ₽`}</div>
                 </div>
+                  <Link className="button-shop" to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
                 <p>Описание: {currentRecord.description}</p>
-                  <Link to={`/magazine/${currentRecord?.user_id}`}>Перейти в магазин</Link>
-                  <div className='songs'>
+                
+                  
+                  <div className="songs">
                     <h4>Трек-лист</h4>
-                    {currentRecord.Songs.map((song: Song, index: number) => (
-                    <p key={index}>{`${index + 1}: ${song.songTitle}, ${song.duration}`}</p>
-                     ))}
-                  </div>
+                      {currentSongs.map((song, index) => (
+                        <div style={{display: 'flex'}}>
+                       <p key={index}>{`${index + 1}: ${song.songTitle}, ${song.duration}`}</p>
+                       {(user?.id === song.user_id || user?.role === 'admin') && (
+                        <>
+                         <button onClick={() => deleteSong(song.id)} type='button'>Удалить</button>
+                         <button type='button'>Изменить</button>
+                         </>
+                       )}
+                       </div>
+                      ))}
+                    </div>
               </div>
               <div className="records-page_widget">
                 <iframe
@@ -252,16 +279,19 @@ const options: ChartOptions<'line'> = {
               </div>
               <div className="same_artist">
                 <h2>От того же исполнителя:</h2>
+                {sameArtist?.map((record) => (
+                  <RecordPageSameItem key={record.id} sameRecord={record} />
+                ))}
               </div>
               <div className="chart">
                 <h3>Изменение цены</h3>
                 <Line data={chartData} options={options} />
               </div>
               <div className="same_records">
-                <h2>У других продавцов:</h2>
-              </div>
-              <div>
-                <h2>Комментарии</h2>
+                <h2>Похожие товары:</h2>
+                {sameRecords?.map((record) => (
+                  <RecordPageSameItem key={record.id} sameRecord={record} />
+                ))}
               </div>
             </div>
           </div>

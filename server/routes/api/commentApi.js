@@ -7,9 +7,10 @@ router.post('/comment', async (req, res) => {
     const {seller_id, comment} = req.body
 
     if(res.locals.user){
-      console.log(123123);
-      const commentAdd = await SellersComment.create({seller_id, comment, user_id:res.locals.user.id})
-      res.json({comment})
+      // console.log(123123);
+      const commentAdd = await SellersComment.create({seller_id:+seller_id, comment, user_id:res.locals.user.id})
+      const commentUser = await SellersComment.findOne({include: {model : User}, where:{id:commentAdd.id}})
+      res.json({commentUser})
     }
   
 
@@ -23,13 +24,29 @@ router.post('/comment', async (req, res) => {
 router.get('/comments/:id', async (req, res) => {
   try {
     const {id} = req.params
-    console.log(+id);
     const seller = await Seller.findOne({where: {user_id:+id}})
-    const comments = await SellersComment.findAll({where:{seller_id:seller.id}})
+    const comments = await SellersComment.findAll({include: {model: User}, where:{seller_id:seller.id}})
     res.json(comments)
   } catch ({message}) {
     res.json({type: 'comment router', message})
   }
 })
+
+router.delete('/:comId', async(req, res) => {
+  const {comId} = req.params
+  console.log(comId, 'ID COMMENTA')
+  const comment = await SellersComment.findOne({where: {id: comId}})
+  try {
+    if (res.locals.user.role === 'admin' || comment.user_id === res.locals.user.id) {
+      const result = await SellersComment.destroy({ where: { id: comId } });
+      if (result > 0) {
+        res.json(+comId);
+      }
+    }
+  } catch ({message}) {
+    res.json(message)
+    
+  }
+  })
 
 module.exports = router;

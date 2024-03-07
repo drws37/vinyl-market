@@ -6,3 +6,8 @@
   font-family: "Montserrat", sans-serif;
   font-style: normal;
 }
+
+
+.body {
+  min-height: 100vh;
+}

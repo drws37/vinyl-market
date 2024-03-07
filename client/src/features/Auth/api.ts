@@ -1,6 +1,6 @@
-import type { CheckUser, RegUser, UserAndId, Userr } from "./type";
+import type { CheckUser, RegUser, User, Userr } from "./type";
 
-export const registrationFetch = async(obj:RegUser):Promise<UserAndId> => {
+export const registrationFetch = async(obj:RegUser):Promise<User> => {
     const res = await fetch ('/api/auth/registration', {
         method:'POST',
        headers: {'Content-Type': 'application/json'},
@@ -15,7 +15,7 @@ export const registrationFetch = async(obj:RegUser):Promise<UserAndId> => {
 }
 
 
-export const loginFetch = async(obj:Userr):Promise<UserAndId> => {
+export const loginFetch = async(obj:Userr):Promise<User> => {
     const res = await fetch ('/api/auth/login', {
         method:'POST',
        headers: {'Content-Type': 'application/json'},
@@ -23,13 +23,15 @@ export const loginFetch = async(obj:Userr):Promise<UserAndId> => {
     })
     if(res.ok){
         const data = await res.json()
+        console.log(data.user, '01010101010');
+        
         return data.user
     }
     const {message} = await res.json()
     throw message
 }
 
-export const checkUserFetch = async():Promise<CheckUser> => {
+export const checkUserFetch = async():Promise<User> => {
     const res = await fetch ('/api/auth/check')
     if(res.ok){
         const data = await res.json()        

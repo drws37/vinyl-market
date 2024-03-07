@@ -14,7 +14,7 @@ const initialState: StateShop = {
       username: '',
       Seller: {
         id: 0,
-        addres: '',
+        adress: '',
         itn: '',
         phone: '',
         user_id: ''
