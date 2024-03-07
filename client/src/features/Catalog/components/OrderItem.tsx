@@ -27,7 +27,7 @@ function OrderItem({ order }: { order: OrderItemm }): JSX.Element {
               onClick={() => {
                 handleDelete(order.Record.id);
               }}
-              className="button"
+              className="button1"
             >
               Удалить из корзины
             </button>

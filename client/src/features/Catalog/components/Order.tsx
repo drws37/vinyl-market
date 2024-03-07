@@ -80,8 +80,8 @@ function Order(): JSX.Element {
               <OrderItem key={order.id} order={order} />
             ))}
           </div>
-          <button type="button" onClick={openModal}>
-            Open Modal
+          <button className='button2' type="button" onClick={openModal}>
+            Оплатить заказ
           </button>
         </>
       ) : (
