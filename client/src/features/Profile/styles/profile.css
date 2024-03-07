@@ -8,7 +8,8 @@
   flex-direction: column;
   align-items: center;
 }
-.sidebar {
+
+.sidebar{
   border: 2px solid black;
   border-radius: 40px;
   width: 325px;
@@ -22,3 +23,60 @@
 .user {
   margin-bottom: 10px;
 }
+
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+.btn-profile {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 300px;
+  font-size: 18px;
+}
+
+
+.btn-profile:hover, a:hover {
+  opacity: 0.9;
+}
+
+.img-profile{
+  width: 100px;
+}
+
+.btn-profile1{
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 300px;
+  font-size: 18px;
+  /* margin-left: 13px; */
+
+}
+
+.user-btn{
+  display: flex;
+  flex-direction: column;
+}
+

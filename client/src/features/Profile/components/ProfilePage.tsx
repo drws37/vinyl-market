@@ -24,7 +24,11 @@ function ProfilePage(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
   const records = useSelector((store: RootState) => store.records.records);
   const [content, setContent] = useState('personalData');
-  const orders = useSelector((store: RootState) => store.order.orders);
+
+
+  const orders = useSelector((store:RootState) => store.order.orders)
+  const shop = useSelector((store: RootState) => store.shop.shop);
+
 
   const dispatch = useAppDispatch();
   const id1 = orders[0]?.Order.id;
@@ -113,6 +117,7 @@ function ProfilePage(): JSX.Element {
                             Одобрить
                           </button>
                         </div>
+
                       </div>
                     ),
                 )}
@@ -136,53 +141,56 @@ function ProfilePage(): JSX.Element {
                     <button type="submit">Добавить</button>
                   </form>
                 </div>
-                <div>
-                  <img style={{ borderRadius: '50%', width: '200px' }} src={user?.img} alt="" />
-                  <p> {user?.email}</p>
-                  <p>{user?.username}</p>
-                </div>
+              ) : (
+                <div>1</div>
+              )}
+            </div>
+          ) : content === 'cart' ? (
+            <div>КОРЗИНА</div>
+          ) : content === 'orders' ? (
+            <div>
+            {
+              delivery.map(el=><DeliveryItem key={el.id} delev={el} />)
+            }
+            </div>
+          ) : content === 'products' ? (
+            <div className='container-card-profile'>
+              <div className='form-add-record'>
+              <FormAddRecord />
               </div>
-            )}
-          </div>
-        ) : content === 'cart' ? (
-          <div>КОРЗИНА</div>
-        ) : content === 'orders' ? (
-          <div>
-            {delivery.map((el) => (
-              <DeliveryItem key={el.id} delev={el} />
-            ))}
-          </div>
-        ) : content === 'products' ? (
-          <div>
-            <FormAddRecord />
-            {records.map(
-              (record) =>
-                record.user_id === user?.id && (
-                  <div key={record.id}>
-                    <img style={{ width: '200px' }} src={record.img} alt="" />
-                    <div>
-                      <h3>{record.title}</h3>
-                      <h4>{record.artist}</h4>
-                      <p>{record.description}</p>
-                      <p>{record.quality}</p>
-                      <p>{record.price} ₽</p>
-                      <Link
-                        onClick={scrollToTop}
-                        className="btn__more"
-                        to={`/records/${record.id}`}
-                      >
-                        Внести изменения
-                      </Link>
+            <div className='card-cont'>
+              {records.map(
+                (record) =>
+                  record.user_id === user?.id && (
+                    <div className='container-card' key={record.id}>
+                      <img style={{ width: '200px' }} src={record.img} alt="" />
+                      <div>
+                        <h3>{record.title}</h3>
+                        <h4>{record.artist}</h4>
+                        <p>{record.description}</p>
+                        <p>{record.quality}</p>
+                        <p>{record.price} ₽</p>
+                        <Link
+                          onClick={scrollToTop}
+                          className="btn__more"
+                          to={`/records/${record.id}`}
+                        >
+                          Внести изменения
+                        </Link>
+                        
+                      </div>
                     </div>
-                  </div>
-                ),
-            )}
+                  ),
+              )}
           </div>
-        ) : (
-          <div>ИЗБРАННОЕ</div>
-        )}
+
+            </div>
+          ) : (
+            <div>ИЗБРАННОЕ</div>
+          )}
+        </div>
       </div>
-    </div>
+
   );
 }
 
