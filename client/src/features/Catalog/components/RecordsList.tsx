@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/function-component-definition */
 import React, { useEffect, useState } from 'react';
@@ -10,6 +11,8 @@ import { useAppDispatch, type RootState } from '../../../store/store';
 import RecordItem from './RecordItem';
 import FilteredList from './FilteredList';
 import '../styles/input.css';
+import '../styles/input.scss';
+
 import { recordsLoad } from '../recordsSlice';
 
 const RecordsList = (): JSX.Element => {
@@ -34,9 +37,9 @@ const RecordsList = (): JSX.Element => {
     <>
       <div className="container-serach-main">
         <input
+        id="myInput" className="input-group__input search-input-size"
           placeholder="Поиск"
           onChange={(e) => (e.target.value === '' ? setValue('`') : setValue(e.target.value))}
-          className="search-input-size"
         />
         <div className="container-search">
           {filterVinil?.map((record) => <FilteredList key={record.id} record={record} />)}

@@ -190,6 +190,8 @@ export type Delivery = {
   order_id:number | undefined
 }
 
+export type DeliveryWithoutOrederId = Omit<Delivery, 'order_id'>
+
 
 export type Deliverryy = {
   id: number;

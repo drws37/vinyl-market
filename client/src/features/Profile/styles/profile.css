@@ -10,5 +10,15 @@
 }
 .sidebar{
   border: 2px solid black;
+  border-radius: 40px;
   width:325px;
+  height: 300px;
+}
+.container-user{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.user{
+  margin-bottom: 10px;
 }

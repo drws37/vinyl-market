@@ -5,6 +5,7 @@ import type { User, UserAndId } from '../../Auth/type';
 
 import { useAppDispatch } from '../../../store/store';
 import { sellerAddInfo, sellerUpdateInfo } from '../../Catalog/shopSlice';
+import '../styles/profile.css'
 
 function UserPage({ user }: { user: User | UserAndId | null }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -99,14 +100,16 @@ function UserPage({ user }: { user: User | UserAndId | null }): JSX.Element {
                 <button type="submit">Сохранить Данные</button>
               </form>
             )}
-            <div>{user?.username}</div>
-            <div>{user?.email}</div>
+            <div className='container-user'>
+            <div className='user'>{`Название магазина: ${user?.username}`}</div>
+            <div className='user'> {`Почта: ${user?.email}`}</div>
+            </div>
           </div>
         </>
       ) : (
-        <div>
-          <div>{user?.username}</div>
-          <div>{user?.email}</div>
+        <div className='container-user'>
+          <div className='user'>{`Ваше имя: ${user?.username}`}</div>
+          <div className='user'>{`Почта: ${user?.email}`}</div>
         </div>
       )}
     </div>
