@@ -5,6 +5,7 @@
   .r-link[href]{
     color: var(--rLinkColor) !important;
     text-decoration: var(--rLinkTextDecoration, none) !important;
+    margin-left: auto;
   }
   
   .r-list{
@@ -59,6 +60,7 @@
   
   .menu__list{
     display: flex;  
+    align-items: center;
   }
   
   .menu__link{
@@ -151,11 +153,6 @@
     margin-top: 3rem;
   }
   .logo{
-    margin-top: 5px;
-    margin-left: 10px;
-
-    width: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 120px;
+    margin-left: 20px;
   }
