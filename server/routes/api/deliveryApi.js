@@ -7,9 +7,13 @@ router.post('/', async (req, res) => {
       console.log(req.body);
       if(res.locals.user){
           console.log(123123123);
-        const delivery = await Delivery.create({data,first_name, middle_name, last_name, adress, phone, status: 'Оплачено', order_id})
-        const updateOrder = Order.update({status:'Оплачено'}, {where:{id:delivery.order_id}})
-        res.json(delivery)
+          if(first_name && middle_name && last_name && phone && data && adress && order_id){
+            const delivery = await Delivery.create({data,first_name, middle_name, last_name, adress, phone, status: 'Оплачено', order_id})
+            const updateOrder = Order.update({status:'Оплачено'}, {where:{id:delivery.order_id}})
+            res.json(delivery)
+          }else{
+            res.json({message: 'Заполните все полня'})
+          }
       }
   } catch ({message}) {
     res.json({type: 'delivery router', message})

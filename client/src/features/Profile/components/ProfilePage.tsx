@@ -26,6 +26,9 @@ function ProfilePage(): JSX.Element {
   const records = useSelector((store: RootState) => store.records.records);
   const [content, setContent] = useState('personalData');
   const orders = useSelector((store:RootState) => store.order.orders)
+  const shop = useSelector((store: RootState) => store.shop.shop);
+console.log(shop, '123123123');
+
   const dispatch = useAppDispatch();
   const id1 = orders[0]?.Order.id;
 useEffect(() => {

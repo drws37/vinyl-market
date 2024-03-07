@@ -42,18 +42,45 @@
     font-size: 12px;
     line-height: 28px;
     transition: .3s ease-in;
+    z-index: 0;
  }
  .product-item:hover .button {
     background: #fc5a5a;
  }
  .container-order{
-    display: flex;
-    flex-wrap: wrap;
- }
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: column;
+}
+
  .product-item {
   transition: opacity 1s ease;
 }
 
 .product-item.deleting {
   opacity: 0;
+}
+.container-order-card{
+   display: flex;
+   
+}
+.input-order{
+   margin-top: 10px;
+   padding:10px;
+   border:0;
+   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+}
+.modal-container-input{
+   display: flex;
+   flex-direction: column;
+
+}
+.btn-modal{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding-top: 10px;
+}
+.color-accpet-order{
+   color: green;
 }
