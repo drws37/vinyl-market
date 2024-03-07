@@ -12,13 +12,14 @@ import { useAppDispatch } from '../../../store/store';
 import FormAddRecord from '../../Catalog/components/FormAddRecord';
 import '../styles/profile.css';
 import UserPage from './UserPage';
-import { authCheckUser } from '../../Auth/authSlice';
+import { authCheckUser, userUpdate } from '../../Auth/authSlice';
 import { deliveryLoad } from '../../Catalog/deliverySlice';
 import { orderLoad } from '../../Catalog/ordersSlice';
 import DeliveryItem from './Delivery';
 import type { RecordId } from '../../Catalog/type';
 import { changeRecordStatus } from '../../Catalog/recordsSlice';
 import '../styles/button.scss'
+
 
 
 function ProfilePage(): JSX.Element {
@@ -49,6 +50,32 @@ setTimeout(() => {
   const updateRecordStatus = (id: RecordId): void=> {
     dispatch(changeRecordStatus(id)).catch(console.log)
   }
+
+
+
+  const [img, setImg] = useState<FileList | null | undefined>(null)
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+
+  console.log(username, email, '-------DATAAAA-----------');
+  
+
+const updateUserFetch = (e: React.FormEvent<HTMLFormElement>): void => {
+  e.preventDefault()
+  const imgFile = img?.[0]
+  const formData = new FormData()
+  formData.append('img', imgFile !== null && imgFile !== undefined ? imgFile : '')
+  formData.append('username', username || '')
+  formData.append('email', email || '')
+  const data = {
+    id: user?.id,
+    obj: formData
+  }
+
+  console.log(data, 'datatatatattatatat');
+  
+  dispatch(userUpdate(data)).catch(console.log)
+}
 
   return (
     <>
@@ -100,7 +127,22 @@ setTimeout(() => {
                   ))}
                 </div>
               ) : (
-                <div>1</div>
+                <div>
+                 <div className='update__form__container'>
+      <form className='update__form' onSubmit={updateUserFetch}>
+            <input value={username} placeholder='username' required onChange={(e)=>setUsername(e.target.value)} />
+            <input value={email} placeholder='email' onChange={(e)=>setEmail(e.target.value)}/>
+            <input  placeholder='img' type='file' onChange={(e)=>setImg(e.target.files)}/>
+            <button type='submit'>Добавить</button>
+        </form>
+    </div>
+                    <div>
+                      <img style={{borderRadius: '50%', width: '200px'}} src={user?.img} alt="" />
+                     <p>  {user?.email}</p>
+                     <p>{user?.username}</p> 
+                    </div>
+
+                </div>
               )}
             </div>
           ) : content === 'cart' ? (

@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+import { User } from "../Auth/type";
 import type {SellerInfo} from "./type";
 
 export const fetchSellerAdd = async (obj:SellerInfo): Promise<{message:string}> => {
@@ -14,7 +15,7 @@ export const fetchSellerAdd = async (obj:SellerInfo): Promise<{message:string}> 
   };
 
   export const fetchSellerUpdate = async (obj:SellerInfo): Promise<{message:string}> => {
-    const res = await fetch(`/api/profile/update/${obj.user_id}`, {
+    const res = await fetch(`/api/auth/update/${obj.user_id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(obj),
@@ -24,3 +25,12 @@ export const fetchSellerAdd = async (obj:SellerInfo): Promise<{message:string}> 
     
     return data;
   };
+
+  export const fetchUpdateUser = async (obj: {id: number | undefined, obj: FormData}): Promise<User> => {
+    const res = await fetch(`/api/auth/update/${obj.id}`, {
+      method: 'put',
+      body: obj.obj
+    })
+    const data = await res.json()
+    return data
+  }

@@ -4,6 +4,18 @@ const generateTokens = require('../../utils/authUtils');
 const cookiesConfig = require('../../middleware/cookiesConfig');
 const configJWT = require('../../middleware/jwtConfig');
 const { User } = require('../../db/models');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/profileImg');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
 
 const router = express.Router();
 
@@ -108,5 +120,33 @@ router.get('/logout', (req, res) => {
   res.clearCookie(configJWT.access.type).clearCookie(configJWT.refresh.type);
   res.json({ message: 'success' });
 });
+
+router.put('/update/:userId', upload.single('img'), async (req, res) => {
+  const {userId} = req.params
+  try {
+    const {username, email} = req.body
+    console.log(userId,req.body, '-----------');
+    let newFileUrl = null;
+    if (req.file) {
+      newFileUrl = `/profileImg/${req.file.originalname}`;
+    }
+    const user = await User.findOne({where: {id: +userId}})
+
+    if (newFileUrl) {
+      await user.update(
+        {  username, email, img: newFileUrl },
+        { where: { id: res.locals.user.id } }
+      );
+    } else {
+      await user.update(
+        { username, email},
+        { where: { id: res.locals.user.id} }
+      );
+    }
+      res.json(user)
+  } catch ({message}) {
+    res.json({type: 'auth router', message})
+  }
+})
 
 module.exports = router;

@@ -70,6 +70,9 @@ function RecordPage(): JSX.Element {
       id: currentRecord?.id,
       obj: formData,
     };
+
+    console.log(data, 'xyiiiiiiii');
+    
     dispatch(recordUpdate(data)).catch(console.log);
   };
 
