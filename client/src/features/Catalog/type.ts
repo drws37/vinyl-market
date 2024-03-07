@@ -103,6 +103,7 @@ export type Seller = {
   user_id: string;
 };
 
+
 export type Shop = {
   id: number;
   email: string;

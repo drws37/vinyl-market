@@ -8,6 +8,8 @@ import { useAppDispatch, type RootState } from '../../../store/store';
 import * as api from '../api';
 import { favoriteAdd } from '../favoriteSlice';
 import '../styles/records.scss';
+import '../styles/shopCard.css';
+
 import type { Record } from '../type';
 
 function RecordItem({ record }: { record: Record }): JSX.Element {
@@ -48,12 +50,11 @@ function RecordItem({ record }: { record: Record }): JSX.Element {
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
               role="img"
-              className="iconify iconify--emojione"
+              className="svg-favorite"
               preserveAspectRatio="xMidYMid meet"
             >
               <path
                 d="M46.1 2C39.8 2 34.5 5.6 32 10.8C29.5 5.6 24.2 2 17.9 2C9.2 2 2 9.4 2 17.9C2 32.4 32 62 32 62s30-29.6 30-44.1C62 9.4 54.8 2 46.1 2z"
-                fill="#ff5a79"
               />
             </svg>
           </button>
@@ -68,9 +69,9 @@ function RecordItem({ record }: { record: Record }): JSX.Element {
             width="30px"
             height="30px"
             viewBox="0 0 24 24"
-            fill="none"
             xmlns="http://www.w3.org/2000/svg"
-          >
+              
+            >
             <path
               d="M3 10H21M3 14H21M3 18H21M3 6H21"
               stroke="#000000"
@@ -93,6 +94,7 @@ function RecordItem({ record }: { record: Record }): JSX.Element {
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              className='svg-order'
             >
               <path
                 d="M3.5 4.5H5.05848C5.7542 4.5 6.10206 4.5 6.36395 4.68876C6.62584 4.87752 6.73584 5.20753 6.95585 5.86754L7.5 7.5"

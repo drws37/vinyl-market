@@ -1,6 +1,6 @@
 export type SellerInfo = {
   phone: string;
-  addres: string;
+  adress: string;
   itn: string;
   user_id: number | undefined;
 };

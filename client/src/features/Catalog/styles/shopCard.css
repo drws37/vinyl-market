@@ -125,7 +125,6 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   grid-auto-rows: auto;
-
   width: 70%;
 }
 
@@ -149,4 +148,21 @@
 .shop-item-btns {
   display: flex;
   justify-content: space-around;
+
+}
+.svg-favorite{
+  fill: #7b2727;
+  cursor: pointer;
+}
+.svg-favorite:hover{
+  fill: #ff0303;
+  cursor: pointer;
+}
+.svg-order{
+  fill: #ffffff;
+  cursor: pointer;
+}
+.svg-order:hover{
+  fill: #41b617;
+  cursor: pointer;
 }
