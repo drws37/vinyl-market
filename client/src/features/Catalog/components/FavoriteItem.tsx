@@ -27,11 +27,11 @@ function FavoriteItem({ favorite }: { favorite: Favorite }): JSX.Element {
           onClick={() => {
             handleDelete(favorite.Record.id);
           }}
-          className="button"
+          className="button1"
         >
           Дизлайк
         </button>
-        <button type="submit" onClick={AddItemInOrder} className="button">
+        <button type="submit" onClick={AddItemInOrder} className="button1">
           В корзину
         </button>
       </div>
