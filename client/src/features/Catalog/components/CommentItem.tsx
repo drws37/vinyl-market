@@ -18,7 +18,7 @@ function CommentItem({ comment }: { comment: Comment }): JSX.Element {
   return (
     <div className="comment">
       <h4 className="">{comment?.User?.username}</h4>
-      <img className='comment-img' src={comment?.User?.img} alt="" />
+      <img className="comment-img" src={comment?.User?.img} alt="" />
       <div className="comment-text">{comment?.comment}</div>
 
       {(user?.role === 'admin' || comment.User?.id === user?.id) && (

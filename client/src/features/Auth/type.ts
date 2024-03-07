@@ -8,10 +8,10 @@ export type User = {
   img: string;
 };
 
-export type Userr ={
-  email:string
-  password:string
-}
+export type Userr = {
+  email: string;
+  password: string;
+};
 
 export type CheckUser = {
   id: number;
@@ -24,7 +24,6 @@ export type CheckUser = {
 };
 
 export type RegUser = {
-  
   username: string;
   email: string;
   role: string;
