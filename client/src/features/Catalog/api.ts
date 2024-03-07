@@ -18,7 +18,6 @@ import type {
   OrderItemm,
   Order,
   Delivery,
-  Deliverryy,
   SongId,
   OrderClose,
 } from './type';

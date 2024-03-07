@@ -53,7 +53,7 @@ function Shop(): JSX.Element {
       </div>
 
       <div className="shop_content_main">
-        <div className="container-order">
+        <div className="container-order-1">
           {shop.record?.map((record) => <ShopItem key={record.id} record={record} />)}
         </div>
         <div className="container-input-comm">

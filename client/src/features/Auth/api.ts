@@ -1,4 +1,4 @@
-import type { CheckUser, RegUser, User, Userr } from "./type";
+import type { RegUser, User, Userr } from "./type";
 
 export const registrationFetch = async(obj:RegUser):Promise<User> => {
     const res = await fetch ('/api/auth/registration', {
