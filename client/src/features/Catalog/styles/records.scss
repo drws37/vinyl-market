@@ -21,3 +21,9 @@
   max-width: 1200px;
   height: 430px;
 }
+
+.swiper-slide {
+  overflow: visible;
+  height: 430px; /* возможно, потребуется корректировка */
+  padding-top: 10px; /* добавляем пространство для анимации */
+}

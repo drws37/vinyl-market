@@ -43,19 +43,21 @@ function Shop(): JSX.Element {
   return (
     <>
       <div className="container-shop">
-        <div>{`Магазин: ${shop.user?.username}`}</div>
-        <div>{`Адрес: ${shop.user?.Seller.adress}`}</div>
-        <div>{`Телефон: ${shop.user?.Seller.phone}`}</div>
-        <div>{`Инн: ${shop.user?.Seller.itn}`}</div>
-        <div>{`Почта: ${shop.user?.email}`}</div>
+        <div className="shop-name">{shop.user?.username}</div>
+        <div className="shop-info">
+          <p>{`Адрес: ${shop.user?.Seller.adress}`}</p>
+          <p>{`Почта: ${shop.user?.email}`}</p>
+          <p>{`Телефон: ${shop.user?.Seller.phone}`}</p>
+          <p>{`ИНН: ${shop.user?.Seller.itn}`}</p>
+        </div>
       </div>
 
-      <div className="shop_content_main">
-        <div className="container-order-1">
+      <div className="shop-container">
+        <div className="shop-content">
           {shop.record?.map((record) => <ShopItem key={record.id} record={record} />)}
         </div>
         <div className="container-input-comm">
-          <h2>Отзывы о магазине</h2>
+          <h2>ОТЗЫВЫ</h2>
           {user && (
             <div className="input-wrapper">
               <form onSubmit={commentAdd}>
