@@ -117,6 +117,7 @@
 
 .shop_content_main {
   display: flex;
+
 }
 .svg-favorite{
   fill: #7b2727;
@@ -133,4 +134,5 @@
 .svg-order:hover{
   fill: #41b617;
   cursor: pointer;
+
 }

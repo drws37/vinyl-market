@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import type { Record } from '../type';
 
 function FilteredList({ record, idx }: { record: Record; idx: number }): JSX.Element {
-  console.log(idx);
-
   return (
     <Link className="div-link-search" to={`/records/${record.id}`}>
       <div style={{ top: `${(idx + 1) * 60}px` }} className="input-search">

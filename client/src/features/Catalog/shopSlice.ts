@@ -4,7 +4,6 @@ import * as api from './api';
 import * as apiShop from '../Profile/api';
 import type { SellerInfo } from '../Profile/type';
 
-
 const initialState: StateShop = {
   shop: {
     user: {
@@ -17,17 +16,23 @@ const initialState: StateShop = {
         adress: '',
         itn: '',
         phone: '',
-        user_id: ''
-      }
+        user_id: '',
+      },
     },
-    record: []
+    record: [],
   },
   message: '',
 };
 
-export const shopLoad = createAsyncThunk('shop/load', (id:string | undefined) => api.fetchShopLoad(id));
-export const sellerAddInfo = createAsyncThunk('seller/add', (obj:SellerInfo) => apiShop.fetchSellerAdd(obj));
-export const sellerUpdateInfo = createAsyncThunk('seller/update', (obj:SellerInfo) => apiShop.fetchSellerUpdate(obj));
+export const shopLoad = createAsyncThunk('shop/load', (id: string | undefined) =>
+  api.fetchShopLoad(id),
+);
+export const sellerAddInfo = createAsyncThunk('seller/add', (obj: SellerInfo) =>
+  apiShop.fetchSellerAdd(obj),
+);
+export const sellerUpdateInfo = createAsyncThunk('seller/update', (obj: SellerInfo) =>
+  apiShop.fetchSellerUpdate(obj),
+);
 
 const shopSlice = createSlice({
   name: 'shop',

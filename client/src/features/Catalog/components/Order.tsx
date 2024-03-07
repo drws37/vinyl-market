@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable react/jsx-props-no-spreading */
@@ -40,7 +41,11 @@ const checkField = object().shape({
 function Order(): JSX.Element {
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(checkField) });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(checkField) });
 
   const openModal = (): void => {
     setIsOpen(true);
@@ -59,18 +64,18 @@ function Order(): JSX.Element {
 
   const id = orders[0]?.Order.id;
 
-  const addDelivery = (formData: DeliveryWithoutOrederId): void => { // formData argument contains form data
-    const dataWithOrderId = { ...formData, order_id: id }; // Merge form data with order_id
-    dispatch(deliveryAdd(dataWithOrderId)).catch(console.log); // Dispatch deliveryAdd action with form data
+  const addDelivery = (formData: DeliveryWithoutOrederId): void => {
+    const dataWithOrderId = { ...formData, order_id: id };
+    dispatch(deliveryAdd(dataWithOrderId)).catch(console.log);
     dispatch(clear());
     // reset()
   };
 
   return (
-    <div className='container-order'>
-      {orders.length > 0 ?
+    <div className="container-order">
+      {orders.length > 0 ? (
         <>
-          <div className='container-order-card'>
+          <div className="container-order-card">
             {orders.map((order) => (
               <OrderItem key={order.id} order={order} />
             ))}
@@ -79,9 +84,9 @@ function Order(): JSX.Element {
             Open Modal
           </button>
         </>
-        :
-        <div className='order-text'>Ваша корзина пуста</div>
-      }
+      ) : (
+        <div className="order-text">Ваша корзина пуста</div>
+      )}
 
       <Modal
         isOpen={modalIsOpen}
@@ -91,27 +96,58 @@ function Order(): JSX.Element {
       >
         <h2>Оплата заказа</h2>
         <form onSubmit={handleSubmit(addDelivery)}>
-          <div className='modal-container-input'>
-            <input className='input-order' {...register('first_name')} type="text" placeholder="Имя" />
+          <div className="modal-container-input">
+            <input
+              className="input-order"
+              {...register('first_name')}
+              type="text"
+              placeholder="Имя"
+            />
             {errors.first_name && <p>{errors.first_name.message}</p>}
-            <input className='input-order' {...register('middle_name')} type="text" placeholder="Отчество" />
+            <input
+              className="input-order"
+              {...register('middle_name')}
+              type="text"
+              placeholder="Отчество"
+            />
             {errors.middle_name && <p>{errors.middle_name.message}</p>}
-            <input className='input-order' {...register('last_name')} type="text" placeholder="Фамилия" />
+            <input
+              className="input-order"
+              {...register('last_name')}
+              type="text"
+              placeholder="Фамилия"
+            />
             {errors.last_name && <p>{errors.last_name.message}</p>}
-            <input className='input-order' {...register('adress')} type="text" placeholder="Адрес доставки" />
+            <input
+              className="input-order"
+              {...register('adress')}
+              type="text"
+              placeholder="Адрес доставки"
+            />
             {errors.adress && <p>{errors.adress.message}</p>}
-            <input className='input-order' {...register('phone')} type="text" placeholder="Номер телефона" />
+            <input
+              className="input-order"
+              {...register('phone')}
+              type="text"
+              placeholder="Номер телефона"
+            />
             {errors.phone && <p>{errors.phone.message}</p>}
-            <input className='input-order' {...register('data')} type="date" placeholder="Желаемая дата доставки" />
+            <input
+              className="input-order"
+              {...register('data')}
+              type="date"
+              placeholder="Желаемая дата доставки"
+            />
             {errors.data && <p>{errors.data.message}</p>}
-            <div className='btn-modal'>
-              {
-                orders.length > 0 ?
-                <button className='button' type="submit">{`Оплатить: ${orders.length > 0 ? orders[0].Order.total_price : 0}₽`}</button> 
-                :
-                <div className='color-accpet-order'>Ваш заказ успешно отправлен!</div>
-
-              }
+            <div className="btn-modal">
+              {orders.length > 0 ? (
+                <button
+                  className="button"
+                  type="submit"
+                >{`Оплатить: ${orders.length > 0 ? orders[0].Order.total_price : 0}₽`}</button>
+              ) : (
+                <div className="color-accpet-order">Ваш заказ успешно отправлен!</div>
+              )}
             </div>
           </div>
         </form>

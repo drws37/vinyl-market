@@ -8,19 +8,22 @@
   flex-direction: column;
   align-items: center;
 }
+
 .sidebar{
+  border: 2px solid black;
   border-radius: 40px;
-  width:325px;
+  width: 325px;
   height: 300px;
 }
-.container-user{
+.container-user {
   display: flex;
   flex-direction: column;
   margin-top: 10px;
 }
-.user{
+.user {
   margin-bottom: 10px;
 }
+
 
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -76,3 +79,4 @@
   display: flex;
   flex-direction: column;
 }
+

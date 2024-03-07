@@ -6,9 +6,10 @@ import type { User, UserAndId } from '../../Auth/type';
 import { useAppDispatch } from '../../../store/store';
 import { sellerAddInfo, sellerUpdateInfo } from '../../Catalog/shopSlice';
 import '../styles/profile.css';
+
 import '../../Catalog/styles/order.css'
 
-const customStyles = {
+
   content: {
     top: '50%',
     left: '50%',
@@ -18,6 +19,7 @@ const customStyles = {
     transform: 'translate(-50%, -50%)',
   },
 };
+
 
 function UserPage({ user }: { user: User | UserAndId | null }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -54,6 +56,7 @@ function UserPage({ user }: { user: User | UserAndId | null }): JSX.Element {
     dispatch(sellerUpdateInfo(obj)).catch(console.log);
   };
 
+
   const openModal = (): void => {
     setIsOpen(true);
   };
@@ -68,6 +71,7 @@ function UserPage({ user }: { user: User | UserAndId | null }): JSX.Element {
   const openModal11 = (): void => {
     setIsOpen1(true);
   };
+
 
 
   return (
@@ -161,10 +165,14 @@ function UserPage({ user }: { user: User | UserAndId | null }): JSX.Element {
                 <button className='button1' type="submit">Сохранить Данные</button>
               </form>
 
+
           </Modal>
+
+
           </div>
 
       ) : (
+
         <div className="card-div">
           <div className="card">
             <img className="img-profile" src={user?.img} alt="" />
@@ -177,6 +185,7 @@ function UserPage({ user }: { user: User | UserAndId | null }): JSX.Element {
               </button>
             </p>
           </div>
+
         </div>
       )}
     </div>

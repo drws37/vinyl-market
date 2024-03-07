@@ -1,11 +1,10 @@
 export type UserComment = {
-  email:string
-  id:number
-  img:string
-  role:string
-  username:string
-
-}
+  email: string;
+  id: number;
+  img: string;
+  role: string;
+  username: string;
+};
 
 export type Record = {
   user_id: number;
@@ -17,7 +16,7 @@ export type Record = {
   quality: string;
   price: number;
   spotifyId: string;
-  status:boolean
+  status: boolean;
   RecordPrices: RecordPrice[];
   Songs: Song[];
 };
@@ -30,16 +29,15 @@ export type Order = {
   total_price: number;
   count: number;
   Record: Record;
-  Order: Order
+  Order: Order;
 };
 
 export type OrderItemOrder = {
-  id:number
-  status:string
-  total_price:number
-  user_id:number
-
-}
+  id: number;
+  status: string;
+  total_price: number;
+  user_id: number;
+};
 export type OrderItemm = {
   id: number;
   order_id: number;
@@ -47,7 +45,7 @@ export type OrderItemm = {
   price: number;
   count: number;
   Record: Record;
-  Order:OrderItemOrder
+  Order: OrderItemOrder;
 };
 
 export type Favorite = {
@@ -80,7 +78,7 @@ export type Song = {
   id: number;
   songTitle: string;
   duration: string;
-  user_id: number
+  user_id: number;
   record_id: number | undefined;
 };
 
@@ -115,19 +113,17 @@ export type Shop = {
 };
 
 export type Comment = {
-  id: number | undefined
+  id: number | undefined;
   comment: string | undefined;
   seller_id: number;
-  User?: UserComment
-
+  User?: UserComment;
 };
 
 export type CommentFetch = {
-  id: number | undefined
+  id: number | undefined;
   comment: string | undefined;
-  seller_id: number
-  User:UserComment
-  
+  seller_id: number;
+  User: UserComment;
 };
 
 export type ShopUser = {
@@ -175,36 +171,34 @@ export type StateShop = {
   message: string | undefined;
 };
 
-
 export type StateDelivery = {
-  delivery: OrderClose[]; // Исправлено на Deliverryy, не Deliverryy[]
+  delivery: OrderClose[];
   message: string | undefined;
-}
+};
 
 export type Delivery = {
-  first_name:string
-  middle_name:string
-  last_name:string
-  adress:string
-  phone:string
-  data:string
-  order_id:number | undefined
-}
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  adress: string;
+  phone: string;
+  data: string;
+  order_id: number | undefined;
+};
 
-export type DeliveryWithoutOrederId = Omit<Delivery, 'order_id'>
-
+export type DeliveryWithoutOrederId = Omit<Delivery, 'order_id'>;
 
 export type Deliverryy = {
   id: number;
   user_id: number;
   total_price: number;
   status: string;
-  Deliveries: Delivery[]; // Здесь используется массив Delivery, который содержит вложенные доставки
-}
-export type OrderClose ={
-  id:number;
-  status:string;
-  total_price:number;
-  Deliveries:Delivery[];
-  OrderItems:OrderItemm[]
-}
+  Deliveries: Delivery[];
+};
+export type OrderClose = {
+  id: number;
+  status: string;
+  total_price: number;
+  Deliveries: Delivery[];
+  OrderItems: OrderItemm[];
+};

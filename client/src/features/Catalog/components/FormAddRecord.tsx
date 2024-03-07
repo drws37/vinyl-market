@@ -5,46 +5,43 @@ import { type RootState, useAppDispatch } from '../../../store/store';
 import { recordAdd } from '../recordsSlice';
 import '../styles/order.css'
 
-
 const FormAddRecord = (): JSX.Element => {
+  const [title, setTitle] = useState('');
+  const [artist, setArtist] = useState('');
+  const [description, setDescription] = useState('');
+  const [img, setImg] = useState<FileList | null | undefined>(null);
+  const [price, setPrice] = useState('');
+  const [quality, setQuality] = useState('');
+  const [category, setCategory] = useState('');
+  const [spotify, setSpotify] = useState('');
 
-  const [title, setTitle] = useState('')
-  const [artist, setArtist] = useState('')
-  const [description, setDescription] = useState('')
-  const [img, setImg] = useState<FileList | null | undefined>(null)
-  const [price, setPrice] = useState('')
-  const [quality, setQuality] = useState('')
-  const [category, setCategory] = useState('')
-  const [spotify, setSpotify] = useState('')
-
-  const categories = useSelector((store: RootState) => store.categories.categories)
+  const categories = useSelector((store: RootState) => store.categories.categories);
   const dispatch = useAppDispatch();
 
   const addRecordFetch = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault()
-    const imgFile = img?.[0]
-    const formData = new FormData()
-    formData.append('title', title)
-    formData.append('artist', artist)
-    formData.append('description', description)
-    formData.append('price', price)
-    formData.append('img', imgFile !== null && imgFile !== undefined ? imgFile : '')
-    formData.append('quality', quality)
-    formData.append('category', category)
-    formData.append('spotify', spotify)
-    dispatch(recordAdd(formData)).catch(console.log)
-    setTitle('')
-    setArtist('')
-    setDescription('')
-    setPrice('')
-    setQuality('')
-    setCategory('')
-    setSpotify('')
-  }
-
- 
+    e.preventDefault();
+    const imgFile = img?.[0];
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('artist', artist);
+    formData.append('description', description);
+    formData.append('price', price);
+    formData.append('img', imgFile !== null && imgFile !== undefined ? imgFile : '');
+    formData.append('quality', quality);
+    formData.append('category', category);
+    formData.append('spotify', spotify);
+    dispatch(recordAdd(formData)).catch(console.log);
+    setTitle('');
+    setArtist('');
+    setDescription('');
+    setPrice('');
+    setQuality('');
+    setCategory('');
+    setSpotify('');
+  };
 
   return (
+
     <div className='add__form__container'>
       <div className='foram-add-record'>
       <form className='add__form' onSubmit={addRecordFetch}>
@@ -73,6 +70,7 @@ const FormAddRecord = (): JSX.Element => {
             <button type='submit'>Добавить</button>
         </form>
         </div>
+
     </div>
   );
 };

@@ -2,8 +2,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React from 'react';
-
-// import '../main.css'
 import { NavLink, useNavigate } from 'react-router-dom';
 import './styles/nav.css';
 import { useSelector } from 'react-redux';
