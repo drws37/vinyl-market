@@ -23,8 +23,6 @@ function Shop(): JSX.Element {
   const { userId } = useParams();
   const dispatch = useAppDispatch();
 
-  console.log(comments);
-
   const id = userId;
 
   useEffect(() => {

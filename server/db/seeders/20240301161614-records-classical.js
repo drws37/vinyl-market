@@ -22,7 +22,7 @@ module.exports = {
         title: 'The Masterpieces Of Johannes Brahms',
         artist: 'Johannes Brahms',
         description: 'Some description',
-        img: 'https://cdn.naxos.com/sharedfiles/images/cds/hires/C49032.jpg',
+        img: 'https:cdn.naxos.com/sharedfiles/images/cds/hires/C49032.jpg',
         quality: 'Mint',
         price: 3790,
         status: true,

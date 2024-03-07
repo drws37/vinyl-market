@@ -22,7 +22,9 @@ export const recordRemove = createAsyncThunk('records/remove', (id: RecordId | u
   api.fetchRecordDelete(id),
 );
 
-export const changeRecordStatus = createAsyncThunk('records/changeStatus', (id: number) => api.fetchChangeRecordStatus(id))
+export const changeRecordStatus = createAsyncThunk('records/changeStatus', (id: number) =>
+  api.fetchChangeRecordStatus(id),
+);
 
 const recordsSlice = createSlice({
   name: 'records',
@@ -43,8 +45,6 @@ const recordsSlice = createSlice({
         state.message = action.error.message;
       })
       .addCase(recordUpdate.fulfilled, (state, action) => {
-        console.log(state.records, 'AAAAAAAAAAAAAAAA');
-
         state.records = state.records.map((record) =>
           record.id === action.payload.id ? action.payload : record,
         );
@@ -57,13 +57,15 @@ const recordsSlice = createSlice({
       })
       .addCase(recordRemove.rejected, (state, action) => {
         state.message = action.error.message;
-      }).
-      addCase(changeRecordStatus.fulfilled, (state, action) => {
-        state.records = state.records.map((record) => record.id === action.payload ? {...record, status: !record.status} : record)
-      }).
-      addCase(changeRecordStatus.rejected, (state, action) => {
-        state.message = action.error.message
       })
+      .addCase(changeRecordStatus.fulfilled, (state, action) => {
+        state.records = state.records.map((record) =>
+          record.id === action.payload ? { ...record, status: !record.status } : record,
+        );
+      })
+      .addCase(changeRecordStatus.rejected, (state, action) => {
+        state.message = action.error.message;
+      });
   },
 });
 

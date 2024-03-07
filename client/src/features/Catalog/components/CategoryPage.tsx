@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import type { RootState } from '../../../store/store';
 import CategoryItem from './CategoryItem';
 import RecordItem from './RecordItem';
-import '../styles/categories.scss'
+import '../styles/categories.scss';
 
 function CategoryPage(): JSX.Element {
   const { categoryTitle } = useParams();
@@ -23,7 +23,9 @@ function CategoryPage(): JSX.Element {
         ))}
       </div>
       <div className="content">
-        {currentCategory?.Records?.map((record) => record.status === true &&<RecordItem key={record.id} record={record} />)}
+        {currentCategory?.Records?.map(
+          (record) => record.status === true && <RecordItem key={record.id} record={record} />,
+        )}
       </div>
     </div>
   );

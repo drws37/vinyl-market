@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable import/no-duplicates */
 
-
 import type {
   Category,
   Favorite,
@@ -55,16 +54,16 @@ export const fetchRecordUpdate = async (obj: {
   return data;
 };
 
-export const fetchOrderAdd = async (obj: { id: number | undefined; status: string }): Promise<OrderItemm[]> => {
-  // console.log(obj, '1111');
-
+export const fetchOrderAdd = async (obj: {
+  id: number | undefined;
+  status: string;
+}): Promise<OrderItemm[]> => {
   const res = await fetch(`/api/order`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(obj),
   });
   const data = await res.json();
-  // console.log(data, 123123213321123);
 
   return data;
 };
@@ -72,15 +71,16 @@ export const fetchOrderAdd = async (obj: { id: number | undefined; status: strin
 export const fetchOrdersLoad = async (): Promise<{ orders: OrderItemm[]; message: string }> => {
   const res = await fetch('/api/order/order');
   const data = await res.json();
-  console.log(data);
-  
+
   return data;
 };
 
-export const fetchOrderDel = async (id: OrderItemId): Promise<{id:OrderItemId, order:Order}> => {
+export const fetchOrderDel = async (
+  id: OrderItemId,
+): Promise<{ id: OrderItemId; order: Order }> => {
   const res = await fetch(`/api/order/${id}`, { method: 'DELETE' });
   const data = await res.json();
-  // console.log(data, 'ddddddaaaata');
+
   return data;
 };
 
@@ -90,7 +90,6 @@ export const fetchRecordDelete = async (id: RecordId | undefined): Promise<Recor
   });
   const data = await res.json();
 
-  // console.log(data);
   return data;
 };
 
@@ -101,7 +100,6 @@ export const fetchFavotireAdd = async (id: number): Promise<Favorite> => {
     body: JSON.stringify({ id }),
   });
   const data = await res.json();
-  // console.log(data);
 
   return data;
 };
@@ -109,7 +107,6 @@ export const fetchFavotireAdd = async (id: number): Promise<Favorite> => {
 export const fetchFavoriteLoad = async (): Promise<Favorite[]> => {
   const res = await fetch('/api/favorite');
   const data = await res.json();
-  // console.log(data, 123321);
 
   return data;
 };
@@ -117,7 +114,7 @@ export const fetchFavoriteLoad = async (): Promise<Favorite[]> => {
 export const fetchFavoriteDelete = async (id: number): Promise<FavoriteId> => {
   const res = await fetch(`/api/favorite/item/${id}`, { method: 'DELETE' });
   const data = await res.json();
-  // console.log(data, 'ddddddaaaata');
+
   return data;
 };
 
@@ -134,74 +131,69 @@ export const fetchSongsAdd = async (obj: { songs: SongWithoutId[] }): Promise<So
       'Content-type': 'application/json',
     },
     body: JSON.stringify(obj),
-  })
-  const data = await res.json()
-  
-  return data
-  }
-
-export const fetchSongDelete = async (id: SongId): Promise<SongId> => {
-  const res = await fetch(`/api/records/${id}/songs`, {
-    method: 'delete'
-  })
-  const data = await res.json()
-  return data
-}
-
-export const fetchShopLoad = async (id:string | undefined): Promise<{user:ShopWithoutRecord, record:Record[]}> => {
-  const res = await fetch(`/api/magazine/${id}`);
+  });
   const data = await res.json();
-  // console.log(data, "SHOPPPPPPPP");
-  
+
   return data;
 };
 
-export const fetchCommentAdd = async (obj:Comment): Promise<{commentUser: CommentFetch}> => {
+export const fetchSongDelete = async (id: SongId): Promise<SongId> => {
+  const res = await fetch(`/api/records/${id}/songs`, {
+    method: 'delete',
+  });
+  const data = await res.json();
+  return data;
+};
+
+export const fetchShopLoad = async (
+  id: string | undefined,
+): Promise<{ user: ShopWithoutRecord; record: Record[] }> => {
+  const res = await fetch(`/api/magazine/${id}`);
+  const data = await res.json();
+
+  return data;
+};
+
+export const fetchCommentAdd = async (obj: Comment): Promise<{ commentUser: CommentFetch }> => {
   const res = await fetch('/api/shop/comment', {
     method: 'post',
     headers: {
       'Content-type': 'application/json',
     },
     body: JSON.stringify(obj),
-  })
-  const data: {commentUser: CommentFetch} = await res.json() as {commentUser: CommentFetch}
-  // console.log(data, '123123123123123123123123123213');
-  
-  return data
-  }
+  });
+  const data: { commentUser: CommentFetch } = (await res.json()) as { commentUser: CommentFetch };
 
-  
-export const fetchCommentLoad = async (id:string | undefined): Promise<CommentFetch[]> => {
-  const res = await fetch(`/api/shop/comments/${id}`);
-  const data = await res.json();
-  // console.log(data, "Commentttttttttt");
-  
   return data;
 };
 
-export const fetchCommentDel = async (id: number | undefined): Promise<{id:number}> => {
+export const fetchCommentLoad = async (id: string | undefined): Promise<CommentFetch[]> => {
+  const res = await fetch(`/api/shop/comments/${id}`);
+  const data = await res.json();
+
+  return data;
+};
+
+export const fetchCommentDel = async (id: number | undefined): Promise<{ id: number }> => {
   const res = await fetch(`/api/shop/${id}`, { method: 'DELETE' });
   const data = await res.json();
   return data;
 };
 
-export const fetchDeliveryAdd = async (obj:Delivery): Promise<OrderClose> => {
+export const fetchDeliveryAdd = async (obj: Delivery): Promise<OrderClose> => {
   const res = await fetch(`/api/delivery`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(obj),
   });
   const data = await res.json();
-  // console.log(data);
 
   return data;
 };
 
-export const fetchDeliveryLoad = async (id:number): Promise<OrderClose[]> => {
+export const fetchDeliveryLoad = async (id: number): Promise<OrderClose[]> => {
   const res = await fetch(`/api/delivery/${id}`);
   const data = await res.json();
-  console.log(data, 'delyveryyyyyyyyy');
-  
 
   return data;
 };
@@ -214,9 +206,8 @@ export const fetchChangeRecordStatus = async (id: number): Promise<RecordId> => 
     },
     body: JSON.stringify({
       status: true,
-    })
-  })
-  const data = await res.json()
-  return data
-}
-
+    }),
+  });
+  const data = await res.json();
+  return data;
+};
