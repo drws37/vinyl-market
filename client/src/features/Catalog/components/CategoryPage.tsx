@@ -24,7 +24,7 @@ function CategoryPage(): JSX.Element {
         ))}
       </div>
       <div className="content">
-        {currentCategory?.Records?.map((record) => <RecordItem key={record.id} record={record} />)}
+        {currentCategory?.Records?.map((record) => record.status === true &&<RecordItem key={record.id} record={record} />)}
       </div>
     </div>
   );
