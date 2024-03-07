@@ -26,6 +26,8 @@ const customStyles = {
   },
 };
 
+
+
 const checkField = object().shape({
   first_name: string().required('Необходимо указать имя'),
   last_name: string().required('Необходимо указать фамилию'),
@@ -61,6 +63,7 @@ function Order(): JSX.Element {
     const dataWithOrderId = { ...formData, order_id: id }; // Merge form data with order_id
     dispatch(deliveryAdd(dataWithOrderId)).catch(console.log); // Dispatch deliveryAdd action with form data
     dispatch(clear());
+    // reset()
   };
 
   return (
