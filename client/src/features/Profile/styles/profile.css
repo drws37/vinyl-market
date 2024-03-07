@@ -10,7 +10,6 @@
 }
 
 .sidebar{
-  border: 2px solid black;
   border-radius: 40px;
   width: 325px;
   height: 300px;
@@ -57,7 +56,7 @@
 }
 
 .img-profile{
-  width: 100px;
+width: 300px;
 }
 
 .btn-profile1{

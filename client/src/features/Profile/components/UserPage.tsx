@@ -9,15 +9,15 @@ import '../styles/profile.css';
 
 import '../../Catalog/styles/order.css'
 
-
+const customStyles = {
   content: {
     top: '50%',
     left: '50%',
+    transform: 'translate(-50%, -50%)',
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
+  }
 };
 
 
@@ -178,12 +178,6 @@ function UserPage({ user }: { user: User | UserAndId | null }): JSX.Element {
             <img className="img-profile" src={user?.img} alt="" />
             <h1>{user?.username}</h1>
             <p className="title">{user?.email}</p>
-            <p>Harvard University</p>
-            <p>
-              <button className="btn-profile" type="button">
-                Contact
-              </button>
-            </p>
           </div>
 
         </div>
