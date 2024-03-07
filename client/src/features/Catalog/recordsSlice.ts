@@ -25,6 +25,9 @@ export const recordRemove = createAsyncThunk('records/remove', (id: RecordId | u
 export const changeRecordStatus = createAsyncThunk('records/changeStatus', (id: number) =>
   api.fetchChangeRecordStatus(id),
 );
+export const deleteRecordStatus = createAsyncThunk('records/declineStatus', (id: number) =>
+  api.fetchDeclineRecordStatus(id),
+);
 
 const recordsSlice = createSlice({
   name: 'records',
@@ -64,6 +67,14 @@ const recordsSlice = createSlice({
         );
       })
       .addCase(changeRecordStatus.rejected, (state, action) => {
+        state.message = action.error.message;
+      })
+      .addCase(deleteRecordStatus.fulfilled, (state, action) => {
+        state.records = state.records.map((record) =>
+          record.id === action.payload ? { ...record, status: !record.status } : record,
+        );
+      })
+      .addCase(deleteRecordStatus.rejected, (state, action) => {
         state.message = action.error.message;
       });
   },

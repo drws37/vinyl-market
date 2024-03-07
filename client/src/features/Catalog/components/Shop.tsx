@@ -54,7 +54,9 @@ function Shop(): JSX.Element {
 
       <div className="shop-container">
         <div className="shop-content">
-          {shop.record?.map((record) => <ShopItem key={record.id} record={record} />)}
+          {shop.record
+            ?.filter((record) => record.status !== false)
+            .map((record) => <ShopItem key={record.id} record={record} />)}
         </div>
         <div className="container-input-comm">
           <h2>ОТЗЫВЫ</h2>

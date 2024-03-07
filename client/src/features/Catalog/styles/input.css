@@ -4,7 +4,7 @@
   background-color: rgb(255, 255, 255);
   height: 60px;
   width: 500px;
-  /* border-bottom: 1px solid black; */
+  border-bottom: 1px solid black;
   transition: background-color 0.3s ease;
   /* top: 50%;
   left: 50%; */
@@ -12,8 +12,8 @@
   z-index: 1000;
   /* transform: translate(-50%, -50%); */
   padding-right: 10px;
-  border: 1px solid black;
-  border-radius: 10px;
+  border-radius: 12px;
+  border: 1px solid #232323;
 }
 
 .input-search .price {

@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { log } = require('console');
 const { Record, Song, RecordPrice, User } = require('../../db/models');
 const multer = require('multer');
 const path = require('path');
