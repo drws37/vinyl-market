@@ -1,0 +1,73 @@
+.admin__card {
+  border: 2px solid #ec0808; /* Border color */
+  border-radius: 8px;
+  margin-bottom: 20px;
+  overflow: hidden; /* Ensure border-radius is applied to the image */
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  text-align: center;
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.admin__card:hover {
+  transform: scale(1.03); /* Zoom in a bit on hover */
+}
+
+.admin__img {
+  width: 200px;
+  border-bottom: 2px solid #ddd; /* Border color for the bottom of the image */
+}
+
+.admin__bat {
+  padding: 15px;
+}
+
+.admin__title {
+  color: #332222;
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.admin__artist {
+  color: #666;
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.admin__decription {
+  color: #888;
+  margin: 8px 0;
+}
+
+.admin__quality {
+  color: #888;
+  margin: 8px 0;
+}
+
+.admin__price {
+  color: #333;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.btn__admin__accept {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn__admin__accept:hover,
+.btn__admin__accept:active {
+  background-color: #45a049;
+}

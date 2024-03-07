@@ -3,7 +3,19 @@ const bcrypt = require('bcrypt');
 const generateTokens = require('../../utils/authUtils');
 const cookiesConfig = require('../../middleware/cookiesConfig');
 const configJWT = require('../../middleware/jwtConfig');
-const { User } = require('../../db/models');
+const { User, Seller } = require('../../db/models');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/profileImg');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
 
 const router = express.Router();
 
@@ -30,6 +42,14 @@ router.post('/registration', async (req, res) => {
             role,
             img: '/profileImg/user.png',
           });
+          if (role === 'seller') {
+            await Seller.create({
+              phone: 'не предоставлен',
+              adress: 'не предоставлен',
+              itn: 'не предоставлен',
+              user_id: user.id,
+            });
+          }
           const { accessToken, refreshToken } = generateTokens({
             user: { username: user.username, id: user.id, role: user.role },
           });
@@ -77,9 +97,7 @@ router.post('/login', async (req, res) => {
           maxAge: cookiesConfig.maxAgeRefresh,
           httpOnly: true,
         });
-        res
-          .status(200)
-          .json({ message: 'success', user});
+        res.status(200).json({ message: 'success', user });
       } else {
         res.status(400).json({ message: 'логин или пароль не верный' });
       }
@@ -92,7 +110,6 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/check', async (req, res) => {
-  // console.log(res.locals.user, 'res.locals.user');
   if (res.locals.user) {
     const user = await User.findOne({
       where: { id: res.locals.user.id },
@@ -107,6 +124,34 @@ router.get('/check', async (req, res) => {
 router.get('/logout', (req, res) => {
   res.clearCookie(configJWT.access.type).clearCookie(configJWT.refresh.type);
   res.json({ message: 'success' });
+});
+
+router.put('/update/:userId', upload.single('img'), async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const { username, email } = req.body;
+
+    let newFileUrl = null;
+    if (req.file) {
+      newFileUrl = `/profileImg/${req.file.originalname}`;
+    }
+    const user = await User.findOne({ where: { id: +userId } });
+
+    if (newFileUrl) {
+      await user.update(
+        { username, email, img: newFileUrl },
+        { where: { id: res.locals.user.id } }
+      );
+    } else {
+      await user.update(
+        { username, email },
+        { where: { id: res.locals.user.id } }
+      );
+    }
+    res.json(user);
+  } catch ({ message }) {
+    res.json({ type: 'auth router', message });
+  }
 });
 
 module.exports = router;

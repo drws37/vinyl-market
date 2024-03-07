@@ -2,6 +2,7 @@
     box-sizing: border-box;
  }
  .product-item {
+   padding-left: 20px;
     width: 300px;
     text-align: center;
     margin: 0 auto;
@@ -42,18 +43,122 @@
     font-size: 12px;
     line-height: 28px;
     transition: .3s ease-in;
+    z-index: 0;
  }
+
+ .button1 {
+   text-decoration: none;
+   display: inline-block;
+   padding: 0 12px;
+   background: #cccccc;
+   color: white;
+   text-transform: uppercase;
+   font-size: 12px;
+   line-height: 28px;
+   transition: .3s ease-in;
+   z-index: 0;
+}
+.button2 {
+   margin-top: 20px;
+   margin-left: 20px;
+
+   text-decoration: none;
+   display: inline-block;
+   padding: 20px;
+   background: #127430;
+   color: white;
+   text-transform: uppercase;
+   font-size: 16px;
+   line-height: 28px;
+   width: 200px;
+   transition: .3s ease-in;
+   z-index: 0;
+}
  .product-item:hover .button {
     background: #fc5a5a;
  }
  .container-order{
-    display: flex;
-    flex-wrap: wrap;
- }
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: column;
+}
+
  .product-item {
   transition: opacity 1s ease;
 }
 
 .product-item.deleting {
   opacity: 0;
+}
+.container-order-card{
+   display: flex;
+   
+}
+.input-order{
+   margin-top: 10px;
+   padding:10px;
+   border:0;
+   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+}
+.input-order1{
+   width: 300px;
+   margin-top: 10px;
+   padding:10px;
+   border:0;
+   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+}
+
+.button-profile-1{
+   display: flex;
+   justify-content: center;
+   margin-top: 10px;
+}
+
+.button1{
+   background-color: rgb(73, 134, 134);
+   border: none;
+   padding: 10px, 10px;
+   cursor: pointer;
+}
+
+.modal-flex{
+   display: flex;
+   flex-direction: column;
+   
+}
+.modal-container-input{
+   display: flex;
+   flex-direction: column;
+
+
+}
+.btn-modal{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding-top: 10px;
+}
+.color-accpet-order{
+   color: green;
+}
+.add__form{
+   display: flex;
+   /* flex-direction: column; */
+}
+
+.container-card-profile{
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.container-card{
+
+   margin-left: 30px;
+}
+.card-cont{
+   display: flex;
+   flex-wrap: wrap;
+}
+.form-add-record{
+   margin-left: 30px;
 }

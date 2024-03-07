@@ -5,6 +5,7 @@
   .r-link[href]{
     color: var(--rLinkColor) !important;
     text-decoration: var(--rLinkTextDecoration, none) !important;
+    margin-left: auto;
   }
   
   .r-list{
@@ -59,11 +60,13 @@
   
   .menu__list{
     display: flex;  
+    align-items: center;
   }
   
   .menu__link{
     padding: var(--menuLinkPadding, 1.5rem 2.5rem);
-    font-weight: 700;
+    font-weight: 600;
+    font-size: 20px;
     text-transform: uppercase;
   }
   
@@ -118,9 +121,9 @@
   */
   
   .page__custom-settings{
-    --menuBackgroundColor: #f2a4a4;
+    --menuBackgroundColor: #232323;
     --menuLinkColor: #fff;
-    --menuLinkColorUnactive: #241c69;
+    --menuLinkColorUnactive: #ffffff;
     --menuLinkOutlineOffset: -.5rem; 
   }
   
@@ -151,11 +154,6 @@
     margin-top: 3rem;
   }
   .logo{
-    margin-top: 5px;
-    margin-left: 10px;
-
-    width: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 120px;
+    margin-left: 20px;
   }

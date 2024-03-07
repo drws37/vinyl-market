@@ -1,8 +1,7 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React from 'react';
-
-// import '../main.css'
 import { NavLink, useNavigate } from 'react-router-dom';
 import './styles/nav.css';
 import { useSelector } from 'react-redux';
@@ -14,7 +13,6 @@ import { clear2 } from '../Catalog/favoriteSlice';
 
 function Header(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
-console.log(user,'888888')
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -32,21 +30,75 @@ console.log(user,'888888')
   return (
     <nav className="page__menu page__custom-settings menu">
       <ul className="menu__list r-list">
-      <li className="menu__group"><NavLink to='/'><img className='logo'  src='/lp.png' alt="" /></NavLink></li>
+        <li className="menu__group">
+          <NavLink to="/">
+            <img className="logo" src="/MarketLogoWhite.png" alt="" />
+          </NavLink>
+        </li>
         {!user ? (
           <>
-            <li className="menu__group"><NavLink className='menu__link r-link text-underlined' to="/sign-up">Регистрация</NavLink></li>
-            <li className="menu__group"> <NavLink className='menu__link r-link text-underlined' to="/sign-in">Вход</NavLink></li>
+            <li className="menu__group">
+              <NavLink className="menu__link r-link text-underlined" to="/sign-up">
+                Регистрация
+              </NavLink>
+            </li>
+            <li className="menu__group">
+              {' '}
+              <NavLink className="menu__link r-link text-underlined" to="/sign-in">
+                Вход
+              </NavLink>
+            </li>
+          </>
+        ) : user && user.role === 'buyer' ? (
+          <>
+            <li className="menu__group">
+              {' '}
+              <NavLink className="menu__link r-link text-underlined" to={`/profile/${user?.id}`}>
+                Профиль
+              </NavLink>
+            </li>
+            <li className="menu__group">
+              {' '}
+              <NavLink className="menu__link r-link text-underlined" to="/order">
+                Корзина
+              </NavLink>
+            </li>
+
+            <li className="menu__group">
+              <NavLink className="menu__link r-link text-underlined" to="/favorite">
+                Избранное
+              </NavLink>
+            </li>
+
+            <li className="menu__group">
+              {' '}
+              <NavLink
+                className="menu__link r-link text-underlined"
+                onClick={handleLogout}
+                to="/logout"
+              >
+                Выйти
+              </NavLink>
+            </li>
           </>
         ) : (
           <>
-           <li className="menu__group">  <NavLink className='menu__link r-link text-underlined' to="/order">Корзина</NavLink></li>
-           <li className="menu__group"> <NavLink className='menu__link r-link text-underlined' to={`/profile/${user?.id}`}>Профиль</NavLink></li>
-           <li className="menu__group"><NavLink className='menu__link r-link text-underlined' to="/favorite">Избранное</NavLink></li>
-
-           <li className="menu__group">  <NavLink className='menu__link r-link text-underlined' onClick={handleLogout} to="/logout">
-              Выйти
-            </NavLink></li>
+            <li className="menu__group">
+              {' '}
+              <NavLink className="menu__link r-link text-underlined" to={`/profile/${user?.id}`}>
+                Профиль
+              </NavLink>
+            </li>
+            <li className="menu__group">
+              {' '}
+              <NavLink
+                className="menu__link r-link text-underlined"
+                onClick={handleLogout}
+                to="/logout"
+              >
+                Выйти
+              </NavLink>
+            </li>
           </>
         )}
       </ul>

@@ -1,11 +1,12 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React from 'react';
+import React, { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { object, ref, string } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/form.css';
 import { useSelector } from 'react-redux';
 import { type RootState, useAppDispatch } from '../../../store/store';
@@ -31,7 +32,7 @@ function Registration(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const message = useSelector((store: RootState) => store.auth.message);
-  
+  const [role, setRole] = useState('');
 
   const {
     register,
@@ -50,59 +51,120 @@ function Registration(): JSX.Element {
         <div className="col-md-offset-3 col-md-6">
           <form className="form-horizontal" onSubmit={handleSubmit(registration)}>
             <span className="heading">Регистрация</span>
-            <div className="form-group">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Username"
-                {...register('username')}
-              />
-              <i className="fa fa-user" />
-              <div className='color-er'>{errors.username?.message}</div>
-            </div>
-            <div className="form-group">
-              <input
-                type="email"
-                className="form-control"
-                placeholder="E-mail"
-                {...register('email')}
-              />
-              <i className="fa fa-user" />
-              <div className='color-er'>{errors.email?.message}</div>
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Password"
-                {...register('password')}
-              />
-              <i className="fa fa-user" />
-              <div className='color-er'>{errors.password?.message}</div>
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Repeat password"
-                {...register('rpassword')}
-              />
-              <i className="fa fa-user" />
-              <div className='color-er'>{errors.rpassword?.message}</div>
-            </div>
-            <div className="form-group help">
-              <select {...register('role')}>
-                <option value="buyer">Покупатель</option>
-                <option value="seller">Магазин</option>
-                <div className='color-er'>{errors.role?.message}</div>
-              </select>
-              <NavLink to="#" className="fa fa-question-circle" />
-            </div>
-            <div className="form-group">
-              <button type="submit" className="btn btn-default">
-                ВХОД
-              </button>
-            </div>
+            <button className="glow-on-hover" onClick={() => setRole('buyer')} type="button">
+              Покупатель
+            </button>
+            <button className="glow-on-hover" onClick={() => setRole('seller')} type="button">
+              Магазин
+            </button>
+
+            {role === 'buyer' && (
+              <>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Ваше имя"
+                    {...register('username')}
+                  />
+                  <i className="fa fa-user" />
+                  <div className="color-er">{errors.username?.message}</div>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="email"
+                    className="form-control"
+                    placeholder="Электронная почта"
+                    {...register('email')}
+                  />
+                  <i className="fa fa-user" />
+                  <div className="color-er">{errors.email?.message}</div>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Пароль"
+                    {...register('password')}
+                  />
+                  <i className="fa fa-user" />
+                  <div className="color-er">{errors.password?.message}</div>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Повторите пароль"
+                    {...register('rpassword')}
+                  />
+                  <i className="fa fa-user" />
+                  <div className="color-er">{errors.rpassword?.message}</div>
+                </div>
+                <div className="form-group">
+                  <button type="submit" className="btn btn-default">
+                    ВХОД
+                  </button>
+                </div>
+              </>
+            )}
+            {role === 'seller' && (
+              <>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Название магазина"
+                    {...register('username')}
+                  />
+                  <i className="fa fa-user" />
+                  <div className="color-er">{errors.username?.message}</div>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="email"
+                    className="form-control"
+                    placeholder="Электронная почта"
+                    {...register('email')}
+                  />
+                  <i className="fa fa-user" />
+                  <div className="color-er">{errors.email?.message}</div>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Пароль"
+                    {...register('password')}
+                  />
+                  <i className="fa fa-user" />
+                  <div className="color-er">{errors.password?.message}</div>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Повторите пароль"
+                    {...register('rpassword')}
+                  />
+                  <i className="fafa-user" />
+                  <div className="color-er">{errors.rpassword?.message}</div>
+                </div>
+                <div className="form-group">
+                  <button type="submit" className="btn btn-default">
+                    ВХОД
+                  </button>
+                </div>
+              </>
+            )}
+            <select style={{ width: '0.1px', height: '0.1px' }} {...register('role')}>
+              <option value={role} selected={role === 'buyer'}>
+                buyer
+              </option>
+              <option value={role} selected={role === 'seller'}>
+                seller
+              </option>
+              <option value="admin">admin</option>
+            </select>
           </form>
           <div className="errRega err"> {message}</div>
         </div>

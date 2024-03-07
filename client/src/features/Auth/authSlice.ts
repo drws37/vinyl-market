@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { RegUser, StateAuth, Userr } from './type';
 import * as api from './api';
 import * as logoutApi from '../Main/api';
+import { fetchUpdateUser } from '../Profile/api';
 
 const initialState: StateAuth = { user: null, message: '' };
 
@@ -9,13 +10,16 @@ export const authRegistration = createAsyncThunk('auth/registration', (obj: RegU
   api.registrationFetch(obj),
 );
 
-export const authLogin = createAsyncThunk('auth/login', (obj: Userr) =>
-  api.loginFetch(obj),
-);
+export const authLogin = createAsyncThunk('auth/login', (obj: Userr) => api.loginFetch(obj));
 
 export const authCheckUser = createAsyncThunk('auth/checkUser', () => api.checkUserFetch());
 
 export const authLogout = createAsyncThunk('auth/logout', () => logoutApi.logoutFetch());
+
+export const userUpdate = createAsyncThunk(
+  'user/update',
+  (obj: { id: number | undefined; obj: FormData }) => fetchUpdateUser(obj),
+);
 
 const authSlice = createSlice({
   name: 'auth',
@@ -50,6 +54,12 @@ const authSlice = createSlice({
       })
       .addCase(authLogout.rejected, (state) => {
         state.message = 'logout error';
+      })
+      .addCase(userUpdate.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(userUpdate.rejected, (state, action) => {
+        state.message = action.error.message;
       });
   },
 });

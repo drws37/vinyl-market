@@ -7,17 +7,11 @@ import type { OrderItemId, OrderItemm } from '../type';
 import { useAppDispatch } from '../../../store/store';
 import { orderDelete } from '../ordersSlice';
 
-
-
 function OrderItem({ order }: { order: OrderItemm }): JSX.Element {
- 
-
   const dispatch = useAppDispatch();
-  console.log(order, 'oooorrrrder');
 
   const handleDelete = async (id: OrderItemId): Promise<void> => {
     dispatch(orderDelete(id)).catch(console.log);
-    console.log(order);
   };
   return (
     <div>
@@ -33,15 +27,13 @@ function OrderItem({ order }: { order: OrderItemm }): JSX.Element {
               onClick={() => {
                 handleDelete(order.Record.id);
               }}
-              className="button"
+              className="button1"
             >
               Удалить из корзины
             </button>
           </div>
         </div>
-
       </div>
-      
     </div>
   );
 }

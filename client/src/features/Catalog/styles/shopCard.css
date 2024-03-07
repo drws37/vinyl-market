@@ -1,6 +1,8 @@
 .container-input-comm {
   display: flex;
   flex-direction: column;
+  width: 20%;
+  text-align: center;
 }
 .input-wrapper {
   margin: 20px 0;
@@ -12,7 +14,7 @@
 }
 
 .input-container input[type='text'] {
-  flex: 1;
+  width: 300px;
   padding: 10px;
   border: 2px solid #ccc;
   border-radius: 5px;
@@ -20,12 +22,14 @@
 }
 .container-shop {
   background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  width: 100%;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
-  margin: 20px;
+  border-bottom: 2px solid #232323;
+}
+
+.container-shop .shop-name {
+  font-size: 72px;
+  font-weight: 800;
 }
 
 .container-shop > div {
@@ -60,9 +64,6 @@
   font-size: 16px;
   margin-left: 10px;
 }
-.input-container {
-  width: 640px;
-}
 
 .input-container button:hover {
   background-color: #0056b3;
@@ -70,11 +71,9 @@
 .container-comment {
   display: flex;
   flex-direction: column;
-  overflow-x: 1;
-  width: 500px;
-  max-height: 200px;
+  height: 600px;
+  width: 100%;
   overflow-y: auto;
-  /* border: 2px solid black; */
 }
 
 .container-comment::-webkit-scrollbar {
@@ -88,16 +87,13 @@
 
 .container-comment::-webkit-scrollbar-track {
   background-color: #f0f0f0;
+  word-wrap: break-word;
 }
 .comment {
   border-bottom: 1px solid black;
   background-color: #ffffff;
-  word-wrap: break-word;
 }
-.input-comment {
-  flex: 1; /* Растягиваем ввод по всей доступной ширине */
-  /* Другие стили */
-}
+
 .comment-text {
   padding-left: 5px;
 }
@@ -108,9 +104,65 @@
   background-color: red;
   border-radius: 20px;
 }
-.itemShop{
+.itemShop {
   display: flex;
   justify-content: center;
   padding: 20px;
   font-size: 28px;
+}
+
+.shop_content_main {
+  display: flex;
+}
+
+.shop-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.shop-content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  grid-auto-rows: auto;
+  width: 70%;
+}
+
+.shop-item {
+  text-align: center;
+  transition: transform 0.3s ease; /* добавляем плавное переходное свойство */
+}
+
+.shop-item:hover {
+  transform: scale(1.05); /* увеличиваем элемент при наведении */
+}
+
+.shop-item .shop-card-info {
+  max-width: 100%;
+}
+
+.shop-card-info img {
+  max-width: 100%;
+}
+
+.shop-item-btns {
+  display: flex;
+  justify-content: space-around;
+
+}
+.svg-favorite{
+  fill: #7b2727;
+  cursor: pointer;
+}
+.svg-favorite:hover{
+  fill: #ff0303;
+  cursor: pointer;
+}
+.svg-order{
+  fill: #ffffff;
+  cursor: pointer;
+}
+.svg-order:hover{
+  fill: #41b617;
+  cursor: pointer;
 }

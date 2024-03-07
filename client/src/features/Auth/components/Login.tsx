@@ -8,7 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import '../styles/form.css';
 import { useSelector } from 'react-redux';
-import type { RootState} from '../../../store/store';
+import type { RootState } from '../../../store/store';
 import { useAppDispatch } from '../../../store/store';
 import type { Userr } from '../type';
 import { authLogin } from '../authSlice';
@@ -22,8 +22,6 @@ function Login(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const message = useSelector((store: RootState) => store.auth.message);
-  console.log(message);
-  
 
   const {
     register,
@@ -31,13 +29,10 @@ function Login(): JSX.Element {
     formState: { errors },
   } = useForm<Userr>({ resolver: yupResolver(checkfild) });
 
-  const login: SubmitHandler<Userr> = (
-    data: Userr,
-  ) => {
+  const login: SubmitHandler<Userr> = (data: Userr) => {
     dispatch(authLogin(data)).catch(console.log);
-    if(message === ''){
+    if (message === '') {
       navigate('/');
-
     }
   };
   return (
@@ -54,7 +49,7 @@ function Login(): JSX.Element {
                 {...register('email')}
               />
               <i className="fa fa-user" />
-              <div className='color-er'>{errors.email?.message}</div>
+              <div className="color-er">{errors.email?.message}</div>
             </div>
             <div className="form-group">
               <input
@@ -64,7 +59,7 @@ function Login(): JSX.Element {
                 {...register('password')}
               />
               <i className="fa fa-user" />
-              <div className='color-er'>{errors.password?.message}</div>
+              <div className="color-er">{errors.password?.message}</div>
             </div>
             <div className="form-group help" />
             <div className="form-group">
@@ -73,7 +68,7 @@ function Login(): JSX.Element {
               </button>
             </div>
           </form>
-          <div className='errRega err'> {message}</div>
+          <div className="errRega err"> {message}</div>
         </div>
       </div>
     </div>

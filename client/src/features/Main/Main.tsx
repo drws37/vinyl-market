@@ -1,7 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
-import Footer from './Footer';
 
 function Main(): JSX.Element {
   return (
@@ -10,7 +9,6 @@ function Main(): JSX.Element {
       <div className="body">
         <Outlet />
       </div>
-        <Footer />
     </div>
   );
 }
