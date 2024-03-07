@@ -19,7 +19,11 @@ import DeliveryItem from './Delivery';
 import type { RecordId } from '../../Catalog/type';
 import { changeRecordStatus } from '../../Catalog/recordsSlice';
 import '../styles/button.scss';
+
 import UserPage from './UserPage';
+
+import '../styles/admin.css'
+
 
 function ProfilePage(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
@@ -72,6 +76,7 @@ function ProfilePage(): JSX.Element {
   return (
     <div className="profile_main">
       <div className="sidebar">
+
         <UserPage user={user} />
         {user && user.role === 'seller' && (
           <>
@@ -79,42 +84,54 @@ function ProfilePage(): JSX.Element {
               Мои товары
             </button>
             <button className='btn-profile' type="button" onClick={() => setContent('personalData')}>
+
               Личные данные
             </button>
           </>
         )}
         {user && user.role === 'buyer' && (
           <>
+
             <button className='btn-profile' type="button" onClick={() => setContent('personalData')}>
               Личные данные
             </button>
             <button className='btn-profile' type="button" onClick={() => setContent('orders')}>
+
               Мои заказы
             </button>
           </>
         )}
       </div>
       <div>
-        {content === 'personalData' && (
-          <div className='container-card-profile'>
+
+        {content === 'personalData' ? (
+          <div>
             {user?.role === 'admin' ? (
               <div>
-                {records.map((record) => record.status === false && (
-                  <div key={record.id}>
-                    <img style={{ width: '200px' }} src={record.img} alt="" />
-                    <div>
-                      <h3>{record.title}</h3>
-                      <h4>{record.artist}</h4>
-                      <p>{record.description}</p>
-                      <p>{record.quality}</p>
-                      <p>{record.price} ₽</p>
-                      <button onClick={() => updateRecordStatus(record.id)}
-                        className="btn__more" type='button'>
-                        Одобрить
-                      </button>
-                    </div>
-                  </div>
-                ))}
+                {records.map(
+                  (record) =>
+                    record.status === false && (
+                      <div className='admin__card' key={record.id}>
+                        <img className='admin__img' src={record.img} alt="" />
+                        <div className='admin__bat'>
+                          <h3 className='admin__title'>{record.title}</h3>
+                          <h4 className='admin__artist'>{record.artist}</h4>
+                          <p className='admin__decription'>{record.description}</p>
+                          <p className='admin__quality'>{record.quality}</p>
+                          <p className='admin__price'>{record.price} ₽</p>
+                          <button
+                            onClick={() => updateRecordStatus(record.id)}
+                            className="btn__admin__accept"
+                            type="button"
+                          >
+                            Одобрить
+                          </button>
+                        </div>
+
+                      </div>
+                    ),
+                )}
+
               </div>
             ) : (
               <div>
