@@ -76,7 +76,6 @@ function ProfilePage(): JSX.Element {
   return (
     <div className="profile_main">
       <div className="sidebar">
-
         <UserPage user={user} />
         {user && user.role === 'seller' && (
           <>
@@ -84,121 +83,108 @@ function ProfilePage(): JSX.Element {
               Мои товары
             </button>
             <button className='btn-profile' type="button" onClick={() => setContent('personalData')}>
-
               Личные данные
             </button>
           </>
         )}
         {user && user.role === 'buyer' && (
           <>
-
             <button className='btn-profile' type="button" onClick={() => setContent('personalData')}>
               Личные данные
             </button>
             <button className='btn-profile' type="button" onClick={() => setContent('orders')}>
-
               Мои заказы
             </button>
           </>
         )}
       </div>
       <div>
-
         {content === 'personalData' ? (
           <div>
             {user?.role === 'admin' ? (
               <div>
-                {records.map(
-                  (record) =>
-                    record.status === false && (
-                      <div className='admin__card' key={record.id}>
-                        <img className='admin__img' src={record.img} alt="" />
-                        <div className='admin__bat'>
-                          <h3 className='admin__title'>{record.title}</h3>
-                          <h4 className='admin__artist'>{record.artist}</h4>
-                          <p className='admin__decription'>{record.description}</p>
-                          <p className='admin__quality'>{record.quality}</p>
-                          <p className='admin__price'>{record.price} ₽</p>
-                          <button
-                            onClick={() => updateRecordStatus(record.id)}
-                            className="btn__admin__accept"
-                            type="button"
-                          >
-                            Одобрить
-                          </button>
-                        </div>
-
+                {records.map((record) => (
+                  record.status === false && (
+                    <div className='admin__card' key={record.id}>
+                      <img className='admin__img' src={record.img} alt="" />
+                      <div className='admin__bat'>
+                        <h3 className='admin__title'>{record.title}</h3>
+                        <h4 className='admin__artist'>{record.artist}</h4>
+                        <p className='admin__decription'>{record.description}</p>
+                        <p className='admin__quality'>{record.quality}</p>
+                        <p className='admin__price'>{record.price} ₽</p>
+                        <button
+                          onClick={() => updateRecordStatus(record.id)}
+                          className="btn__admin__accept"
+                          type="button"
+                        >
+                          Одобрить
+                        </button>
                       </div>
-                    ),
-                )}
-
+                    </div>
+                  )
+                ))}
               </div>
             ) : (
               <div>
                 <div className="update__form__container">
                   <form className="update__form" onSubmit={updateUserFetch}>
                     <input
-                    className='input-order'
+                      className='input-order'
                       value={username}
                       placeholder="username"
                       required
                       onChange={(e) => setUsername(e.target.value)}
                     />
                     <input
-                    className='input-order'
-
+                      className='input-order'
                       value={email}
                       placeholder="email"
                       onChange={(e) => setEmail(e.target.value)}
                     />
-                    <input className='input-order'   placeholder="img" type="file" onChange={(e) => setImg(e.target.files)} />
+                    <input className='input-order' placeholder="img" type="file" onChange={(e) => setImg(e.target.files)} />
                     <button className='button1' type="submit">Добавить</button>
                   </form>
                 </div>
               </div>
             )}
           </div>
-        )}
-        {content === 'cart' && (
+        ) : content === 'cart' ? (
           <div>КОРЗИНА</div>
-        )}
-        {content === 'orders' && (
+        ) : content === 'orders' ? (
           <div>
             {delivery.map(el => <DeliveryItem key={el.id} delev={el} />)}
           </div>
-        )}
-        {content === 'products' && (
+        ) : content === 'products' ? (
           <div className='container-card-profile'>
             <div className='form-add-record'>
               <FormAddRecord />
             </div>
             <div className='card-cont'>
-              {records.map(
-                (record) =>
-                  record.user_id === user?.id && (
-                    <div className='container-card' key={record.id}>
-                      <img style={{ width: '200px' }} src={record.img} alt="" />
-                      <div>
-                        <h3>{record.title}</h3>
-                        <h4>{record.artist}</h4>
-                        <p>{record.description}</p>
-                        <p>{record.quality}</p>
-                        <p>{record.price} ₽</p>
-                        <Link
-                          onClick={scrollToTop}
-                          className="btn__more"
-                          to={`/records/${record.id}`}
-                        >
-                          Внести изменения
-                        </Link>
-                      </div>
+              {records.map((record) => (
+                record.user_id === user?.id && (
+                  <div className='container-card' key={record.id}>
+                    <img style={{ width: '200px' }} src={record.img} alt="" />
+                    <div>
+                      <h3>{record.title}</h3>
+                      <h4>{record.artist}</h4>
+                      <p>{record.description}</p>
+                      <p>{record.quality}</p>
+                      <p>{record.price} ₽</p>
+                      <Link
+                        onClick={scrollToTop}
+                        className="btn__more"
+                        to={`/records/${record.id}`}
+                      >
+                        Внести изменения
+                      </Link>
                     </div>
-                  ),
-              )}
+                  </div>
+                )
+              ))}
             </div>
           </div>
-        )}
-        {content === 'favorite' && (
+        ) : (
           <div>ИЗБРАННОЕ</div>
         )}
       </div>
