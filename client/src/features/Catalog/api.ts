@@ -211,3 +211,10 @@ export const fetchChangeRecordStatus = async (id: number): Promise<RecordId> => 
   const data = await res.json();
   return data;
 };
+export const fetchDeclineRecordStatus = async (id: number): Promise<RecordId> => {
+  const res = await fetch(`/api/records/${id}`, {
+    method: 'delete',
+  });
+  const data = await res.json();
+  return data;
+};
