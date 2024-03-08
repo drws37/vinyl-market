@@ -206,7 +206,7 @@ function RecordPage(): JSX.Element {
                   />
                   <input
                   className='input-order'
-                  required placeholder="img" type="file" onChange={(e) => setImg(e.target.files)} />
+                  placeholder="img" type="file" onChange={(e) => setImg(e.target.files)} />
                   <select
                   className='input-order'
                   required   value={quality} onChange={(e) => setQuality(e.target.value)}>
