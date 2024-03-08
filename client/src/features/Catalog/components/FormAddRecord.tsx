@@ -45,20 +45,20 @@ const FormAddRecord = (): JSX.Element => {
     <div className='add__form__container'>
       <div className='foram-add-record'>
       <form className='add__form' onSubmit={addRecordFetch}>
-            <select className='input-order' value={category} onChange={(e) => setCategory(e.target.value)}>
+            <select  className='input-order' value={category} onChange={(e) => setCategory(e.target.value)}>
               <option value= ''>Выберите жанр</option>
               {categories.map((genre) => (
-                <option key={genre.id} value={genre.id}>{genre.title}</option>
+                <option selected key={genre.id} value={genre.id}>{genre.title}</option>
               ))}
             </select>
-            <input className='input-order' value={title} placeholder='title' required onChange={(e)=>setTitle(e.target.value)} />
-            <input className='input-order' value={artist} placeholder='artist' onChange={(e)=>setArtist(e.target.value)}/>
-            <input className='input-order' value={description} placeholder='description' onChange={(e)=>setDescription(e.target.value)}/>
-            <input className='input-order' value={spotify} placeholder='spotify' onChange={(e)=>setSpotify(e.target.value)}/>
-            <input className='input-order' value={price} placeholder='price' type='number' onChange={(e)=>setPrice(e.target.value)}/>
-            <input className='input-order'  placeholder='img' type='file' onChange={(e)=>setImg(e.target.files)}/>
+            <input  className='input-order' value={title} placeholder='title' required onChange={(e)=>setTitle(e.target.value)} />
+            <input required className='input-order' value={artist} placeholder='artist' onChange={(e)=>setArtist(e.target.value)}/>
+            <input required className='input-order' value={description} placeholder='description' onChange={(e)=>setDescription(e.target.value)}/>
+            <input required className='input-order' value={spotify} placeholder='spotify' onChange={(e)=>setSpotify(e.target.value)}/>
+            <input required className='input-order' value={price} placeholder='price' type='number' onChange={(e)=>setPrice(e.target.value)}/>
+            <input required className='input-order'  placeholder='img' type='file' onChange={(e)=>setImg(e.target.files)}/>
             <select className='input-order' value={quality} onChange={(e) => setQuality(e.target.value)}>
-              <option value="Empty">Не выбрано</option>
+              <option  value="Empty" >Не выбрано</option>
               <option value="Mint">Mint</option>
               <option value="Near Mint">Near mint</option>
               <option value="Very Good">Very good</option>

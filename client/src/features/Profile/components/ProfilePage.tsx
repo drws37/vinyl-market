@@ -145,8 +145,10 @@ function ProfilePage(): JSX.Element {
             ) : (
               <div>
                 <div className="update__form__container">
+                <h3>Редактировать профиль</h3>
                   <form className="update__form" onSubmit={updateUserFetch}>
                     <input
+                    type='text'
                       className="input-order"
                       value={username}
                       placeholder="username"
@@ -154,6 +156,8 @@ function ProfilePage(): JSX.Element {
                       onChange={(e) => setUsername(e.target.value)}
                     />
                     <input
+                    required
+                    type='email'
                       className="input-order"
                       value={email}
                       placeholder="email"
@@ -200,8 +204,9 @@ function ProfilePage(): JSX.Element {
                         <p>{record.price} ₽</p>
                         <Link
                           onClick={scrollToTop}
-                          className="btn__more"
+                          className="button1"
                           to={`/records/${record.id}`}
+
                         >
                           Внести изменения
                         </Link>

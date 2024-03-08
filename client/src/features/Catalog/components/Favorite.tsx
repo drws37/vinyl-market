@@ -16,7 +16,7 @@ function Favorite(): JSX.Element {
   }, []);
 
   return (
-    <div className="container-order">
+    <div className="container-order1">
       {favorites.map((favorite) => (
         <FavoriteItem key={favorite.id} favorite={favorite} />
       ))}

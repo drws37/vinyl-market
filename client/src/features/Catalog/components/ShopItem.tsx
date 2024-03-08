@@ -27,7 +27,7 @@ function ShopItem({ record }: { record: Record }): JSX.Element {
       <div className="shop-card-info">
         <h3>{record.artist}</h3>
         <img src={record.img} alt="" />
-        <span className="price">{record.price} ₽</span>
+        <span className="price">{`Цена: ${record.price}`} ₽</span>
       </div>
       <div className="shop-item-btns">
         {user?.role === 'buyer' && (
@@ -42,11 +42,12 @@ function ShopItem({ record }: { record: Record }): JSX.Element {
             <svg
               width="30px"
               height="30px"
+              
               viewBox="0 0 64 64"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
               role="img"
-              className="iconify iconify--emojione"
+              className="svg-order"
               preserveAspectRatio="xMidYMid meet"
             >
               <path
@@ -90,6 +91,7 @@ function ShopItem({ record }: { record: Record }): JSX.Element {
               height="30px"
               viewBox="0 0 24 24"
               fill="none"
+              className='svg-order'
               xmlns="http://www.w3.org/2000/svg"
             >
               <path

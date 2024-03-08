@@ -99,10 +99,14 @@
 }
 
 .delete-btn {
-  margin-left: 470px;
+  cursor: pointer;
+  margin-left: 250px;
   border: none;
-  background-color: red;
+  background-color: rgb(133, 24, 24);
   border-radius: 20px;
+}.delete-btn:hover {
+  cursor: pointer;
+  background-color: rgb(231, 11, 11);
 }
 .itemShop {
   display: flex;
@@ -164,5 +168,8 @@
 }
 .svg-order:hover{
   fill: #41b617;
+  cursor: pointer;
+}
+.btn-add{
   cursor: pointer;
 }

@@ -33,10 +33,10 @@ function RecordItem({ record }: { record: Record }): JSX.Element {
       <div className="record__item__info">
         <h2 className="record__artist">{record.artist}</h2>
         <h3 className="record__title">{record.title}</h3>
-        <p className="record__price">{record.price} ₽</p>
+        <p style={{fontSize:'16px'}} className="record__price">{`Цена: ${record.price}`} ₽</p>
         {user?.role === 'buyer' && (
           <button
-            style={{ border: 'none', background: 'white' }}
+            style={{ border: 'none', background: '#fafafa' }}
             type="button"
             onClick={() => {
               AddFavoritre(record.id);
